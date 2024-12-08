@@ -1,0 +1,175 @@
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "roboto", sans-serif;
+    }
+
+    body {
+        min-width: 400px;
+        background-color: #f0f2f5;
+        /* Color de fondo similar al de Facebook */
+        color: #1c1e21;
+        /* Color del texto */
+    }
+
+    header {
+        background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        padding: 5px 10%;
+    }
+
+    .header .logo {
+        cursor: pointer;
+        margin-right: auto;
+        transition: all 0.3s;
+    }
+
+    .header .logo a {
+        text-decoration: none;
+        font-size: 35px;
+        font-weight: bold;
+        background-image: linear-gradient(to right, #da7837, #f8ae3e);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        height: 70px;
+        width: auto;
+    }
+
+    .header .logo a:hover {
+        background-image: linear-gradient(to right, #f8ae3e, #da7837);
+    }
+
+    .header .logo:hover {
+        transform: scale(1.2);
+    }
+
+    .fondo {
+        background-color: #f0f2f5;
+        /* Color de fondo similar al de Facebook */
+        color: #1c1e21;
+        /* Color del texto */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+    }
+
+    .contenedor {
+        border-radius: 8px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        width: 438px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 20px;
+        background-color: #fff;
+    }
+
+    .contenedor h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        background-image: linear-gradient(to right, #8f4413, #ffba6b);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .input label {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-50%);
+        color: #2b2b2b;
+        font-size: 16px;
+        pointer-events: none;
+        transition: 0.2s ease;
+    }
+
+    .input input {
+        width: 80%;
+        height: 2rem;
+        border: none;
+        background-color: #fff;
+        padding: 4px 10px;
+        font-size: 15px;
+        margin-top: 5px;
+        border-bottom: 2px solid black;
+        outline: none;
+    }
+
+    .input input:focus+label,
+    .input input:not(:placeholder-shown)+label {
+        top: -10px;
+        font-size: 15px;
+        color: #2b2b2b;
+    }
+
+    .recordatorio-register {
+        display: inline-flex;
+        justify-content: space-between;
+        margin: 0 20px;
+    }
+
+    .button {
+        width: 50%;
+        height: 2.5rem;
+        margin: 1rem auto 0 auto;
+        border: none;
+        background-image: linear-gradient(to right, #aa5116, #f19022);
+        color: #fff;
+        font-weight: bold;
+        border-radius: 15px;
+    }
+
+    .button:hover {
+        background-image: linear-gradient(to left, #aa5116, #f19022);
+        transform: scale(1.1);
+    }
+
+    .button:active {
+        background-image: linear-gradient(to right, #aa5116, #f19022);
+        box-shadow: none;
+        transform: translateY(5px);
+    }
+
+    .exitoso {
+        color: #fff;
+        padding: 3px;
+        text-align: center;
+        background-color: rgb(19, 155, 19);
+        width: 50%;
+        height: 3.2rem;
+        margin: auto;
+        font-size: 20px;
+    }
+
+    .rechazado {
+        color: #fff;
+        padding: 3px;
+        text-align: center;
+        background-color: rgb(201, 93, 74);
+        width: 50%;
+        height: 3.2rem;
+        margin: auto;
+        border: rgb(160, 11, 11) solid 2px;
+        font-size: 20px;
+    }
+
+    .error {
+        color: red;
+        font-size: 12px;
+        display: none;
+        /* Oculto por defecto */
+    }
