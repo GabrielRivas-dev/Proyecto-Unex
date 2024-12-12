@@ -99,7 +99,7 @@ $imagenUsuario = $_SESSION['imagen'];
       </div>
     </div>
     <div class="main-content" id="main-content">
-    <div class="publicaciones" id="publicaciones"> 
+    
 
     </div>
     </div>

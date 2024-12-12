@@ -383,3 +383,8 @@ function eliminarPublicacion(publicacionId) {
 
 // Llamar a la función al cargar la página
 document.addEventListener('DOMContentLoaded', cargarSeguidos);
+
+function openConfiguration(){
+    const configurationdiv= document.getElementById("configuration");
+    configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
+}

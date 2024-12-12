@@ -54,8 +54,14 @@ body {
 
 .header .nav-links {
   list-style: none;
+  
 }
-
+.header .nav-links button {
+  all: unset;
+  font-size: 25px;
+  color: #fffefe;
+  transition: all 0.3s ease 0s;
+}
 .header .nav-links li {
   display: inline-block;
   padding: 0 20px;
@@ -75,7 +81,7 @@ body {
 }
 
 .header .nav-links li:hover,
-.overlay a:hover {
+.overlay a:hover, .menu button:hover {
   transform: scale(1.1);
 }
 
@@ -95,7 +101,7 @@ body {
     height: 30px;
     
   }
-.header .nav-links a:hover{
+.header .nav-links a:hover, .header .nav-links button:hover{
   color: #fd8f45;
 }
 
@@ -774,4 +780,31 @@ all: unset;
 }
 .seguido p{
   margin-left: 3px;
+}
+
+.configuration{
+  display: none;
+  border: 1px solid #ddd;
+  border-radius: 20px ;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  max-height: 50rem;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #fff;
+  position: fixed;
+  top: 2.3rem;
+  right: 18%;
+}
+.configuration li{
+  list-style: none;
+  text-decoration: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  
+}
+.configuration a{
+  color:#1c1e21;
+  font-size: 16px;
 }

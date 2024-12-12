@@ -331,3 +331,8 @@ function cargarSeguidos() {
 document.addEventListener('DOMContentLoaded', cargarSeguidos);
 
 // Llama a la función para cargar publicaciones al cargar la página
+
+function openConfiguration(){
+    const configurationdiv= document.getElementById("configuration");
+    configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
+}
