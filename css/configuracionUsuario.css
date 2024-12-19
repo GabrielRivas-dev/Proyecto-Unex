@@ -265,6 +265,7 @@ body {
   margin-top: 75px;
   height: 85vh;
   right: 1%;
+
 }
 
 .main-content {
@@ -294,6 +295,7 @@ body {
 .post {
   background-color: white;
   padding: 10px;
+  min-height: 85vh;
   margin-bottom: 10px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -539,114 +541,7 @@ body {
 }
 
 /* COMENTARIOS*/
-.post-comments{
-  display: flex;
-  height: auto;
-  flex-direction: column;
-  background-color: #c7dcfc;
-  padding: 5px 12px;
-  border-radius: 8px;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  position: relative;
-}
 
-.post-comments-head{
-  display: flex;
-  align-items: center;
-}
-.post-comments-head span{
-  font-size: 12px;
-  color: #363738;
-  margin-left: 5px;
-}
-.post-comments-head strong{
-  font-size: 14px;
-}
-.post-comments-head img{
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
-  object-fit: cover;
-  object-position: center;
-}
-.post-comments-info{
-  padding: 5px 20px;
-  margin-bottom: 5px;
-}
-.post-comments-info p{
-  font-size: 14px;
-}
-.mandarcomentario{
-  display: flex;
-  justify-content: center;
-}
-.mandarcomentario form{
-
-    height: auto;
-    background-color: #c7dcfc;
-    padding: 10px;
-    border-radius: 0px 0px 8px 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    
-}
-
-.mandarcomentario textarea {
-  width: 70%;
-  height: 1.8rem;
-  background: transparent;
-  font-size: 14px;
-  border-radius: 10px;
-  padding: 5px 10px;
-  border-color: #0062e2;
-  outline: none;
-  resize: unset;
-  margin-right: 10px;
-}
-.mandarcomentario button {
-  width: 5%;
-  height: 1.8rem;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-.mandarcomentario i{
-  font-size: 20px;
-  color: #0062e2;
-}
-
-.post-comments-config{
-  display: flex;
-  margin-left: auto;
-  
-}
-.post-comments-config button{
-  all: unset;
-  cursor: pointer;
-  position:relative;
-}
-.post-comments-config i{
-  font-size: 15px;
-}
-.comment-config{
-  display: none;
-  width: auto;
-  padding: 5px;
-  height: auto;
-  background-color: #3498db;
-  border-radius: 16px 50px 50px 16px;
-  position: absolute;
-  right: 2rem;
-  
-}
-.comment-config button{
-  all: unset;
-  color: #ffffff;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 18px;
-  cursor: pointer;
-}
 
 .post-follows{
   background-color: white;
@@ -806,4 +701,62 @@ all: unset;
 .configuration a{
   color:#1c1e21;
   font-size: 16px;
+}
+.post h2{
+    margin-bottom: 10px;
+}
+.info {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.info button{
+    all: unset;
+    cursor: pointer;
+}
+.info hr{
+   border: #1c1e21 solid 1px;
+   width: 60%;
+}
+/* .info label{
+    margin-bottom: 10px;
+    margin-left: 2rem;
+}
+.info button{
+
+    all: unset;
+}
+.info button i{
+    margin-left: 1rem;
+    margin-bottom: 10px;
+}
+*/
+.divDatosPersonales, .divCredenciales, .divDatosAcademicos{
+    margin-top: 10px;
+    display: none;
+    width: 100%;
+    flex-direction: column;
+}
+.informacion{
+    display: flex;
+    width: 100%;
+}
+.informacion label{
+    margin-bottom: 10px;
+}
+.informacion button{
+
+    all: unset;
+}
+.informacion button i{
+    margin-left: 1rem;
+    margin-bottom: 10px;
+}
+.informacion input{
+  margin-left: 10px;
+  margin-bottom: 10px ;
+  font-size: 14px
+}
+.editarcampo input{
+  margin-left: 10px;
 }

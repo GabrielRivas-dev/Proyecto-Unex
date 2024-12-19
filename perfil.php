@@ -52,7 +52,7 @@ $imagenUsuario = $_SESSION['imagen'];
     </nav>
     <div id="configuration" class="configuration">
       <ul>
-        <li><a href=""><strong>Configurar usuario</strong></a></li>
+        <li><a href="Configuracion_usuario.php"><strong>Configurar usuario</strong></a></li>
         <li><a href="cerrar_sesion.php"><strong>Cerrar sesion</strong></a></li>
       </ul>
     </div>

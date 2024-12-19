@@ -15,7 +15,7 @@
         </div>
     </header>
     <main class="fondo">
-        <form method="post">
+        <form method="post" id="Miformulario">
             <div class="contenedor">
                 <h1>Iniciar sesión en Unex</h1>
                 <?php
@@ -39,6 +39,7 @@
             </div>
         </form>
     </main>
+    <script src="login.js"></script>
 </body>
 
 </html>
