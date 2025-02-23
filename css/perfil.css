@@ -395,7 +395,11 @@ body {
 .like-btn, .comment-btn, .share-btn {
   all: unset;
   cursor: pointer;
-  color: black;
+  color: #79aefd;
+  background-color: none;
+}
+.like-btn.liked{
+  color: red;
   background-color: none;
 }
 .fa-heart, .fa-comment, .fa-share-from-square{

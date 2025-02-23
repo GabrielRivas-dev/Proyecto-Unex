@@ -39,7 +39,7 @@
             </div>
         </form>
     </main>
-    <script src="login.js"></script>
+    <script src=""></script>
 </body>
 
 </html>

@@ -1,3 +1,48 @@
+let publicacionACompartir= null;
+
+function divCompartir(publicacionId){
+     publicacionACompartir = publicacionId;
+    const div= document.getElementById('compartir-publicacion');
+    div.style.display = div.style.display === 'block' ? 'none' : 'block';
+    
+    }
+    function compartirPublicacion() {
+        if (!publicacionACompartir) {
+            alert("Error: No se encontró la publicación.");
+            return;
+        }
+    
+        const datos = JSON.stringify({ publicacion_id: publicacionACompartir });
+    
+        console.log("Enviando datos:", datos); // 👀 Ver qué se envía
+    
+        fetch('compartir_publicacion.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: datos
+        })
+        .then(response => response.text()) // Ver la respuesta del servidor
+        .then(data => {
+            console.log("Respuesta del servidor:", data); // 👀 Ver qué responde PHP
+            try {
+                let jsonData = JSON.parse(data);
+                if (jsonData.success) {
+                    alert("¡Publicación compartida con éxito!");
+                    cerrarModal();
+                    location.reload();
+                } else {
+                    alert("Error al compartir: " + jsonData.message);
+                }
+            } catch (error) {
+                console.error("Error al procesar JSON:", error);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+    
+
+
+
 function comentariosPost(event, publicacionId) {
     event.stopPropagation();
     const comentariosDiv = document.getElementById(`comentarios-${publicacionId}`);
@@ -147,16 +192,41 @@ function likePost(publicacionId) {
         .then(data => {
             if (data.success) {
                 // Actualizar el contador de likes
-                const likeBtnColor = document.getElementById(`like-btn-${publicacionId}`);
+                const likeButton = document.getElementById(`like-btn-${publicacionId}`);
                 const likeCountSpan = document.getElementById(`like-count-${publicacionId}`);
                 likeCountSpan.textContent = data.likes; // Mostrar el nuevo total de likes
-                likeBtnColor.style.color = likeBtnColor.style.color === 'red' ? '#79aefd' : 'red';
+                if (data.liked ) {
+                    likeButton.classList.add('liked');
+                } else {
+                    likeButton.classList.remove('liked');
+                }
+
             } else {
                 alert(data.message); // Mostrar mensaje de error
             }
         })
         .catch(error => console.error('Error:', error));
 }
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('get_likes.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Aplicar el estado a los botones correspondientes
+                data.likes.forEach(publicacionId => {
+                    const likeButton = document.getElementById(`like-btn-${publicacionId}`);
+                    if (likeButton) {
+                        likeButton.classList.add('liked');
+                    }
+                });
+            } else {
+                console.error('Error al cargar los likes:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error al recuperar los likes:', error);
+        });
+});
 
 //FUNCION PARA ABRIR MENU LATERAL
 function openNav() {
@@ -259,10 +329,11 @@ function cargarPublicaciones() {
                             <span>${publicacion.total_comments}</span>
                         </li>
                         <li>
-                            <button class="share-btn">
+                            <button id="share-btn-${publicacion.publicacion_id}" class="share-btn" onclick="divCompartir(${publicacion.publicacion_id})">
                                 <i class="fa-solid fa-share-from-square"></i>
                             </button>
                             <span>0</span>
+                           
                         </li>
                     </ul>
                 </div>
@@ -336,3 +407,4 @@ function openConfiguration(){
     const configurationdiv= document.getElementById("configuration");
     configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
 }
+

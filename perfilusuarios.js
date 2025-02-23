@@ -211,16 +211,42 @@ function likePost(publicacionId) {
 .then(data => {
     if (data.success) {
         // Actualizar el contador de likes
-        const likeBtnColor = document.getElementById(`like-btn-${publicacionId}`);
+        const likeButton = document.getElementById(`like-btn-${publicacionId}`);
         const likeCountSpan = document.getElementById(`like-count-${publicacionId}`);
         likeCountSpan.textContent = data.likes; // Mostrar el nuevo total de likes
-        likeBtnColor.style.color = likeBtnColor.style.color === 'red' ? 'black' : 'red';
+        if (data.liked ) {
+            likeButton.classList.add('liked');
+        } else {
+            likeButton.classList.remove('liked');
+        }
+
     } else {
         alert(data.message); // Mostrar mensaje de error
     }
 })
 .catch(error => console.error('Error:', error));
 }
+document.addEventListener('DOMContentLoaded', () => {
+fetch('get_likes.php')
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        // Aplicar el estado a los botones correspondientes
+        data.likes.forEach(publicacionId => {
+            const likeButton = document.getElementById(`like-btn-${publicacionId}`);
+            if (likeButton) {
+                likeButton.classList.add('liked');
+            }
+        });
+    } else {
+        console.error('Error al cargar los likes:', data.message);
+    }
+})
+.catch(error => {
+    console.error('Error al recuperar los likes:', error);
+});
+});
+
 function openNav() {
     document.getElementById("mobile-menu").style.width = "100%";
 }
@@ -307,17 +333,17 @@ function eliminarPublicacion(publicacionId) {
                  <ul>
                         <li>
                             <button id="like-btn-${publicacion.publicacion_id}" class="like-btn" onclick="likePost(${publicacion.publicacion_id})">
-                                <i class="fa-regular fa-heart"></i>
+                                <i class="fa-solid fa-heart"></i>
                             </button>
                             <span id="like-count-${publicacion.publicacion_id}">${publicacion.total_likes}</span>
                         </li>
                         <li>
-                            <button id="comment-btn-${publicacion.publicacion_id}" class="comment-btn" onclick="comentariosPost(event,${publicacion.publicacion_id})"><i class="fa-regular fa-comment"></i></button>
+                            <button id="comment-btn-${publicacion.publicacion_id}" class="comment-btn" onclick="comentariosPost(event,${publicacion.publicacion_id})"><i class="fa-solid fa-comment"></i></button>
                             <span>${publicacion.total_comments}</span>
                         </li>
                         <li>
                             <button class="share-btn">
-                                <i class="fa-regular fa-share-from-square"></i>
+                                <i class="fa-solid fa-share-from-square"></i>
                             </button>
                             <span>0</span>
                         </li>

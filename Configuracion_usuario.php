@@ -91,8 +91,10 @@ $imagenUsuario = $_SESSION['imagen'];
       </div>
     </div>
     <div class="main-content" id="main-content">
+  
       <div class="post">
-        <h2>Informacion de <?php echo "$NombreUsuario $ApellidoUsuario"; ?></h2>
+        <h2 class="titulo">Informacion de <?php echo "$NombreUsuario $ApellidoUsuario"; ?></h2>
+        <!--
         <div class="info">
           <button id="datos" onclick="datosPersonales()">
             <h3>Datos personales</h3>
@@ -164,6 +166,118 @@ $imagenUsuario = $_SESSION['imagen'];
               <button onclick="editarcampo('carrera')"><i class="fa-solid fa-pen-to-square"></i></button>
               <button id="guardar-carrera" style="display: none;" onclick="guardarCampo('carrera')"><i class="fa-solid fa-hammer"></i></button>
             </div>
+          </div>
+        </div>
+-->
+        <div class="grid">
+          <div class="usuarioInfo">
+            <h3>Datos de la cuenta</h3>
+            <div class="informacion">
+              <label for="Nombre"><strong>Nombre del usuario:</strong></label>
+              <p id="nombre-texto"><?php echo "$NombreUsuario"; ?></p>
+
+              <button onclick="editarcampo('nombre')"><i class="fa-solid fa-pen-to-square"></i></button>
+
+            </div>
+            <div class="informacion">
+              <input class="editarcampo" type="text" id="nombre-input" value="<?php echo "$NombreUsuario"; ?>"
+                style="display: none;">
+              <button id="guardar-nombre" style="display: none;" onclick="guardarCampo('nombre')"><i
+                  class="fa-solid fa-hammer"></i></button>
+            </div>
+
+            <div class="informacion">
+              <label for="Apellido"><strong>Apellido del usuario:</strong></label>
+              <p id="apellido-texto"><?php echo "$ApellidoUsuario"; ?></p>
+
+              <button onclick="editarcampo('apellido')"><i class="fa-solid fa-pen-to-square"></i></button>
+
+            </div>
+
+            <div class="informacion">
+              <input class="editarcampo" type="text" id="apellido-input" value="<?php echo "$ApellidoUsuario"; ?>"
+                style="display: none;">
+              <button id="guardar-apellido" style="display: none;" onclick="guardarCampo('apellido')"><i
+                  class="fa-solid fa-hammer"></i></button>
+            </div>
+          </div>
+          <div class="usuarioInfo">
+            <h3>Datos del usuario</h3>
+            <div class="informacion">
+              <label for="Cedula"><strong>Cédula del usuario:</strong></label>
+              <p id="cedula-texto"><?php echo "$CedulaUsuario"; ?></p>
+            </div>
+            <div class="informacion">
+              <label for="Fecha-de-nacimiento"><strong>Fecha de nacimiento:</strong></label>
+              <p id="fecha-texto"><?php echo "$FechaUsuario"; ?></p>
+
+              <button onclick="editarcampo('fecha')"><i class="fa-solid fa-pen-to-square"></i></button>
+
+            </div>
+            <div class="informacion">
+              <input class="editarcampo" type="date" id="fecha-input" value="<?php echo "$FechaUsuario"; ?>"
+                style="display: none;">
+              <button id="guardar-fecha" style="display: none;" onclick="guardarCampo('fecha')"><i
+                  class="fa-solid fa-hammer"></i></button>
+            </div>
+
+            <div class="informacion">
+              <label for="EstadoActual"><strong>Estado actual:</strong></label>
+              <p id="estado-texto">Soltero</p>
+
+              <button onclick="editarcampo('estado')"><i class="fa-solid fa-pen-to-square"></i></button>
+
+            </div>
+            <div class="informacion">
+              <input class="editarcampo" type="text" id="estado-input" value="Soltero" style="display: none;">
+              <button id="guardar-estado" style="display: none;" onclick="guardarCampo('estado')"><i
+                  class="fa-solid fa-hammer"></i></button>
+            </div>
+          </div>
+          <div class="usuarioInfo">
+            <h3>Credenciales</h3>
+
+            <div class="informacion">
+              <label for="Correo"><strong>Correo:</strong></label>
+              <p> <?php echo "$EmailUsuario"; ?></p>
+
+              <button onclick="editarcampo('email')"><i class="fa-solid fa-pen-to-square"></i></button>
+
+            </div>
+            <div class="informacion">
+              <input class="editarcampo" type="email" id="email-input" value="<?php echo "$EmailUsuario"; ?>"
+                style="display: none;">
+              <button id="guardar-email" style="display: none;" onclick="guardarCampo('email')"><i
+                  class="fa-solid fa-hammer"></i></button>
+            </div>
+            <div class="informacion">
+              <label for="Clave"><strong>Contraseña:</strong></label>
+              <button id="CambiarContraseñaButton" onclick="cambiarClave()" ><strong>Cambiar contraseña</strong> </button>
+            </div>
+
+            <div class="cambiar-contraseña" id="cambiar-contraseña" popover>
+              <h2>Cambiar Contraseña</h2>
+              <a href="#" onclick="cambiarClave()" class="close">&times</a>
+              <form id="form-cambiar-password">
+                <label for="password-actual"><strong> Contraseña Actual:</strong> </label>
+                <input type="password" id="password-actual" name="password_actual" required>
+
+                <label for="password-nueva"><strong> Nueva Contraseña:</strong> </label>
+                <input type="password" id="password-nueva" name="password_nueva" required>
+
+                <label for="password-confirmar"><strong> Confirmar Nueva Contraseña:</strong> </label>
+                <input type="password" id="password-confirmar" name="password_confirmar" required>
+
+                <button type="submit"><strong>Actualizar Contraseña</strong></button>
+              </form>
+              <p id="mensaje"></p>
+            </div>
+          </div>
+          <div class="usuarioInfo">
+            <h3>Datos Academicos</h3>
+
+            <label for="Carrera"><strong>Carrera cursando:</strong></label>
+            <p>Informatica</p>
           </div>
         </div>
         <!-- 

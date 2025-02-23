@@ -731,32 +731,127 @@ all: unset;
     margin-bottom: 10px;
 }
 */
-.divDatosPersonales, .divCredenciales, .divDatosAcademicos{
-    margin-top: 10px;
-    display: none;
-    width: 100%;
-    flex-direction: column;
-}
+
 .informacion{
     display: flex;
     width: 100%;
+    
 }
-.informacion label{
-    margin-bottom: 10px;
-}
+
 .informacion button{
 
     all: unset;
 }
-.informacion button i{
+ button i{
     margin-left: 1rem;
     margin-bottom: 10px;
 }
 .informacion input{
-  margin-left: 10px;
-  margin-bottom: 10px ;
   font-size: 14px
 }
-.editarcampo input{
+ input{
   margin-left: 10px;
+}
+.titulo{
+  text-align: center;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+  color: #ffff;
+  border-radius: 10px;
+  height: auto;
+  margin-top: 10px;
+  font-size: 32px;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: stretch;
+  align-items: stretch;
+  column-gap: 10px;
+  row-gap: 10px;
+  margin-top: 20px;
+}
+.grid .usuarioInfo{
+  width: 100%;
+  border: 3px solid #007bff ;
+  background-color:#ffff;
+  border-radius: 10px;
+  padding: 10px;
+  color: #000000;
+}
+.usuarioInfo h3{
+  color: #ffff;
+  text-align: center;
+  margin-bottom: 10px;
+  background:  linear-gradient(-90deg, rgba(19, 86, 203, 1) 0%, rgb(17, 111, 173) 100%);
+  border-radius: 10px;
+  flex-direction: column;
+}
+.usuarioInfo label{
+  margin-right: 5px;
+}
+.editarcampo{
+ max-height: 2em;
+ padding: 4px;
+ border-radius: 10px;
+ border: #007bff solid 2px;
+ margin-bottom: 10px;
+}
+
+#CambiarContraseñaButton{
+  background:  linear-gradient(-90deg, rgba(19, 86, 203, 1) 0%, rgb(17, 111, 173) 100%);
+  padding: 5px;
+  border-radius: 10px;
+  border: #000000;
+  color: #ffff;
+  cursor: pointer;
+}
+.cambiar-contraseña{
+  background-color: #fff;
+  border-radius: 10px;
+  border: #ebebeb solid 2px;
+  box-shadow: 2px 2px 8px 6px rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  width: 40%;
+  min-width: 428px;
+  height: 50vh;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.cambiar-contraseña h2{ 
+  text-align: center;
+  display: inline-block;
+  margin-left: 25%;
+}
+.cambiar-contraseña a{
+  text-decoration: none;
+  color: #000000;
+  font-size: 32px;
+  margin-left: 10%;
+}
+.cambiar-contraseña form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cambiar-contraseña input{
+  max-height: 2em;
+  padding: 4px;
+  border-radius: 10px;
+  border: #007bff solid 2px;
+  width: 60%;
+  margin-bottom: 10px;
+}
+.cambiar-contraseña button{
+  background:  linear-gradient(-90deg, rgba(19, 86, 203, 1) 0%, rgb(17, 111, 173) 100%);
+  padding: 7px;
+  border-radius: 10px;
+  border: #000000;
+  color: #ffff;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
 }

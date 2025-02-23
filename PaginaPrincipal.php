@@ -84,7 +84,8 @@ $publicacion = $resultado->fetch_assoc();
         <form action="publicar.php" method="POST" enctype="multipart/form-data">
           <div class="input-create-post">
             <a href="perfil.php"><img src="<?php echo $imagenUsuario; ?>" alt="perfil"></a>
-            <textarea  maxlength="250" class="description" name="description" placeholder="¿Que publicaras hoy <?php echo "$NombreUsuario" ?>?"></textarea>
+            <textarea maxlength="250" class="description" name="description"
+              placeholder="¿Que publicaras hoy <?php echo "$NombreUsuario" ?>?"></textarea>
           </div>
           <div class="buttons-create-post">
             <label for="file-input" class="upload-file-label">Subir foto</label>
@@ -94,94 +95,25 @@ $publicacion = $resultado->fetch_assoc();
         </form>
       </div>
       <div class="publicaciones" id="publicaciones"> </div>
-      <!--PUBLICACIONES -->
-      <!--
-     <div class="post">
-        <div class="post-header">
-          <img src="<?php echo htmlspecialchars($publicacion['imagen']) ?>" alt="Foto de usuario">
-          <div class="post-info">
-            <div class="post-info-name">
-              <p>
-                <strong><?php echo htmlspecialchars($publicacion['nombre']), " ", htmlspecialchars($publicacion['apellido']) ?></strong>
-              </p>
-              <span><?php echo htmlspecialchars($publicacion['fecha']) ?></span>
-            </div>
-            <div class="post-info-menu"><button onclick="publicacionConfig(event)"><i class="fa-solid fa-bars"></i></button>
-            </div>
-            <div id="publicacion-config">
-              <ul>
-                <li><a href="#" onclick="publicacionConfigClose()" class="close">&times</a></li>
-                <li><form action="eliminarpublicacion.php" method="POST"><input type="hidden" name="dato" value="1"><Button value="enviar" type="submit">Eliminar</Button></form></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="post-content">
-          <p><?php echo htmlspecialchars($publicacion['contenido']) ?></p>
-          <div class="post-content-img">
-            <img src="<?php echo htmlspecialchars($publicacion['imagensubida']) ?>" alt="">
-          </div>
-          
-        </div>
-        <div class="post-btns">
-          <ul>
-            <li>
-              <button class="like-btn" onclick="likePost()"><i class="fa-regular fa-heart"></i></button>
-              <span id="likecount">0</span>
-            </li>
-            <li>
-              <button class="comment-btn" onclick="comentariosPost()"><i class="fa-regular fa-comment"></i></button>
-              <span>0</span>
-            </li>
-            <li>
-              <button class="share-btn"><i class="fa-regular fa-share-from-square"></i></button>
-              <span>0</span>
-            </li>
-          </ul>
-        </div>
-
-        COMENTARIOS 
-        <div id="comentarios">
-        <div class="post-comments">
-          <div class="post-comments-head">
-          <img src="<?php echo htmlspecialchars($publicacion['imagen']) ?>" alt="Foto de usuario">
-          <strong><?php echo htmlspecialchars($publicacion['nombre']), " ", htmlspecialchars($publicacion['apellido']) ?></strong>
-          <span><?php echo htmlspecialchars($publicacion['fecha']) ?></span>  
-          <div class="post-comments-config"><button onclick="commentConfig(event)"><i class="fa-solid fa-minus"></i></button>
-            </div>
-        <div id="publicacion-config">
-              <ul>
-                <li><a href="#" onclick="publicacionConfigClose()" class="close">&times</a></li>
-                <li><form action="eliminarpublicacion.php" method="POST"><input type="hidden" name="dato" value="1"><Button value="enviar" type="submit">Eliminar</Button></form></li>
-              </ul>
-            </div>
-        </div>
-          <div class="post-comments-info">
-            <p>Estuvo muy buena la foto, la pizza esta en su punto, desde que telefono la tomaste?</p>
-          </div>
-        </div>
-        <div class="mandarcomentario" id="mandarcomentario">
-          <form onsubmit="agregarComentario(event, 22)">
-                <textarea class="comentario" name="comentario" id="comentario-input-22" placeholder="Escribe un comentario..." required></textarea>
-                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-        </div>
+      <div class="compartir-publicacion" id="compartir-publicacion" popover>
+        <label><h2>¿Deseas compartir esta publicacion?</h2>
+        <a onclick="divCompartir()">&times</a>
+      </label>
+      <label><button onclick="compartirPublicacion()">Si</button>
+      <button onclick="divCompartir()">No</button></label>  
         
-
       </div>
-    </div>
--->
     </div>
     <!--CONTENIDO DE LA DERECHA -->
     <div class="right-column">
       Seguidos
       <div class="seguidos" id="seguidos">
-        
+
       </div>
 
     </div>
-      
-    
+
+
   </main>
   <script src="Main.js"> </script>
 </body>

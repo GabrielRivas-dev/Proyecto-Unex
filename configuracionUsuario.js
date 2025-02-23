@@ -1,3 +1,48 @@
+function cambiarClave(){
+const div= document.getElementById('cambiar-contraseña');
+div.style.display = div.style.display === 'block' ? 'none' : 'block';
+console.log("aja mi panita");
+}
+
+document.getElementById('form-cambiar-password').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evitar que la página se recargue
+
+    const passwordActual = document.getElementById('password-actual').value;
+    const passwordNueva = document.getElementById('password-nueva').value;
+    const passwordConfirmar = document.getElementById('password-confirmar').value;
+    const mensaje = document.getElementById('mensaje');
+
+    // Validar que las nuevas contraseñas coincidan
+    if (passwordNueva !== passwordConfirmar) {
+        mensaje.textContent = 'Las contraseñas no coinciden.';
+        mensaje.style.color = 'red';
+        return;
+    }
+
+    // Enviar la solicitud al servidor
+    fetch('cambiar_password.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password_actual: passwordActual, password_nueva: passwordNueva })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            mensaje.textContent = 'Contraseña actualizada correctamente.';
+            mensaje.style.color = 'green';
+            document.getElementById('form-cambiar-password').reset();
+        } else {
+            mensaje.textContent = data.message;
+            mensaje.style.color = 'red';
+        }
+    })
+    .catch(error => {
+        console.error('Error al cambiar la contraseña:', error);
+        mensaje.textContent = 'Hubo un error. Intenta nuevamente.';
+        mensaje.style.color = 'red';
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const elemento = document.getElementById('id-usuario');
     const usuarioId = elemento.dataset.id;
@@ -20,9 +65,18 @@ function datosAcademicos(){
 function editarcampo(campo){
     // Mostrar el input y el botón de guardar
     console.log(campo);
-    document.getElementById(`${campo}-input`).style.display = 'inline';
-    document.getElementById(`guardar-${campo}`).style.display = 'inline';
+    document.getElementById(`${campo}-input`).style.display === 'inline';
+    document.getElementById(`guardar-${campo}`).style.display === 'inline';
+
+    if (document.getElementById(`${campo}-input`).style.display === 'inline') {
+        document.getElementById(`${campo}-input`).style.display = 'none';
+        document.getElementById(`guardar-${campo}`).style.display = 'none';
+    } else {
+        document.getElementById(`${campo}-input`).style.display = 'inline';
+        document.getElementById(`guardar-${campo}`).style.display = 'inline';
+    }
 }
+
 function guardarCampo(campo) {
     const nuevoValor = document.getElementById(`${campo}-input`).value;
 
@@ -155,5 +209,5 @@ document.addEventListener('DOMContentLoaded', cargarSeguidos);
 
 function openConfiguration(){
     const configurationdiv= document.getElementById("configuration");
-    configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
+    configurationdiv.style.display = configurationdiv.style.display === 'flex' ? 'none' : 'flex';
 }
