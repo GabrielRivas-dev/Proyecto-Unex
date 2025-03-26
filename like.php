@@ -22,6 +22,14 @@ if (!isset($data['publicacion_id'])) {
 
 $publicacionId = (int)$data['publicacion_id'];
 
+$stmAutor = $conex->prepare("SELECT usuario_id FROM publicaciones WHERE id = ?");
+$stmAutor->bind_param("i", $publicacionId);
+$stmAutor->execute();
+$resultAutor = $stmAutor->get_result();
+$publicacion = $resultAutor->fetch_assoc();
+
+$autorPublicacion = $publicacion['usuario_id'];
+
 // Verificar si el usuario ya dio like
 $stmt = $conex->prepare("SELECT id FROM likes WHERE publicacion_id = ? AND usuario_id = ?");
 $stmt->bind_param("ii", $publicacionId, $idUsuario);
@@ -44,6 +52,13 @@ if ($result->num_rows > 0) {
     $insertStmt->bind_param("ii", $publicacionId, $idUsuario);
     if ($insertStmt->execute()) {
         $liked = true; // Estado después de agregar el like
+        
+        if ($idUsuario != $autorPublicacion) {
+            $mensaje = "A " .  $_SESSION['Nombre'] . $_SESSION['Apellido']. " le gustó tu publicación.";
+            $stmtNotificacion = $conex->prepare("INSERT INTO notificaciones (usuario_id, tipo, mensaje) VALUES (?, 'like', ?)");
+            $stmtNotificacion->bind_param("is", $autorPublicacion, $mensaje);
+            $stmtNotificacion->execute();
+        }
     } else {
         echo json_encode(['success' => false, 'message' => 'Error al agregar el like']);
         exit();

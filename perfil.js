@@ -1,3 +1,82 @@
+function obtenerMensajesNoleidos() {
+    fetch("obtener_mensajes_noleidos.php")
+    .then(response => response.json())
+    .then(data => {
+        let contador = document.getElementById("contador-mensajes");
+        if (data.total_no_leidos > 0) {
+            contador.textContent = data.total_no_leidos;
+        } else {
+            contador.style.display = "none"; // Ocultar si no hay mensajes no leídos
+        }
+    })
+    .catch(error => console.error("Error al obtener contador de mensajes:", error));
+}
+setInterval(obtenerMensajesNoleidos, 2000);
+
+// También actualizar al cargar la página
+document.addEventListener("DOMContentLoaded", obtenerMensajesNoleidos);  
+
+function obtenerNotificaciones() {
+    fetch('obtener_notificaciones.php')
+    .then(response => response.json())
+    .then(data => {
+
+        // Actualizar el contador de notificaciones no leídas
+        const contador = document.getElementById("contador-notificaciones");
+        if (data.no_leidas > 0) {
+            contador.textContent = data.no_leidas;
+        } else {
+            contador.style.display = "none"; // Ocultar si no hay mensajes no leídos
+        }
+
+        // Obtener el div donde se mostrarán las notificaciones
+        const lista = document.getElementById("lista-notificaciones");
+        lista.innerHTML = ""; // Limpiar lista
+
+        if (data.notificaciones.length === 0) {
+            lista.innerHTML = "<p>No tienes notificaciones.</p>";
+        }
+
+        data.notificaciones.forEach(notif => {
+            const div = document.createElement("div");
+            div.textContent = notif.mensaje;
+            div.style.padding = "10px";
+            div.style.borderBottom = "1px solid #ddd";
+
+            // Si la notificación no está leída, poner un fondo amarillo
+            if (notif.leida == 0) {
+                div.style.backgroundColor = "#b8dbff"; // Color amarillo claro
+                div.style.fontWeight = "bold"; // Resaltar texto
+            }
+
+            lista.appendChild(div);
+        });
+    })
+    .catch(error => console.error("Error al obtener notificaciones:", error));
+}
+
+// Cargar notificaciones cada 10 segundos (para actualizar en tiempo real)
+setInterval(obtenerNotificaciones, 10000);
+
+// Llamar a la función cuando cargue la página
+document.addEventListener("DOMContentLoaded", obtenerNotificaciones);
+
+
+// Mostrar/Ocultar notificaciones al hacer clic en el botón
+function mostrarNotificaciones() {
+    const lista = document.getElementById("lista-notificaciones");
+
+    if (lista.style.display === "block") {
+        lista.style.display = "none";
+
+        // Marcar notificaciones como leídas solo cuando se cierre el div
+        fetch('marcar_notificaciones.php', { method: 'POST' })
+        .then(() => obtenerNotificaciones()); // 🔄 Volver a cargar para actualizar el contador
+    } else {
+        lista.style.display = "block";
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const elemento = document.getElementById('id-usuario');
     const usuarioId = elemento.dataset.id;
@@ -308,7 +387,7 @@ function eliminarPublicacion(publicacionId) {
                             <button class="share-btn">
                                 <i class="fa-solid fa-share-from-square"></i>
                             </button>
-                            <span>0</span>
+                            <span>${publicacion.compartidos}</span>
                         </li>
                     </ul>
                 </div>

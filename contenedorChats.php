@@ -1,0 +1,44 @@
+<?php
+session_start();
+include("conexion.php");
+
+$idUsuario = $_SESSION['id'];
+
+// Obtener los chats del usuario y el último mensaje de cada uno
+$sql = "
+    SELECT c.id AS chat_id, 
+           u.id AS receptor_id, 
+           u.nombre, 
+           u.apellido, 
+           u.imagen,
+           (SELECT mensaje FROM mensajes 
+            WHERE chat_id = c.id 
+            ORDER BY fecha DESC 
+            LIMIT 1) AS ultimo_mensaje,
+            (SELECT visto FROM mensajes 
+            WHERE chat_id = c.id 
+            ORDER BY fecha DESC 
+            LIMIT 1) AS visto,
+           (SELECT fecha FROM mensajes 
+            WHERE chat_id = c.id 
+            ORDER BY fecha DESC 
+            LIMIT 1) AS fecha_ultimo_mensaje
+    FROM chats c
+    JOIN usuarios u ON (c.usuario1_id = u.id OR c.usuario2_id = u.id)
+    WHERE (c.usuario1_id = ? OR c.usuario2_id = ?)
+    AND u.id != ?
+    ORDER BY fecha_ultimo_mensaje DESC";  // Ordena por el mensaje más reciente
+
+$stmt = $conex->prepare($sql);
+$stmt->bind_param("iii", $idUsuario, $idUsuario, $idUsuario);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$conversaciones = [];
+while ($row = $result->fetch_assoc()) {
+    $conversaciones[] = $row;
+}
+
+header('Content-Type: application/json');
+echo json_encode($conversaciones);
+?>

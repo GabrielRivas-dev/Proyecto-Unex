@@ -20,6 +20,14 @@ $usuario_id = $_SESSION['id'];
 $publicacion_id = (int)$data['publicacion_id'];
 $comentario = trim($data['comentario']);
 
+$stmAutor = $conex->prepare("SELECT usuario_id FROM publicaciones WHERE id = ?");
+$stmAutor->bind_param("i", $publicacion_id);
+$stmAutor->execute();
+$resultAutor = $stmAutor->get_result();
+$publicacion = $resultAutor->fetch_assoc();
+
+$autorPublicacion = $publicacion['usuario_id'];
+
 // Verificar que el comentario no esté vacío
 if (empty($comentario)) {
     echo json_encode(['success' => false, 'message' => 'El comentario no puede estar vacío']);
@@ -51,6 +59,13 @@ if ($stmt->execute()) {
         'usuario_apellido' => $resultadoUsuario['Apellido'],
         'usuario_imagen' => $resultadoUsuario['imagen']
     ];
+
+    if ($usuario_id != $autorPublicacion) {
+        $mensaje = $_SESSION['Nombre'] . $_SESSION['Apellido']. " comentó tu publicación.";
+        $stmtNotificacion = $conex->prepare("INSERT INTO notificaciones (usuario_id, tipo, mensaje) VALUES (?, 'comentario', ?)");
+        $stmtNotificacion->bind_param("is", $autorPublicacion, $mensaje);
+        $stmtNotificacion->execute();
+    }
 } else {
     $response['success'] = false;
     $response['message'] = 'Error al agregar el comentario';

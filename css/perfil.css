@@ -81,7 +81,7 @@ body {
 }
 
 .header .nav-links li:hover,
-.overlay a:hover, .menu button:hover {
+.overlay a:hover, .menu button:hover, .perfil-header:hover {
   transform: scale(1.1);
 }
 
@@ -97,10 +97,14 @@ body {
 
 .perfil-header{
   border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+  object-position: center;
+  margin-right: 10px;
+  transition: all 0.3s ease 0s;
   }
+
 .header .nav-links a:hover, .header .nav-links button:hover{
   color: #fd8f45;
 }
@@ -787,14 +791,14 @@ all: unset;
 
 .configuration{
   display: none;
-  border: 1px solid #ddd;
+  border: 1px solid #3498db;
   border-radius: 20px ;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-top: 10px;
   max-height: 50rem;
   overflow-y: auto;
   padding: 10px;
-  background-color: #fff;
+  background-color: #3498db;
   position: fixed;
   top: 2.3rem;
   right: 18%;
@@ -805,9 +809,77 @@ all: unset;
   margin-top: 5px;
   margin-bottom: 5px;
   text-align: center;
-  
 }
 .configuration a{
-  color:#1c1e21;
-  font-size: 16px;
+  color:#ffff;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+ 
+}
+.configuration a:hover {
+  color: #fd8f45;
+  transition: all 0.3s ease 0s;
+}
+.compartir-publicacion{
+  display: none;
+  background-color: #fff;
+  border-radius: 10px;
+  border: #ebebeb solid 2px;
+  box-shadow: 2px 2px 8px 6px rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  width: 40%;
+  min-width: 428px;
+  height: 32vh;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  z-index: 1000;
+}
+.compartir-publicacion label{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.compartir-publicacion label button{
+  border: none;
+  
+  padding: 5px 40px;
+  background-color: #3498db;
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+}
+.compartir-publicacion label button:hover {
+  background-color: #fd8f45;
+}
+
+.compartir-publicacion label a{
+  text-decoration: none;
+  color: #000000;
+  font-size: 32px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.lista-notificaciones{
+  display: none;
+  border: 1px solid #c7dcfc;
+  border-radius: 10px ;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  max-height: 50rem;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #ffff;
+  position: fixed;
+  top: 2.3rem;
+  right: 25%;
 }

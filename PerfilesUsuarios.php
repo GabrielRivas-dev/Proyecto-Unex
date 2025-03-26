@@ -10,7 +10,7 @@ if (isset($_GET['id'])) {
   $usuarioId = (int) $_GET['id'];
   $_SESSION['usuario'] = $usuarioId;
 
-  if($_SESSION['usuario']==$_SESSION['id']){
+  if ($_SESSION['usuario'] == $_SESSION['id']) {
     header('Location: perfil.php');
   }
 
@@ -36,22 +36,24 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-  <header class="header">
+<header class="header">
     <div class="logo">
       <a href="PaginaPrincipal.php">Unex</a>
     </div>
+    <a href="perfil.php"><img class="perfil-header" src="<?php echo $imagenUsuario; ?>" alt="perfil"></a>
     <nav>
-    <ul class="nav-links">
+      <ul class="nav-links">
         <li><a href="PaginaPrincipal.php"><i class="fa-solid fa-house"></i></a></li>
-        <li><a href="perfil.php"><img class="perfil-header" src="<?php echo $imagenUsuario; ?>" alt="perfil"></a></li>
-        <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i></a></li>
-        <li><a href="#"><i class="fa-solid fa-bell"></i></a></li>
+        <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i><span id="contador-mensajes"></span></a></li>
+        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span id="contador-notificaciones"></span></button></li>
         <li><button onclick="openConfiguration()"><i class="fa-solid fa-gear"></i></button></li>
       </ul>
     </nav>
+    <div id="lista-notificaciones" class="lista-notificaciones">
+    </div>
     <div id="configuration" class="configuration">
       <ul>
-        <li><a href=""><strong>Configurar usuario</strong></a></li>
+        <li><a href="Configuracion_usuario.php"><strong>Configurar usuario</strong></a></li>
         <li><a href="cerrar_sesion.php"><strong>Cerrar sesion</strong></a></li>
       </ul>
     </div>
@@ -64,7 +66,7 @@ if (isset($_GET['id'])) {
         <a href="PaginaPrincipal.php">Inicio</a>
         <a href="perfil.php">Perfil</a>
         <a href="#">Mensajes</a>
-        <a href="#">Cerrar sesion</a>
+        <a href="cerrar_sesion.php">Cerrar sesion</a>
       </div>
     </div>
   </header>
@@ -78,22 +80,35 @@ if (isset($_GET['id'])) {
     <div class="main-content" id="main-content">
       <div class="post-follows">
         <div class="info-followers">
-          <label for="followers"><h3>Seguidores:</h3><span id="seguidores-count">0</span></label>
-          <label for="followed"><h3>Seguidos:</h3><span id="seguidos-count">0</span></label>
+          <label for="followers">
+            <h3>Seguidores:</h3><span id="seguidores-count">0</span>
+          </label>
+          <label for="followed">
+            <h3>Seguidos:</h3><span id="seguidos-count">0</span>
+          </label>
         </div>
         <div class="post-follows-btns">
-      <button class="post-follows-btn" id="seguir-btn-<?php echo  $usuarioId?>" onclick="toggleSeguir(<?php echo  $usuarioId?>)">Seguir</button>
-      <button class="post-mensaje-btn">Mensaje</button>
+          <button class="post-follows-btn" id="seguir-btn-<?php echo $usuarioId ?>"
+            onclick="toggleSeguir(<?php echo $usuarioId ?>)">Seguir</button>
+          <a href="mensajeria.php?receptor_id=<?php echo $usuarioId; ?>">
+            <button class="post-mensaje-btn">Mensaje</button>
+          </a>
+        </div>
       </div>
-    </div>
-      <div class="publicaciones" id="publicaciones">
-
+      <div class="publicaciones" id="publicaciones"></div>
+      <div class="compartir-publicacion" id="compartir-publicacion" popover>
+        <label>
+          <h2>¿Deseas compartir esta publicacion?</h2>
+          <a onclick="divCompartir()">&times</a>
+        </label>
+        <label><button onclick="compartirPublicacion()">Si</button>
+          <button onclick="divCompartir()">No</button></label>
       </div>
     </div>
     <div class="right-column">
       Seguidos
       <div class="seguidos" id="seguidos">
-        
+
       </div>
 
     </div>

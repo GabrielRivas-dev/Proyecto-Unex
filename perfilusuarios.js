@@ -1,3 +1,123 @@
+function obtenerMensajesNoleidos() {
+    fetch("obtener_mensajes_noleidos.php")
+    .then(response => response.json())
+    .then(data => {
+        let contador = document.getElementById("contador-mensajes");
+        if (data.total_no_leidos > 0) {
+            contador.textContent = data.total_no_leidos;
+        } else {
+            contador.style.display = "none"; // Ocultar si no hay mensajes no leídos
+        }
+    })
+    .catch(error => console.error("Error al obtener contador de mensajes:", error));
+}
+setInterval(obtenerMensajesNoleidos, 2000);
+
+// También actualizar al cargar la página
+document.addEventListener("DOMContentLoaded", obtenerMensajesNoleidos);  
+
+function obtenerNotificaciones() {
+    fetch('obtener_notificaciones.php')
+    .then(response => response.json())
+    .then(data => {
+
+        // Actualizar el contador de notificaciones no leídas
+        const contador = document.getElementById("contador-notificaciones");
+        if (data.no_leidas > 0) {
+            contador.textContent = data.no_leidas;
+        } else {
+            contador.style.display = "none"; // Ocultar si no hay mensajes no leídos
+        }
+
+        // Obtener el div donde se mostrarán las notificaciones
+        const lista = document.getElementById("lista-notificaciones");
+        lista.innerHTML = ""; // Limpiar lista
+
+        if (data.notificaciones.length === 0) {
+            lista.innerHTML = "<p>No tienes notificaciones.</p>";
+        }
+
+        data.notificaciones.forEach(notif => {
+            const div = document.createElement("div");
+            div.textContent = notif.mensaje;
+            div.style.padding = "10px";
+            div.style.borderBottom = "1px solid #ddd";
+
+            // Si la notificación no está leída, poner un fondo amarillo
+            if (notif.leida == 0) {
+                div.style.backgroundColor = "#b8dbff"; // Color amarillo claro
+                div.style.fontWeight = "bold"; // Resaltar texto
+            }
+
+            lista.appendChild(div);
+        });
+    })
+    .catch(error => console.error("Error al obtener notificaciones:", error));
+}
+
+// Cargar notificaciones cada 10 segundos (para actualizar en tiempo real)
+setInterval(obtenerNotificaciones, 10000);
+
+// Llamar a la función cuando cargue la página
+document.addEventListener("DOMContentLoaded", obtenerNotificaciones);
+
+
+// Mostrar/Ocultar notificaciones al hacer clic en el botón
+function mostrarNotificaciones() {
+    const lista = document.getElementById("lista-notificaciones");
+
+    if (lista.style.display === "block") {
+        lista.style.display = "none";
+
+        // Marcar notificaciones como leídas solo cuando se cierre el div
+        fetch('marcar_notificaciones.php', { method: 'POST' })
+        .then(() => obtenerNotificaciones()); // 🔄 Volver a cargar para actualizar el contador
+    } else {
+        lista.style.display = "block";
+    }
+}
+
+let publicacionACompartir= null;
+
+function divCompartir(publicacionId){
+     publicacionACompartir = publicacionId;
+    const div= document.getElementById('compartir-publicacion');
+    div.style.display = div.style.display === 'block' ? 'none' : 'block';
+    
+    }
+    function compartirPublicacion() {
+        if (!publicacionACompartir) {
+            alert("Error: No se encontró la publicación.");
+            return;
+        }
+    
+        const datos = JSON.stringify({ publicacion_id: publicacionACompartir });
+    
+        console.log("Enviando datos:", datos); // 👀 Ver qué se envía
+    
+        fetch('compartir_publicacion.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: datos
+        })
+        .then(response => response.text()) // Ver la respuesta del servidor
+        .then(data => {
+            console.log("Respuesta del servidor:", data); // 👀 Ver qué responde PHP
+            try {
+                let jsonData = JSON.parse(data);
+                if (jsonData.success) {
+                    alert("¡Publicación compartida con éxito!");
+                    location.reload();
+                } else {
+                    alert("Error al compartir: " + jsonData.message);
+                }
+            } catch (error) {
+                console.error("Error al procesar JSON:", error);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+    
 document.addEventListener('DOMContentLoaded', () => {
     // Buscar todos los botones con la clase 'seguir-btn'
     const botones = document.querySelectorAll('button[id^="seguir-btn-"]');
@@ -69,7 +189,7 @@ function comentariosPost(event, publicacionId) {
     const comentariosDiv = document.getElementById(`comentarios-${publicacionId}`);
     const commentBtnColor = document.getElementById(`comment-btn-${publicacionId}`);
     comentariosDiv.style.display = comentariosDiv.style.display === 'block' ? 'none' : 'block';
-    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? 'black' : 'green';
+    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? '#79aefd' : 'green';
 
     fetch(`obtener_comentarios.php?publicacion_id=${publicacionId}`)
         .then(response => response.json())
@@ -342,10 +462,10 @@ function eliminarPublicacion(publicacionId) {
                             <span>${publicacion.total_comments}</span>
                         </li>
                         <li>
-                            <button class="share-btn">
+                            <button id="share-btn-${publicacion.publicacion_id}" class="share-btn" onclick="divCompartir(${publicacion.publicacion_id})">
                                 <i class="fa-solid fa-share-from-square"></i>
                             </button>
-                            <span>0</span>
+                            <span>${publicacion.compartidos}</span>
                         </li>
                     </ul>
                 </div>

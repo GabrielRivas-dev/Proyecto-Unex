@@ -41,15 +41,17 @@ $publicacion = $resultado->fetch_assoc();
     <div class="logo">
       <a href="PaginaPrincipal.php">Unex</a>
     </div>
+    <a href="perfil.php"><img class="perfil-header" src="<?php echo $imagenUsuario; ?>" alt="perfil"></a>
     <nav>
       <ul class="nav-links">
         <li><a href="PaginaPrincipal.php"><i class="fa-solid fa-house"></i></a></li>
-        <li><a href="perfil.php"><img class="perfil-header" src="<?php echo $imagenUsuario; ?>" alt="perfil"></a></li>
-        <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i></a></li>
-        <li><a href="#"><i class="fa-solid fa-bell"></i></a></li>
+        <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i> <span id="contador-mensajes"></span></a></li>
+        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span id="contador-notificaciones"></span></button></li>
         <li><button onclick="openConfiguration()"><i class="fa-solid fa-gear"></i></button></li>
       </ul>
     </nav>
+    <div id="lista-notificaciones" class="lista-notificaciones">
+    </div>
     <div id="configuration" class="configuration">
       <ul>
         <li><a href="Configuracion_usuario.php"><strong>Configurar usuario</strong></a></li>
