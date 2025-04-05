@@ -96,14 +96,21 @@ $publicacion = $resultado->fetch_assoc();
           <img id="imagen-receptor" src="uploads/default.jpg" alt="Foto de usuario">
           <p id="nombre-receptor">Selecciona un usuario</p>
         </div>
+        <div class="contenidoArchivo" id="contenidoArchivo">
+          <span id="file-name">Seleccionar archivo</span>
+          <a onclick="quitarArchivo()" class="cerrarArchivo">&times</a>
+        </div>
         <div id="mensajes"></div>
         <div class="enviarMensaje">
           <form id="formularioMensaje" enctype="multipart/form-data">
-          <div class="button-image">
-            <label for="archivo" class="label-button"><i class="fa-solid fa-file-import"></i></label>
-          <input type="file" class="image-input" id="archivo" name="archivo" accept="image/*, apllication/docx, application/pdf, application/msword, application/vnd.ms-excel">
-          </div>
-            <input class="input-mensaje" type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje..." autocomplete="off">
+            <div class="button-image">
+              <label for="archivo" class="label-button"><i class="fa-solid fa-file-import"></i>
+              </label>
+              <input type="file" class="image-input" id="archivo" name="archivo"
+                accept="image/*, apllication/docx, application/pdf, application/msword, application/vnd.ms-excel">
+            </div>
+            <input class="input-mensaje" type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje..."
+              autocomplete="off">
             <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
           </form>
         </div>
@@ -112,8 +119,21 @@ $publicacion = $resultado->fetch_assoc();
     </div>
     </div>
     <!--CONTENIDO DE LA DERECHA -->
-    <div class="right-column">Grupos
+    <div class="right-column">Grupos <a onclick="AgregarGrupo()"><i class="fa-solid fa-plus"></i></a>
+      <div class="agregarGrupo" id="grupoFormulario">
+      <input type="hidden" id="idCreador" value="<?php echo $idUsuario;?>">
+        <form id="formCrearGrupo">
+          <label for="nombreGrupo">Nombre del grupo</label>
+          <input type="text" id="nombreGrupo" name="nombre_grupo" required maxlength="30">
+          <label>Seleccionar miembros</label>
+          <div id="listaUsuarios">
+          </div>
+          <button type="submit">Crear Grupo</button>
+        </form>
+        <div id="mensaje"></div>
+      </div>
 
+      <div class="grupos" id="grupos"></div>
     </div>
   </main>
   <script src="config.js.php"></script> <!-- Cargar antes que main.js -->

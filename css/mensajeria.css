@@ -191,6 +191,43 @@ header .search-bar:hover, .header .search-bar:focus, .header .search-bar:not(:pl
       right: 35px;
     }
   }
+
+  #resultados {
+    display: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    max-height: 50rem;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #fff;
+    position: fixed;
+    top: 2.1rem;
+  }
+  
+  #resultados .perfilresultados {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  #resultados .foto-perfil {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  #resultados .info-perfil a {
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+  }
 /*ENCABEZADO FIN*/
 /*BODY*/
 .container {
@@ -257,7 +294,7 @@ header .search-bar:hover, .header .search-bar:focus, .header .search-bar:not(:pl
 
 .chat-header {
   background-color:#3498db;
-    padding: 5px;
+    padding: 4px;
     border-radius: 8px 8px 0px 0px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -310,6 +347,7 @@ color: white;
   font-size: 16px;
 }
 
+
 /* Mensajes recibidos */
 .mensaje-ajeno {
   background-color: #fab47b; /* Rojo claro */
@@ -333,7 +371,7 @@ color: white;
 .input-mensaje{
   display: block;
   width: 87%;
-  height: 3rem;
+  height: 2.7rem;
   background-color: #fff;
   font-size: 18px;
   border-radius: 10px;
@@ -346,7 +384,7 @@ color: white;
 
 .enviarMensaje button {
     width: 10%;
-    height: 3rem;
+    height: 2.6rem;
     border: none;
     background: transparent;
     transition: all 0.3s;
@@ -454,6 +492,22 @@ color: white;
     padding: 15px;
     transition: all 0.3s ease 0s;
   }
+  .grupo-item{
+    height: 86px;
+    margin-top: 10px;
+    background-color: #168edf;
+    border-radius: 10px;
+    padding: 10px;
+    transition: all 0.3s;
+  }
+  .grupo-item:hover{
+    background-color: #0d5c91;
+    padding: 15px;
+    transition: all 0.3s ease 0s;
+  }
+  .grupo-item p, .grupo-item span {
+    color: #ffff;
+  }
   .ultimo-mensaje-novisto {
     font-size: 16px;
     color: rgb(247, 247, 247);
@@ -529,4 +583,75 @@ color: white;
 
 .boton-descargar:hover {
     background: #0056b3;
+}
+
+.contenidoArchivo{
+  display: none;
+    border: 1px solid #c7dcfc;
+    border-radius: 10px ;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 340px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #ffff;
+    position: fixed;
+    top: 78%;
+    right: 65%;
+    text-align: center;
+}
+
+.cerrarArchivo{
+  cursor: pointer;
+  font-size: 20px;
+}
+.agregarGrupo{
+  display: none;
+  position: fixed;
+  top: 30%;
+  right: 35%;
+  left: 35%;
+  background-color: #eaf4fa;
+  border: 1px solid #a9cbff;
+    border-radius: 10px ;
+    box-shadow: 0 1px 3px rgba(11, 46, 78, 0.1);
+    padding: 10px;
+    height: auto;
+}
+.agregarGrupo form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.agregarGrupo form label{
+  font-size: 22px;
+  text-align: center;
+}
+
+#nombregrupo{
+  height:1.5rem ;
+  padding: 2px 5px;
+  font-size: 16px;
+  text-align: center;
+  width: 80%;
+}
+#listaUsuarios{
+  overflow-y:scroll;
+  height: 4.5rem;
+  margin-bottom: 5px;
+}
+.agregarGrupo form button{
+  width: 9rem;
+  font-size: 18px;
+  background-color:#007bff;
+  color: #fff;
+  border: none;
+  padding: 7px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s
+}
+.agregarGrupo form button:hover{
+  transform: scale(1.1);
+  transition: all 0.3s ease 0s;
+  background-color: #da7837;
 }

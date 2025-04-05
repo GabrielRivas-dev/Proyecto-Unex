@@ -11,11 +11,16 @@ $sql = "
            u.nombre, 
            u.apellido, 
            u.imagen,
-           (SELECT mensaje FROM mensajes 
+           (SELECT 
+                CASE 
+                    WHEN archivo IS NOT NULL AND archivo != '' THEN '📎 Archivo adjunto' 
+                    ELSE mensaje 
+                END 
+            FROM mensajes 
             WHERE chat_id = c.id 
             ORDER BY fecha DESC 
             LIMIT 1) AS ultimo_mensaje,
-            (SELECT visto FROM mensajes 
+           (SELECT visto FROM mensajes 
             WHERE chat_id = c.id 
             ORDER BY fecha DESC 
             LIMIT 1) AS visto,

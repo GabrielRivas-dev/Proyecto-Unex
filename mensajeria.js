@@ -1,3 +1,97 @@
+function obtenerMensajesGrupo(grupoId) {
+    fetch(`obtener_mensajes_grupo.php?grupo_id=${grupoId}`)
+    .then(response => response.json())
+    .then(data => {
+        let mensajesDiv = document.getElementById("mensajes");
+        mensajesDiv.innerHTML = "";
+
+        data.forEach(mensaje => {
+            let div = document.createElement("div");
+            div.classList.add("mensaje");
+            div.textContent = `${mensaje.nombre}: ${mensaje.mensaje}`; // Muestra el nombre del emisor
+            mensajesDiv.appendChild(div);
+        });
+
+        mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
+    });
+}
+
+//Aparecer formulario para crear el grupo
+function AgregarGrupo(){
+ const div= document.getElementById("grupoFormulario");
+ div.style.display = div.style.display=== 'block' ? 'none' : 'block'; 
+ document.getElementById("formCrearGrupo").reset();
+}
+
+//formulario para crear grupos
+document.addEventListener("DOMContentLoaded", function() {
+    cargarUsuarios(); // Llamar función para mostrar usuarios
+
+    document.getElementById("formCrearGrupo").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let nombreGrupo = document.getElementById("nombreGrupo").value;
+        let miembros = [];
+        
+        document.querySelectorAll("input[name='miembros']:checked").forEach(checkbox => {
+            miembros.push(checkbox.value);
+        });
+
+        if (miembros.length === 0) {
+            alert("Selecciona al menos un miembro");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append("nombre_grupo", nombreGrupo);
+        formData.append("miembros", JSON.stringify(miembros));
+
+        fetch("crear_grupo.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById("mensaje").innerHTML = "Grupo creado con éxito.";
+                document.getElementById("formCrearGrupo").reset();
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error al crear grupo:", error));
+    });
+});
+
+
+function cargarUsuarios() {
+    fetch("obtener_usuarios.php")
+    .then(response => response.json())
+    .then(data => {
+        let listaUsuarios = document.getElementById("listaUsuarios");
+        listaUsuarios.innerHTML = "";
+
+        const idCreador = document.getElementById("idCreador").value; // Obtener ID del creador
+
+
+        data.forEach(usuario => {
+            if (usuario.id != idCreador) { // Evita mostrar al creador
+                let div = document.createElement("div");
+                div.innerHTML = `
+                    <input type="checkbox" name="miembros" value="${usuario.id}">
+                    ${usuario.nombre} ${usuario.apellido}
+                `;
+                listaUsuarios.appendChild(div);
+            }
+        });
+
+        if (listaUsuarios.innerHTML === "") {
+            listaUsuarios.innerHTML = "<p>No hay usuarios disponibles</p>";
+        }
+    })
+    .catch(error => console.error("Error al cargar usuarios:", error));
+}
+
 
 function cargarConversaciones() {
     fetch("contenedorChats.php")
@@ -40,6 +134,50 @@ setInterval(cargarConversaciones, 2000);
 
 // Llamar a la función al cargar la página
 document.addEventListener('DOMContentLoaded', cargarConversaciones);
+
+function cargarGrupos() {
+    fetch("contenedorGrupos.php")
+    .then(response => response.json())
+    .then(data => {
+        const listaGrupos = document.getElementById("grupos");
+        listaGrupos.innerHTML = "";
+
+        if (!data.length) {
+            listaGrupos.innerHTML = "<p>No hay grupos disponibles</p>";
+            return;
+        }
+
+        data.forEach(grupo => {
+            // Evitar duplicados
+            if (!document.getElementById(`grupo-${grupo.grupo_id}`)) {
+                let div = document.createElement("div");
+                div.classList.add("grupo-item");
+                div.id = `grupo-${grupo.grupo_id}`;
+                div.onclick = () => seleccionarReceptor(grupo.grupo_id, true); // Indica que es un grupo
+
+                // Mostrar el último mensaje si está disponible
+                let ultimoMensaje = grupo.ultimo_mensaje 
+                    ? `<span class="ultimo-mensaje">${grupo.ultimo_mensaje}</span>` 
+                    : `<span class="ultimo-mensaje">Sin mensajes</span>`;
+
+                div.innerHTML = `
+                    <div class="chat-info">
+                        <p><strong>${grupo.grupo_nombre}</strong></p>
+                        ${ultimoMensaje}
+                    </div>
+                `;
+                listaGrupos.appendChild(div);
+            }
+        });
+    })
+    .catch(error => console.error("Error al cargar grupos:", error));
+}
+
+setInterval(cargarGrupos, 2000);
+
+// Llamar a la función al cargar la página
+document.addEventListener('DOMContentLoaded', cargarGrupos);
+
 let chatId = null;
 let receptorId = null;
 let receptorInfo = {}; // Almacenar la info del receptor
@@ -80,6 +218,23 @@ function actualizarInterfazReceptor() {
     document.getElementById("imagen-receptor").src = receptorInfo.imagen;
 }
 
+document.getElementById("archivo").addEventListener("change", function() {
+    let archivo = this.files[0]; // Obtener el archivo seleccionado
+    const fileDiv= document.getElementById("contenidoArchivo");
+    if (archivo) {
+        document.getElementById("file-name").textContent = archivo.name; // Mostrar nombre
+        fileDiv.style.display= 'block';
+    } else {
+        document.getElementById("file-name").textContent = "Seleccionar archivo"; // Resetear
+        fileDiv.style.display= 'none';
+    }
+});
+function quitarArchivo(){
+    document.getElementById("archivo").value = "";
+    document.getElementById("file-name").textContent = "";
+    document.getElementById("contenidoArchivo").style.display= 'none';
+}
+
 // Función para enviar un mensaje
 document.getElementById("formularioMensaje").addEventListener("submit", function(event) {
     event.preventDefault(); // Evitar recarga de página
@@ -96,6 +251,7 @@ document.getElementById("formularioMensaje").addEventListener("submit", function
         if (data.success) {
             document.getElementById("mensaje").value = "";
             document.getElementById("archivo").value = "";
+            document.getElementById("file-name").textContent = "";
             obtenerMensajes(); // Recargar mensajes
         } else {
             alert("Error: " + data.message);
@@ -107,10 +263,13 @@ document.getElementById("formularioMensaje").addEventListener("submit", function
 function obtenerMensajes() {
     if (!chatId) return;
 
+    const mensajesDiv = document.getElementById("mensajes");
+    const estabaAbajo = mensajesDiv.scrollTop + mensajesDiv.clientHeight >= mensajesDiv.scrollHeight - 10; // Detectar si está en el último mensaje
+
     fetch("obtener_mensajes.php?chat_id=" + chatId)
     .then(response => response.json())
     .then(data => {
-        const mensajesDiv = document.getElementById("mensajes");
+        const scrollPosicionAntes = mensajesDiv.scrollTop;
         mensajesDiv.innerHTML = "";
 
         data.forEach(mensaje => {
@@ -185,7 +344,7 @@ function obtenerMensajes() {
                 let vistoIcon = document.createElement("span");
                 // Icono de mensaje visto/no visto
                 if (mensaje.visto == 1) {
-                    vistoIcon.innerHTML = " <i class='fa-solid fa-eye'></i>"; 
+                    vistoIcon.innerHTML = "<i class='fa-solid fa-eye'></i>"; 
                     vistoIcon.style.color = "green";
                 } else {
                     vistoIcon.innerHTML = "<i class='fa-solid fa-eye'></i>"; 
@@ -201,14 +360,17 @@ function obtenerMensajes() {
 
             mensajesDiv.appendChild(div);
         });
-
-        mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
+  // Mantener posición del scroll si el usuario no estaba en el último mensaje
+  if (estabaAbajo) {
+    mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
+} else {
+    mensajesDiv.scrollTop = scrollPosicionAntes;
+}
     });
+    marcarMensajesVistos();
 }
 
-
-
-setInterval(obtenerMensajes, 3000);
+setInterval(obtenerMensajes, 4000);
 
 function mostrarOpcionEliminar(mensajeDiv, mensajeId) {
     // Si ya existe un botón de eliminar en el mensaje, lo removemos
