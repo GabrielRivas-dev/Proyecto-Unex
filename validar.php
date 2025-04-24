@@ -25,7 +25,7 @@ if(isset($_POST['Enviar'])){
             if (password_verify($clave, $hashed_password)) {
 
 
-                $sql = "SELECT Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen FROM usuarios WHERE id=?";
+                $sql = "SELECT Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen, presentacion FROM usuarios WHERE id=?";
                 $stmt = $conex->prepare($sql);
                 $stmt->bind_param("s", $idUsuario);
                 $stmt->execute();
@@ -40,7 +40,7 @@ if(isset($_POST['Enviar'])){
                     $EmailUsuario =$row['Email'];
                     $ClaveUsuario =$row['Clave'];
                     $imagenUsuario =$row['imagen'];
-                    
+                    $presentacionUsuario =$row['presentacion'];
                 
                     echo "<p class='exitoso'>Bienvenido $NombreUsuario</p>";
                     session_start();
@@ -54,6 +54,7 @@ if(isset($_POST['Enviar'])){
                     $_SESSION['Email'] = $EmailUsuario;
                     $_SESSION['Clave'] = $ClaveUsuario;
                     $_SESSION['imagen'] = $imagenUsuario;
+                    $_SESSION['presentacion'] = $presentacionUsuario;
                     header('Location: PaginaPrincipal.php');
                 exit();
                 }

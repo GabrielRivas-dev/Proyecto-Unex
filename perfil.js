@@ -1,3 +1,26 @@
+document.getElementById("formPresentacion").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const texto = document.getElementById("presentacion").value.trim();
+    
+    fetch("guardar_presentacion.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "presentacion=" + encodeURIComponent(texto)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("vuelve a iniciar sesion para efectuar los cambios");
+        } else {
+            alert("Error: " + data.message);
+        }
+    });
+});
+
+
 function obtenerMensajesNoleidos() {
     fetch("obtener_mensajes_noleidos.php")
     .then(response => response.json())
@@ -111,6 +134,10 @@ function comentariosPost(event, publicacionId) {
             const contenedor = document.getElementById(`comentarios-publicacion-${publicacionId}`);
             
             contenedor.innerHTML = ''; // Limpiar comentarios anteriores
+            if (!data.length) {
+                contenedor.innerHTML = "<p>Se el primero en comentar</p>";
+                return;
+            }
 
             data.forEach(comentario => {
                 const divComentario = document.createElement('div');
@@ -329,6 +356,12 @@ function eliminarPublicacion(publicacionId) {
     .then(data => {
         const contenedorPublicaciones = document.getElementById('publicaciones');
 
+         //POR SI NO TIENE PUBLICACIONES
+         if (!data.length) {
+            contenedorPublicaciones.innerHTML = '<div class="post"><p style="text-align:center;">No tienes publicaciones</p></div>';
+            return;
+        }
+
         data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
         // Limpiar el contenedor
@@ -413,6 +446,42 @@ function eliminarPublicacion(publicacionId) {
   
   // Llama a la función para cargar publicaciones al cargar la página
   cargarPublicacionesPerfil();
+
+  function PublicacionesPerfil() {
+    fetch('perfilpublicaciones.php')
+    .then(response => response.json())
+    .then(data => {
+        const contenedorPublicaciones = document.getElementById('publicacionesPerfil');
+
+         //POR SI NO TIENE PUBLICACIONES
+         if (!data.length) {
+            contenedorPublicaciones.innerHTML = '<div class="post"><p style="text-align:center;">No tienes publicaciones</p></div>';
+            return;
+        }
+
+        data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+        // Limpiar el contenedor
+        contenedorPublicaciones.innerHTML = '';
+
+        // Iterar sobre los datos recibidos y crear los elementos
+        data.forEach(publicacion => {
+            const nuevaPublicacion = document.createElement('div');
+            
+
+            nuevaPublicacion.innerHTML = `
+                      <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
+              `;
+
+
+            // Agregar la nueva publicación al contenedor
+            contenedorPublicaciones.appendChild(nuevaPublicacion);
+        });
+    });
+}
+  
+  // Llama a la función para cargar publicaciones al cargar la página
+  PublicacionesPerfil();
 
   function cargarSeguidos() {
     fetch('contenedorSeguidos.php')

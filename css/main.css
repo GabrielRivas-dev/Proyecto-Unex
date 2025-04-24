@@ -252,6 +252,20 @@ body {
   transform: scale(1.05);
 }
 
+.mensajePresentacion{
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+  width: 100%;
+  margin-top: 5px;
+  text-align: center;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 8px
+}
+
 .right-column {
   
   background-color: #fff;

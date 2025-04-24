@@ -80,7 +80,7 @@ function mostrarNotificaciones() {
 function cambiarClave(){
 const div= document.getElementById('cambiar-contraseña');
 div.style.display = div.style.display === 'block' ? 'none' : 'block';
-console.log("aja mi panita");
+
 }
 
 document.getElementById('form-cambiar-password').addEventListener('submit', function(event) {

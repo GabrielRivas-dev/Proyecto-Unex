@@ -3,6 +3,7 @@ session_start();
 include("conexion.php");
 
 $nombreGrupo = $_POST['nombre_grupo'];
+$imagenGrupo = null;
 $miembros = json_decode($_POST['miembros'], true);
 $creador = $_SESSION['id'];
 
@@ -11,10 +12,18 @@ if (empty($nombreGrupo) || empty($miembros)) {
     exit();
 }
 
+if (!empty($_FILES['grupo-imagen'])) {
+    $nombreArchivo = time() . "_" . $_FILES['grupo-imagen']['name'];
+    $rutaArchivo = "uploads/" . $nombreArchivo;
+
+    if (move_uploaded_file($_FILES['grupo-imagen']['tmp_name'], $rutaArchivo)) {
+        $imagenGrupo = $rutaArchivo;
+    }
+}
 // Crear el grupo
-$sql = "INSERT INTO grupos (nombre, creado_por) VALUES (?, ?)";
+$sql = "INSERT INTO grupos (nombre, creado_por, imagen) VALUES (?, ?, ?)";
 $stmt = $conex->prepare($sql);
-$stmt->bind_param("si", $nombreGrupo, $creador);
+$stmt->bind_param("sis", $nombreGrupo, $creador, $imagenGrupo);
 $stmt->execute();
 $grupoId = $stmt->insert_id;
 

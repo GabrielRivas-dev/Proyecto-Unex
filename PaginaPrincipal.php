@@ -14,6 +14,7 @@ $GeneroUsuario = $_SESSION['Genero'];
 $EmailUsuario = $_SESSION['Email'];
 $ClaveUsuario = $_SESSION['Clave'];
 $imagenUsuario = $_SESSION['imagen'];
+$presentacionUsuario = $_SESSION['presentacion'];
 include 'conexion.php';
 
 $sql = "SELECT p.titulo, p.contenido, p.fecha, p.imagensubida, u.nombre, u.apellido, u.imagen
@@ -78,6 +79,9 @@ $publicacion = $resultado->fetch_assoc();
         <a href="perfil.php"><img src="<?php echo $imagenUsuario; ?>" alt="perfil"></a>
         <p><?php echo "$NombreUsuario $ApellidoUsuario"; ?></p>
       </div>
+      <div class="mensajePresentacion">
+        <p id="mensajePresentacion"><?php echo $presentacionUsuario; ?></p>
+    </div>
     </div>
     <!--CONTENIDO DEL MEDIO -->
     <div class="main-content" id="main-content">

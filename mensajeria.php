@@ -114,20 +114,30 @@ $publicacion = $resultado->fetch_assoc();
             <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
           </form>
         </div>
-
       </div>
+      <div class="info-grupos" id="info-grupos">
+        <div class="headerGrupo">
+          <img src="uploads/default.jpg" alt="foto">
+          <h1>Información del grupo</h1>
+          <p>creado en 12/64/45</p>
+          <hr>
+        </div>
+        <div id="botonesGrupo"></div>
+        <div id="mostrarGrupo"></div>
     </div>
     </div>
     <!--CONTENIDO DE LA DERECHA -->
     <div class="right-column">Grupos <a onclick="AgregarGrupo()"><i class="fa-solid fa-plus"></i></a>
       <div class="agregarGrupo" id="grupoFormulario">
-      <input type="hidden" id="idCreador" value="<?php echo $idUsuario;?>">
+        <input type="hidden" id="idCreador" value="<?php echo $idUsuario; ?>">
         <form id="formCrearGrupo">
           <label for="nombreGrupo">Nombre del grupo</label>
-          <input type="text" id="nombreGrupo" name="nombre_grupo" required maxlength="30">
+          <input type="text" id="nombreGrupo" name="nombre_grupo" required maxlength="30" requerid autocomplete="off">
           <label>Seleccionar miembros</label>
           <div id="listaUsuarios">
           </div>
+          <label>Seleccionar imagen del grupo</label>
+          <input type="file" accept="image/*" id="grupo-imagen" name="grupo-imagen" requerid>
           <button type="submit">Crear Grupo</button>
         </form>
         <div id="mensaje"></div>

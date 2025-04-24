@@ -62,6 +62,13 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
         exit();
     }
 }
+// Desocultar el chat si estaba oculto
+if ($emisor == $chat['usuario1_id']) {
+    $conex->query("UPDATE chats SET usuario1_oculto = 0 WHERE id = $chat_id");
+} elseif ($emisor == $chat['usuario2_id']) {
+    $conex->query("UPDATE chats SET usuario2_oculto = 0 WHERE id = $chat_id");
+}
+
 
 // Insertar mensaje en la base de datos
 $sql = "INSERT INTO mensajes (chat_id, emisor_id, receptor_id, mensaje, archivo, visto) VALUES (?, ?, ?, ?, ?, 0)";

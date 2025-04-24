@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 
   include("conexion.php");  // Conectar a la base de datos
 
-  $sql = $conex->prepare("SELECT Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen FROM usuarios WHERE id = ?");
+  $sql = $conex->prepare("SELECT Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen, presentacion FROM usuarios WHERE id = ?");
   $sql->bind_param("i", $usuarioId);
   $sql->execute();
   $result = $sql->get_result();
@@ -76,6 +76,9 @@ if (isset($_GET['id'])) {
         <img src="<?php echo $perfil['imagen'] ?>" alt="perfil">
         <p><?php echo $perfil['Nombre'] . ' ' . $perfil['Apellido']; ?></p>
       </div>
+      <div class="mensajePresentacionUsuario">
+        <p id="mensajePresentacion"><?php echo $perfil['presentacion']; ?></p>
+    </div>
     </div>
     <div class="main-content" id="main-content">
       <div class="post-follows">

@@ -259,6 +259,7 @@ header .search-bar:hover, .header .search-bar:focus, .header .search-bar:not(:pl
     margin-top: 75px;
     height: 85vh;
     left: 1%;
+    overflow-y:scroll;
 }
 
 .right-column {
@@ -271,6 +272,7 @@ header .search-bar:hover, .header .search-bar:focus, .header .search-bar:not(:pl
     margin-top: 75px;
     height: 85vh;
     right: 1%;
+    overflow-y:scroll;
 }
 
 .main-content {
@@ -486,14 +488,14 @@ color: white;
     border-radius: 10px;
     padding: 10px;
     transition: all 0.3s;
+    position: relative;
   }
   .chat-item:hover{
     background-color: #0d5c91;
-    padding: 15px;
-    transition: all 0.3s ease 0s;
+    transform: scale(1.01); 
   }
   .grupo-item{
-    height: 86px;
+    position: relative;
     margin-top: 10px;
     background-color: #168edf;
     border-radius: 10px;
@@ -502,19 +504,28 @@ color: white;
   }
   .grupo-item:hover{
     background-color: #0d5c91;
-    padding: 15px;
-    transition: all 0.3s ease 0s;
+    transform: scale(1.01); 
   }
   .grupo-item p, .grupo-item span {
     color: #ffff;
   }
   .ultimo-mensaje-novisto {
+    display: block; /* o inline-block */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
     font-size: 16px;
     color: rgb(247, 247, 247);
     color: rgb(104, 202, 120);
   font-weight: 600;
 }
 .ultimo-mensaje-visto {
+  display: block; /* o inline-block */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
   font-size: 16px;
   color: rgb(247, 247, 247);
 
@@ -539,6 +550,27 @@ color: white;
     margin-right: 10px;
     object-fit: cover;
     object-position: center;
+  }
+  .grupos img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .grupos a {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    text-decoration: none;
+    color: #1c1e21;
+  }
+  .grupo a p{
+    margin-left: 3px;
+    color: #fff;
+    font-weight: 600;
   }
   .label-button{
     display: inline-block;
@@ -625,6 +657,7 @@ color: white;
 .agregarGrupo form label{
   font-size: 22px;
   text-align: center;
+  margin-bottom: 5px;
 }
 
 #nombregrupo{
@@ -648,10 +681,77 @@ color: white;
   padding: 7px 10px;
   cursor: pointer;
   border-radius: 10px;
-  transition: all 0.3s
+  transition: all 0.3s;
+  margin-top: 10px;
 }
 .agregarGrupo form button:hover{
   transform: scale(1.1);
   transition: all 0.3s ease 0s;
   background-color: #da7837;
+}
+.eliminar-chat-btn{
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.eliminar-chat-btn:hover{
+  color: red;
+}
+.info-grupos{
+  display: none;
+  height: 85vh;
+  padding: 10px;
+  background-color:#fff;
+  border-radius: 8px;
+}
+#chat-box{
+  display: block;
+}
+.headerGrupo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.headerGrupo img{
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  width: 50px;
+  height: 50px;
+}
+.headerGrupo hr{
+  background-color: #cfcfcf;
+  margin-top: 5px;
+  border: none;
+  height: 2px;
+  width: 100%;
+}
+.botonesGrupo{
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.botonesGrupo button{
+  padding: 5px 20px;
+  background-color: #3498db;
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 22px;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+  border: none;
+}
+
+.botonesGrupo button:hover{
+  background-color: #da7837;
+  transform: scale(1.1);
 }

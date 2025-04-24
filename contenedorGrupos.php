@@ -5,7 +5,15 @@ include("conexion.php");
 $idUsuario = $_SESSION['id'];
 
 $sql = "
-    SELECT g.id AS grupo_id, g.nombre AS grupo_nombre
+    SELECT g.id AS grupo_id, g.nombre AS grupo_nombre, imagen, (SELECT 
+                CASE 
+                    WHEN archivo IS NOT NULL AND archivo != '' THEN '📎 Archivo adjunto' 
+                    ELSE mensaje 
+                END 
+            FROM mensajes_grupo 
+            WHERE grupo_id = g.id 
+            ORDER BY fecha DESC 
+            LIMIT 1) AS ultimo_mensaje
     FROM grupos g
     JOIN grupo_usuarios gu ON g.id = gu.grupo_id
     WHERE gu.usuario_id = ?

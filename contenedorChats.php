@@ -4,7 +4,6 @@ include("conexion.php");
 
 $idUsuario = $_SESSION['id'];
 
-// Obtener los chats del usuario y el último mensaje de cada uno
 $sql = "
     SELECT c.id AS chat_id, 
            u.id AS receptor_id, 
@@ -30,12 +29,18 @@ $sql = "
             LIMIT 1) AS fecha_ultimo_mensaje
     FROM chats c
     JOIN usuarios u ON (c.usuario1_id = u.id OR c.usuario2_id = u.id)
-    WHERE (c.usuario1_id = ? OR c.usuario2_id = ?)
-    AND u.id != ?
-    ORDER BY fecha_ultimo_mensaje DESC";  // Ordena por el mensaje más reciente
+    WHERE 
+        (c.usuario1_id = ? OR c.usuario2_id = ?)
+        AND u.id != ?
+        AND (
+            (c.usuario1_id = ? AND c.usuario1_oculto = 0) OR 
+            (c.usuario2_id = ? AND c.usuario2_oculto = 0)
+        )
+    ORDER BY fecha_ultimo_mensaje DESC
+";
 
 $stmt = $conex->prepare($sql);
-$stmt->bind_param("iii", $idUsuario, $idUsuario, $idUsuario);
+$stmt->bind_param("iiiii", $idUsuario, $idUsuario, $idUsuario, $idUsuario, $idUsuario);
 $stmt->execute();
 $result = $stmt->get_result();
 

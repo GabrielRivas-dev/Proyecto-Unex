@@ -14,6 +14,7 @@ $GeneroUsuario = $_SESSION['Genero'];
 $EmailUsuario = $_SESSION['Email'];
 $ClaveUsuario = $_SESSION['Clave'];
 $imagenUsuario = $_SESSION['imagen'];
+$presentacionUsuario = $_SESSION['presentacion'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,9 +32,9 @@ $imagenUsuario = $_SESSION['imagen'];
     <img src="<?php echo $imagenUsuario; ?>" alt="perfil">
     <div class="file-upload">
       <form action="imagenupload.php" method="POST" enctype="multipart/form-data">
-      <label for="file-input" class="custom-file-label">Subir foto</label>
-      <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
-      <button type="submit" value="enviar">Cambiar</button>
+        <label for="file-input" class="custom-file-label">Subir foto</label>
+        <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
+        <button type="submit" value="enviar">Cambiar</button>
       </form>
     </div>
   </div>
@@ -46,7 +47,8 @@ $imagenUsuario = $_SESSION['imagen'];
       <ul class="nav-links">
         <li><a href="PaginaPrincipal.php"><i class="fa-solid fa-house"></i></a></li>
         <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i><span id="contador-mensajes"></span></a></li>
-        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span id="contador-notificaciones"></span></button></li>
+        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span
+              id="contador-notificaciones"></span></button></li>
         <li><button onclick="openConfiguration()"><i class="fa-solid fa-gear"></i></button></li>
       </ul>
     </nav>
@@ -72,46 +74,76 @@ $imagenUsuario = $_SESSION['imagen'];
     </div>
   </header>
   <main class="container">
-  <input type="hidden" id="id-usuario" data-id="<?php echo $idUsuario ?>">
+    <input type="hidden" id="id-usuario" data-id="<?php echo $idUsuario ?>">
     <div class="left-column">
       <div class="perfil">
         <button popovertarget="my-popover" class="cambiarfoto"><img src="<?php echo $imagenUsuario; ?>"
             alt="perfil"></button>
         <p><?php echo "$NombreUsuario $ApellidoUsuario"; ?></p>
       </div>
+      
+      <div class="mensajePresentacion">
+        <p id="mensajePresentacion"><?php echo $presentacionUsuario; ?></p>
+        <button popovertarget="formularioPresentacion"><i class="fa-solid fa-pen-to-square"></i></button>
+    </div>
+    
+    <div id="formularioPresentacion" popover>
+    <button popovertarget="formularioPresentacion">&times</button>  
+      <form id="formPresentacion">
+        <label for="presentacion">Presentación personal:</label>
+        <input type="text" id="presentacion" name="presentacion" rows="4" placeholder="Cuéntanos algo sobre ti..."></input>
+        <button type="submit">Guardar</button>
+      </form>
+      </div>
       <div class="info-usuario">
-      <div class="info-followers-perfil">
-          <button onclick="mostrarSeguidores()"><label for="followers"><h3>Seguidores:</h3><span id="seguidores-count">0</span></label></button>
-          <button onclick="mostrarSeguidos()"><label for="followed"><h3>Seguidos:</h3><span id="seguidos-count">0</span></label></button>
+        <div class="info-followers-perfil">
+          <button onclick="mostrarSeguidores()"><label for="followers">
+              <h3>Seguidores:</h3><span id="seguidores-count">0</span>
+            </label></button>
+          <button onclick="mostrarSeguidos()"><label for="followed">
+              <h3>Seguidos:</h3><span id="seguidos-count">0</span>
+            </label></button>
         </div>
-      <h2>Informacion de <?php echo "$NombreUsuario $ApellidoUsuario"; ?></h2>
-        <label for="Nombre"><strong>Nombre del usuario:</strong></label>
-        <p> <?php echo "$NombreUsuario"; ?></p>
-        <label for="Apellido"><strong>Apellido del usuario:</strong></label>
-        <p> <?php echo "$ApellidoUsuario"; ?></p>
-        <label for="Cedula"><strong>Cedula del usuario:</strong></label>
-        <p> <?php echo "$CedulaUsuario"; ?></p>
-        <label for="Correo"><strong>Correo del usuario:</strong></label>
-        <p> <?php echo "$EmailUsuario"; ?></p>
-        <label for="Genero"><strong>Genero del usuario:</strong></label>
-        <p> <?php echo "$GeneroUsuario"; ?></p>
-        <label for="Fecha-de-nacimiento"><strong>Fecha de nacimiento del usuario:</strong></label>
-        <p> <?php echo "$FechaUsuario"; ?></p>
+        <div class="publicacionesPerfil" id="publicacionesPerfil"></div>
       </div>
     </div>
     <div class="main-content" id="main-content">
-    <div class="publicaciones" id="publicaciones"> 
+      <div class="informacion">
+        <div class="datos1">
+          <label for="Nombre"><strong>Nombre: </strong>
+            <p> <?php echo "$NombreUsuario"; ?></p>
+          </label>
+          <label for="Apellido"><strong>Apellido:</strong>
+            <p> <?php echo "$ApellidoUsuario"; ?></p>
+          </label>
+          <label for="Cedula"><strong>Cedula:</strong>
+            <p> <?php echo "$CedulaUsuario"; ?></p>
+          </label>
+        </div>
+        <div class="datos2">
+          <label for="Carrera"><strong>Carrera:</strong>
+            <p> Ing.Informatica</p>
+          </label>
+          <label for="Correo"><strong>Correo:</strong>
+            <p> <?php echo "$EmailUsuario"; ?></p>
+          </label>
+          <label for="Fecha-de-nacimiento"><strong>Fecha de nacimiento:</strong>
+            <p> <?php echo "$FechaUsuario"; ?></p>
+          </label>
+        </div>
+      </div>
+      <div class="publicaciones" id="publicaciones">
 
-    </div>
+      </div>
     </div>
     <div class="right-column">
       Seguidos
       <div class="seguidos" id="seguidos">
-        
+
       </div>
 
     </div>
-      
+
 
   </main>
   <script src="perfil.js"></script>

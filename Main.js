@@ -137,6 +137,10 @@ function comentariosPost(event, publicacionId) {
             const contenedor = document.getElementById(`comentarios-publicacion-${publicacionId}`);
             
             contenedor.innerHTML = ''; // Limpiar comentarios anteriores
+            if (!data.length) {
+                contenedor.innerHTML = "<p>Se el primero en comentar</p>";
+                return;
+            }
 
             data.forEach(comentario => {
                 const divComentario = document.createElement('div');

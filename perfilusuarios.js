@@ -198,6 +198,12 @@ function comentariosPost(event, publicacionId) {
             
             contenedor.innerHTML = ''; // Limpiar comentarios anteriores
 
+            if (!data.length) {
+                contenedor.innerHTML = "<p>Se el primero en comentar</p>";
+                return;
+            }
+
+
             data.forEach(comentario => {
                 const divComentario = document.createElement('div');
                 divComentario.classList.add('comentario');
@@ -409,10 +415,17 @@ function eliminarPublicacion(publicacionId) {
     .then(data => {
         const contenedorPublicaciones = document.getElementById('publicaciones');
 
+        //POR SI NO TIENE PUBLICACIONES
+        if (!data.length) {
+            contenedorPublicaciones.innerHTML = '<div class="post"><p style="text-align:center;">No tiene publicaciones</p></div>';
+            return;
+        }
+
         data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
         // Limpiar el contenedor
         contenedorPublicaciones.innerHTML = '';
+
 
         // Iterar sobre los datos recibidos y crear los elementos
         data.forEach(publicacion => {

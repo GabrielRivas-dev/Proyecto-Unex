@@ -1,20 +1,57 @@
-function obtenerMensajesGrupo(grupoId) {
-    fetch(`obtener_mensajes_grupo.php?grupo_id=${grupoId}`)
-    .then(response => response.json())
-    .then(data => {
-        let mensajesDiv = document.getElementById("mensajes");
-        mensajesDiv.innerHTML = "";
-
-        data.forEach(mensaje => {
-            let div = document.createElement("div");
-            div.classList.add("mensaje");
-            div.textContent = `${mensaje.nombre}: ${mensaje.mensaje}`; // Muestra el nombre del emisor
-            mensajesDiv.appendChild(div);
+function mostrarUsuarios(id){
+    
+}
+function salirGrupo(idgrupo){
+    if (confirm("¿Estás seguro de que quieres salir del grupo?")) {
+        fetch("salir_grupo.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: "grupo_id=" + encodeURIComponent(idgrupo)
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          if (data.success) {
+            window.location.href = "mensajeria.php"; // o volver a lista de chats
+          }
         });
+      }
+    }
 
-        mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
+
+function InfoGrupo(id){
+    const chat=document.getElementById("chat-box");
+    const info= document.getElementById("info-grupos");
+    chat.style.display = chat.style.display=== 'block' ? 'none' : 'block'; 
+    info.style.display = info.style.display=== 'none' ? 'block' : 'none'; 
+
+    const botones = document.getElementById("botonesGrupo");
+        botones.innerHTML = "";
+
+    let div = document.createElement("div");
+    div.classList.add("botonesGrupo");
+        div.innerHTML = `
+        <button id="btn-usuarios" onclick="mostrarUsuarios(${id})">Usuarios</button>
+          <button id="btn-invitar" onclick="invitarUsuarios(${id})">Invitar</button>
+          <button id="btn-salir" onclick="salirGrupo(${id})">Salir</button>
+    `;
+    botones.appendChild(div);
+}
+
+function eliminarChat(chatId) {
+    fetch("eliminar_conversacion.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: "chat_id=" + encodeURIComponent(chatId)
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        // Recargar la lista o redirigir si fue eliminado
+        window.location.href = "mensajeria.php";
     });
 }
+
 
 //Aparecer formulario para crear el grupo
 function AgregarGrupo(){
@@ -24,26 +61,36 @@ function AgregarGrupo(){
 }
 
 //formulario para crear grupos
-document.addEventListener("DOMContentLoaded", function() {
-    cargarUsuarios(); // Llamar función para mostrar usuarios
+document.addEventListener("DOMContentLoaded", function () {
+    cargarUsuarios(); // Mostrar lista de usuarios
 
-    document.getElementById("formCrearGrupo").addEventListener("submit", function(event) {
+    document.getElementById("formCrearGrupo").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        let nombreGrupo = document.getElementById("nombreGrupo").value;
-        let miembros = [];
-        
+        const nombreGrupo = document.getElementById("nombreGrupo").value.trim();
+        const inputImagen = document.getElementById("grupo-imagen");
+        const imagenGrupo = inputImagen.files[0]; // Correcto para enviar archivo
+        const miembros = [];
+
         document.querySelectorAll("input[name='miembros']:checked").forEach(checkbox => {
             miembros.push(checkbox.value);
         });
+
+        if (!nombreGrupo) {
+            alert("Debes ingresar un nombre para el grupo");
+            return;
+        }
 
         if (miembros.length === 0) {
             alert("Selecciona al menos un miembro");
             return;
         }
 
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append("nombre_grupo", nombreGrupo);
+        if (imagenGrupo) {
+            formData.append("grupo-imagen", imagenGrupo); // Solo si se seleccionó imagen
+        }
         formData.append("miembros", JSON.stringify(miembros));
 
         fetch("crear_grupo.php", {
@@ -55,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (data.success) {
                 document.getElementById("mensaje").innerHTML = "Grupo creado con éxito.";
                 document.getElementById("formCrearGrupo").reset();
+                document.getElementById("file-name").style.display = "none";
             } else {
                 alert("Error: " + data.message);
             }
@@ -92,11 +140,17 @@ function cargarUsuarios() {
     .catch(error => console.error("Error al cargar usuarios:", error));
 }
 
+let conversacionesCache = "";
 
 function cargarConversaciones() {
     fetch("contenedorChats.php")
-    .then(response => response.json())
-    .then(data => {
+    .then(res => res.json())
+        .then(data => {
+            const jsonActual = JSON.stringify(data);
+            if (jsonActual === conversacionesCache) return; // no recargues si no cambió
+
+            conversacionesCache = jsonActual;
+            
         const conversacionesDiv = document.getElementById("conversaciones");
         conversacionesDiv.innerHTML = "";
 
@@ -111,6 +165,9 @@ function cargarConversaciones() {
                 <a><img src="${chat.imagen}"> 
                     <p>${chat.nombre} ${chat.apellido}</p></a>
                     <p class="ultimo-mensaje-visto">${chat.ultimo_mensaje ? chat.ultimo_mensaje : "No hay mensajes"}</p>
+                     <button class="eliminar-chat-btn" onclick="event.stopPropagation(); eliminarChat(${chat.chat_id})">
+                      <i class="fa fa-trash"></i>
+                        </button>
                 </div>
             `;
             }
@@ -120,6 +177,9 @@ function cargarConversaciones() {
                 <a><img src="${chat.imagen}"> 
                     <p>${chat.nombre} ${chat.apellido}</p></a>
                     <p class="ultimo-mensaje-novisto">${chat.ultimo_mensaje ? chat.ultimo_mensaje : "No hay mensajes"}</p>
+                     <button class="eliminar-chat-btn" onclick="event.stopPropagation(); eliminarChat(${chat.chat_id})">
+                      <i class="fa fa-trash"></i>
+                    </button>
                 </div>
             `;
             }
@@ -130,15 +190,21 @@ function cargarConversaciones() {
     })
     .catch(error => console.error("Error al cargar conversaciones:", error));
 }
-setInterval(cargarConversaciones, 2000);
+setInterval(cargarConversaciones, 1000);
 
 // Llamar a la función al cargar la página
 document.addEventListener('DOMContentLoaded', cargarConversaciones);
 
+let gruposCache = "";
+
 function cargarGrupos() {
     fetch("contenedorGrupos.php")
-    .then(response => response.json())
-    .then(data => {
+    .then(res => res.json())
+        .then(data => {
+            const jsonActual = JSON.stringify(data);
+            if (jsonActual === gruposCache) return; // no recargues si no cambió
+
+            gruposCache = jsonActual;
         const listaGrupos = document.getElementById("grupos");
         listaGrupos.innerHTML = "";
 
@@ -153,18 +219,18 @@ function cargarGrupos() {
                 let div = document.createElement("div");
                 div.classList.add("grupo-item");
                 div.id = `grupo-${grupo.grupo_id}`;
-                div.onclick = () => seleccionarReceptor(grupo.grupo_id, true); // Indica que es un grupo
-
-                // Mostrar el último mensaje si está disponible
-                let ultimoMensaje = grupo.ultimo_mensaje 
-                    ? `<span class="ultimo-mensaje">${grupo.ultimo_mensaje}</span>` 
-                    : `<span class="ultimo-mensaje">Sin mensajes</span>`;
+              
 
                 div.innerHTML = `
-                    <div class="chat-info">
-                        <p><strong>${grupo.grupo_nombre}</strong></p>
-                        ${ultimoMensaje}
-                    </div>
+                    <div class="chat-info" onclick="seleccionarGrupo(${grupo.grupo_id})">
+                    <a><img src="${grupo.imagen}"> 
+                        <p><strong>${grupo.grupo_nombre}</strong></p></a>
+                         <p class="ultimo-mensaje-visto">${grupo.ultimo_mensaje ? grupo.ultimo_mensaje : "No hay mensajes"}</p>
+                         </div>
+                         <button class="eliminar-chat-btn" onclick="InfoGrupo(${grupo.grupo_id})">
+                        <i class="fa-regular fa-circle-question"></i>
+                        </button>
+                    
                 `;
                 listaGrupos.appendChild(div);
             }
@@ -173,12 +239,13 @@ function cargarGrupos() {
     .catch(error => console.error("Error al cargar grupos:", error));
 }
 
-setInterval(cargarGrupos, 2000);
+setInterval(cargarGrupos, 1000);
 
 // Llamar a la función al cargar la página
 document.addEventListener('DOMContentLoaded', cargarGrupos);
 
 let chatId = null;
+let grupoId = null;
 let receptorId = null;
 let receptorInfo = {}; // Almacenar la info del receptor
 
@@ -187,6 +254,11 @@ function seleccionarReceptor(id) {
     fetch("obtener_chat.php?receptor_id=" + id)
     .then(response => response.json())
     .then(data => {
+        const chat=document.getElementById("chat-box");
+        const info= document.getElementById("info-grupos");
+        chat.style.display =  'block'; 
+        info.style.display = 'none';
+        grupoId = null;
         chatId = data.chat_id;
         receptorId = data.receptor.id;
         receptorInfo = data.receptor; // Guardamos la info del receptor
@@ -197,6 +269,34 @@ function seleccionarReceptor(id) {
         marcarMensajesVistos();
     });
 }
+function seleccionarGrupo(id) {
+    fetch("obtener_grupo.php?grupo_id=" + id)
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error("Error al obtener el grupo:", data.error);
+            return;
+        }
+        const chat=document.getElementById("chat-box");
+        const info= document.getElementById("info-grupos");
+        chat.style.display =  'block'; 
+        info.style.display = 'none';
+        grupoData = data.nombre;
+        grupoImagen= data.imagen;
+        grupoId = id;
+        chatId = null; // Limpiar el chat individual
+
+        console.log("Nombre del grupo:", grupoData);
+        console.log("imagen del grupo:", grupoImagen);
+        obtenerMensajesGrupo();
+        actualizarInterfazgrupo();
+    })
+    .catch(error => {
+        console.error("Error en fetch obtener_grupo:", error);
+    });
+}
+
+
 
 function marcarMensajesVistos() {
     fetch("marcar_mensajes_vistos.php", {
@@ -216,6 +316,10 @@ function marcarMensajesVistos() {
 function actualizarInterfazReceptor() {
     document.getElementById("nombre-receptor").textContent = receptorInfo.nombre + " " + receptorInfo.apellido;
     document.getElementById("imagen-receptor").src = receptorInfo.imagen;
+}
+function actualizarInterfazgrupo() {
+    document.getElementById("nombre-receptor").textContent = grupoData ;
+    document.getElementById("imagen-receptor").src = grupoImagen;
 }
 
 document.getElementById("archivo").addEventListener("change", function() {
@@ -237,28 +341,54 @@ function quitarArchivo(){
 
 // Función para enviar un mensaje
 document.getElementById("formularioMensaje").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evitar recarga de página
+    event.preventDefault();
 
     let formData = new FormData(this);
-    formData.append("chat_id", chatId);
-
-    fetch("enviar_mensaje.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById("mensaje").value = "";
-            document.getElementById("archivo").value = "";
-            document.getElementById("file-name").textContent = "";
-            obtenerMensajes(); // Recargar mensajes
-        } else {
-            alert("Error: " + data.message);
-        }
-    })
-    .catch(error => console.error("Error al enviar mensaje:", error));
+    
+    if (typeof chatId !== "undefined" && chatId !== null) {
+        formData.append("chat_id", chatId);
+        fetch("enviar_mensaje.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                limpiarInputs();
+                obtenerMensajes(); // Individual
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error al enviar mensaje:", error));
+    } else if (typeof grupoId !== "undefined" && grupoId !== null) {
+        formData.append("grupo_id", grupoId);
+        fetch("enviar_mensaje_grupo.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                limpiarInputs();
+                obtenerMensajesGrupo(); // Grupo
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error al enviar mensaje al grupo:", error));
+    } else {
+        alert("No se ha seleccionado un chat o grupo.");
+    }
 });
+
+function limpiarInputs() {
+    document.getElementById("mensaje").value = "";
+    document.getElementById("archivo").value = "";
+    document.getElementById("file-name").style.display = "none";
+    document.getElementById("contenidoArchivo").style.display= 'none';
+}
+
 
 function obtenerMensajes() {
     if (!chatId) return;
@@ -372,6 +502,94 @@ function obtenerMensajes() {
 
 setInterval(obtenerMensajes, 4000);
 
+function obtenerMensajesGrupo() {
+    fetch("obtener_mensajes_grupo.php?grupo_id=" + grupoId)
+    .then(response => response.json())
+    .then(data => {
+        const mensajesDiv = document.getElementById("mensajes");
+        mensajesDiv.innerHTML = "";
+
+        data.forEach(mensaje => {
+            let div = document.createElement("div");
+            div.classList.add("mensaje");
+            div.innerHTML = `${mensaje.mensaje}`;
+            if (mensaje.emisor_id != usuarioActual) {
+                div.innerHTML = `<strong>${mensaje.nombre} ${mensaje.apellido}:</strong> ${mensaje.mensaje}`;
+            }
+
+            if (mensaje.archivo) {
+                let archivoElemento;
+                let extension = mensaje.archivo.split('.').pop().toLowerCase();
+
+                if (["jpeg", "jpg", "png", "gif"].includes(extension)) {
+                    // Mostrar imagen directamente en el chat
+                    archivoElemento = document.createElement("img");
+                    archivoElemento.src = mensaje.archivo;
+                    archivoElemento.style.maxWidth = "200px";
+                    archivoElemento.style.borderRadius = "10px";
+                    archivoElemento.style.display = "block";
+                    archivoElemento.style.marginTop = "5px";
+                } else {
+                    // Contenedor estilo "WhatsApp" para documentos
+                    let contenedorArchivo = document.createElement("div");
+                    contenedorArchivo.classList.add("archivo-adjunto");
+
+                    let iconoArchivo = document.createElement("i");
+                    iconoArchivo.classList.add("fa-solid");
+                    
+                    if (extension === "pdf") {
+                        iconoArchivo.classList.add("fa-file-pdf");
+                        iconoArchivo.style.color = "red";
+                    } else if (["doc", "docx"].includes(extension)) {
+                        iconoArchivo.classList.add("fa-file-word");
+                        iconoArchivo.style.color = "blue";
+                    } else if (["xls", "xlsx"].includes(extension)) {
+                        iconoArchivo.classList.add("fa-file-excel");
+                        iconoArchivo.style.color = "green";
+                    } else {
+                        iconoArchivo.classList.add("fa-file");
+                        iconoArchivo.style.color = "gray";
+                    }
+
+                    let nombreArchivo = document.createElement("p");
+                    nombreArchivo.textContent = mensaje.archivo.split('/').pop();
+
+                    let linkDescargar = document.createElement("a");
+                    linkDescargar.href = mensaje.archivo;
+                    linkDescargar.textContent = "Abrir";
+                    linkDescargar.target = "_blank";
+                    linkDescargar.classList.add("boton-descargar");
+
+                    contenedorArchivo.appendChild(iconoArchivo);
+                    contenedorArchivo.appendChild(nombreArchivo);
+                    contenedorArchivo.appendChild(linkDescargar);
+                    
+                    archivoElemento = contenedorArchivo;
+                }
+                
+                div.appendChild(document.createElement("br"));
+                div.appendChild(archivoElemento);
+            }
+            if (mensaje.emisor_id == usuarioActual) {
+                div.classList.add("mensaje-propio");
+
+
+                // Permitir eliminar mensaje al hacer clic
+                div.onclick = () => mostrarOpcionEliminarGrupo(div, mensaje.id);
+            } else {
+                div.classList.add("mensaje-ajeno");
+            }
+
+
+            mensajesDiv.appendChild(div);
+        });
+
+        mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
+    })
+    .catch(error => console.error("Error al obtener mensajes:", error));
+}
+
+
 function mostrarOpcionEliminar(mensajeDiv, mensajeId) {
     // Si ya existe un botón de eliminar en el mensaje, lo removemos
     let botonExistente = mensajeDiv.querySelector(".eliminar-mensaje");
@@ -391,6 +609,25 @@ function mostrarOpcionEliminar(mensajeDiv, mensajeId) {
 
     mensajeDiv.appendChild(btnEliminar);
 }
+function mostrarOpcionEliminarGrupo(mensajeDiv, mensajeId) {
+    // Si ya existe un botón de eliminar en el mensaje, lo removemos
+    let botonExistente = mensajeDiv.querySelector(".eliminar-mensaje");
+    if (botonExistente) {
+        botonExistente.remove();
+        return; // Si ya estaba visible, oculta el botón al hacer clic nuevamente
+    }
+
+    // Crear botón de eliminar
+    let btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.classList.add("eliminar-mensaje");
+    btnEliminar.onclick = (event) => {
+        event.stopPropagation(); // Evita que el clic cierre el botón inmediatamente
+        eliminarMensajeGrupo(mensajeId);
+    };
+
+    mensajeDiv.appendChild(btnEliminar);
+}
 
 function eliminarMensaje(mensajeId) {
     if (!confirm("¿Seguro que quieres eliminar este mensaje?")) return;
@@ -404,6 +641,24 @@ function eliminarMensaje(mensajeId) {
     .then(data => {
         if (data.success) {
             obtenerMensajes(); // Recargar mensajes después de eliminar
+        } else {
+            alert("Error al eliminar mensaje: " + data.message);
+        }
+    })
+    .catch(error => console.error("Error al eliminar mensaje:", error));
+}
+function eliminarMensajeGrupo(mensajeId) {
+    if (!confirm("¿Seguro que quieres eliminar este mensaje?")) return;
+
+    fetch("eliminar_mensaje_grupo.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mensaje_id: mensajeId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            obtenerMensajesGrupo(); // Recargar mensajes después de eliminar
         } else {
             alert("Error al eliminar mensaje: " + data.message);
         }
