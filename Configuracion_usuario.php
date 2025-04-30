@@ -27,16 +27,6 @@ $imagenUsuario = $_SESSION['imagen'];
 </head>
 
 <body>
-  <div id="my-popover" popover>
-    <img src="<?php echo $imagenUsuario; ?>" alt="perfil">
-    <div class="file-upload">
-      <form action="imagenupload.php" method="POST" enctype="multipart/form-data">
-        <label for="file-input" class="custom-file-label">Subir foto</label>
-        <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
-        <button type="submit" value="enviar">Cambiar</button>
-      </form>
-    </div>
-  </div>
   <header class="header">
     <div class="logo">
       <a href="PaginaPrincipal.php">Unex</a>
@@ -45,8 +35,9 @@ $imagenUsuario = $_SESSION['imagen'];
     <nav>
       <ul class="nav-links">
         <li><a href="PaginaPrincipal.php"><i class="fa-solid fa-house"></i></a></li>
-        <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i><span id="contador-mensajes"></span></a></li>
-        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span id="contador-notificaciones"></span></button></li>
+        <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i> <span id="contador-mensajes"></span></a></li>
+        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span
+              id="contador-notificaciones"></span></button></li>
         <li><button onclick="openConfiguration()"><i class="fa-solid fa-gear"></i></button></li>
       </ul>
     </nav>
@@ -75,6 +66,16 @@ $imagenUsuario = $_SESSION['imagen'];
     <input type="hidden" id="id-usuario" data-id="<?php echo $idUsuario ?>">
     <div class="left-column">
       <div class="perfil">
+        <div id="my-popover" popover>
+          <img src="<?php echo $imagenUsuario; ?>" alt="perfil">
+          <div class="file-upload">
+            <form action="imagenupload.php" method="POST" enctype="multipart/form-data">
+              <label for="file-input" class="custom-file-label">Subir foto</label>
+              <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
+              <button type="submit" value="enviar">Cambiar</button>
+            </form>
+          </div>
+        </div>
         <button popovertarget="my-popover" class="cambiarfoto"><img src="<?php echo $imagenUsuario; ?>"
             alt="perfil"></button>
         <p><?php echo "$NombreUsuario $ApellidoUsuario"; ?></p>
@@ -92,7 +93,7 @@ $imagenUsuario = $_SESSION['imagen'];
       </div>
     </div>
     <div class="main-content" id="main-content">
-  
+
       <div class="post">
         <h2 class="titulo">Informacion de <?php echo "$NombreUsuario $ApellidoUsuario"; ?></h2>
         <!--
@@ -253,7 +254,8 @@ $imagenUsuario = $_SESSION['imagen'];
             </div>
             <div class="informacion">
               <label for="Clave"><strong>Contraseña:</strong></label>
-              <button id="CambiarContraseñaButton" onclick="cambiarClave()" ><strong>Cambiar contraseña</strong> </button>
+              <button id="CambiarContraseñaButton" onclick="cambiarClave()"><strong>Cambiar contraseña</strong>
+              </button>
             </div>
 
             <div class="cambiar-contraseña" id="cambiar-contraseña" popover>

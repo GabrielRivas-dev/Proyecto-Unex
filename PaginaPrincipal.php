@@ -82,6 +82,8 @@ $publicacion = $resultado->fetch_assoc();
       <div class="mensajePresentacion">
         <p id="mensajePresentacion"><?php echo $presentacionUsuario; ?></p>
     </div>
+    <div id="invitaciones-usuario"></div>
+
     </div>
     <!--CONTENIDO DEL MEDIO -->
     <div class="main-content" id="main-content">

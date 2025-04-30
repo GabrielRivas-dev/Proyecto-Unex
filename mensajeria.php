@@ -116,15 +116,13 @@ $publicacion = $resultado->fetch_assoc();
         </div>
       </div>
       <div class="info-grupos" id="info-grupos">
-        <div class="headerGrupo">
-          <img src="uploads/default.jpg" alt="foto">
-          <h1>Información del grupo</h1>
-          <p>creado en 12/64/45</p>
-          <hr>
-        </div>
-        <div id="botonesGrupo"></div>
-        <div id="mostrarGrupo"></div>
-    </div>
+
+      </div>
+      <div id="modal-invitar">
+        <h3>Invitar usuarios</h3>
+        <div id="invitacion-lista"></div>
+        <button onclick="document.getElementById('modal-invitar').style.display='none'">Cerrar</button>
+      </div>
     </div>
     <!--CONTENIDO DE LA DERECHA -->
     <div class="right-column">Grupos <a onclick="AgregarGrupo()"><i class="fa-solid fa-plus"></i></a>

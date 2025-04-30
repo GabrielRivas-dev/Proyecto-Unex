@@ -33,3 +33,11 @@ document.getElementById("Miformulario").addEventListener("submit", function(even
         // Aquí puedes ejecutar la función para enviar el formulario
     }
 });
+
+function mostrarCarrera() {
+    const tipo = document.getElementById("tipo").value;
+    const campoCarrera = document.getElementById("carrera");
+    campoCarrera.style.display = (tipo === 'estudiante') ? 'flex' : 'none';
+  }
+  document.addEventListener("DOMContentLoaded", mostrarCarrera);
+  

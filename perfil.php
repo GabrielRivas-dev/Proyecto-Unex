@@ -15,6 +15,8 @@ $EmailUsuario = $_SESSION['Email'];
 $ClaveUsuario = $_SESSION['Clave'];
 $imagenUsuario = $_SESSION['imagen'];
 $presentacionUsuario = $_SESSION['presentacion'];
+$tipo = $_SESSION['tipo'];
+$carrera = $_SESSION['carrera'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +40,15 @@ $presentacionUsuario = $_SESSION['presentacion'];
       </form>
     </div>
   </div>
+  
+  <div id="formularioPresentacion" popover>
+    <button popovertarget="formularioPresentacion">&times</button>  
+      <form id="formPresentacion">
+        <label for="presentacion">Presentación personal:</label>
+        <input type="text" id="presentacion" name="presentacion" rows="4" placeholder="Cuéntanos algo sobre ti..."></input>
+        <button type="submit">Guardar</button>
+      </form>
+      </div>
   <header class="header">
     <div class="logo">
       <a href="PaginaPrincipal.php">Unex</a>
@@ -87,14 +98,6 @@ $presentacionUsuario = $_SESSION['presentacion'];
         <button popovertarget="formularioPresentacion"><i class="fa-solid fa-pen-to-square"></i></button>
     </div>
     
-    <div id="formularioPresentacion" popover>
-    <button popovertarget="formularioPresentacion">&times</button>  
-      <form id="formPresentacion">
-        <label for="presentacion">Presentación personal:</label>
-        <input type="text" id="presentacion" name="presentacion" rows="4" placeholder="Cuéntanos algo sobre ti..."></input>
-        <button type="submit">Guardar</button>
-      </form>
-      </div>
       <div class="info-usuario">
         <div class="info-followers-perfil">
           <button onclick="mostrarSeguidores()"><label for="followers">
@@ -122,7 +125,7 @@ $presentacionUsuario = $_SESSION['presentacion'];
         </div>
         <div class="datos2">
           <label for="Carrera"><strong>Carrera:</strong>
-            <p> Ing.Informatica</p>
+            <p> <?php echo "$carrera"; ?></p>
           </label>
           <label for="Correo"><strong>Correo:</strong>
             <p> <?php echo "$EmailUsuario"; ?></p>

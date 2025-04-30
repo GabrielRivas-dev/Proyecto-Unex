@@ -457,10 +457,12 @@ function eliminarPublicacion(publicacionId) {
                   </div>
               </div>
               <div class="post-content">
-                  <p>${publicacion.contenido}</p>
-                  <div class="post-content-img">
-                      <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
-                  </div>
+                 <p>${publicacion.contenido}</p>
+                        ${publicacion.imagensubida ? `
+                        <div class="post-content-img">
+                            <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
+                        </div>
+                        ` : ''}
               </div>
               <div class="post-btns">
                  <ul>
@@ -483,9 +485,7 @@ function eliminarPublicacion(publicacionId) {
                     </ul>
                 </div>
                 <div id="comentarios-${publicacion.publicacion_id}" class="comentarios">
-        <div id="comentarios-publicacion-${publicacion.publicacion_id}" class="post-comments">
-        
-        </div>
+        <div id="comentarios-publicacion-${publicacion.publicacion_id}" class="post-comments"></div>
         <div  class="mandarcomentario" id="mandarcomentario">
           <form>
                 <textarea class="comentario" name="comentario" id="comentario-input-${publicacion.publicacion_id}" placeholder="Escribe un comentario..." required></textarea>

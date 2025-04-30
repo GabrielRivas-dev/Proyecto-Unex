@@ -81,7 +81,7 @@ body {
 }
 
 .header .nav-links li:hover,
-.overlay a:hover, .menu button:hover {
+.overlay a:hover, .menu button:hover, .perfil-header:hover  {
   transform: scale(1.1);
 }
 
@@ -97,9 +97,12 @@ body {
 
 .perfil-header{
   border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+  object-position: center;
+  margin-right: 10px;
+  transition: all 0.3s ease 0s;
   }
 .header .nav-links a:hover, .header .nav-links button:hover{
   color: #fd8f45;
@@ -854,4 +857,19 @@ all: unset;
   margin-top: 10px;
   cursor: pointer;
   font-size: 16px;
+}
+.lista-notificaciones{
+  display: none;
+  border-radius: 10px ;
+  box-shadow:
+  0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: #ffff;
+  padding: 10px;
+  margin-top: 10px;
+  max-height: 50rem;
+  overflow-y: auto;
+  position: fixed;
+  top: 2.3rem;
+  right: 25%;
 }

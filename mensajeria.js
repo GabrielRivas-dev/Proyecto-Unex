@@ -1,6 +1,83 @@
-function mostrarUsuarios(id){
-    
+function invitarUsuarios(grupoId) {
+    fetch(`obtener_usuarios_para_invitacion.php?grupo_id=${grupoId}`)
+      .then(res => res.json())
+      .then(usuarios => {
+        const lista = document.getElementById("invitacion-lista");
+        lista.innerHTML = "";
+  
+        if (usuarios.length === 0) {
+          lista.innerHTML = "<p>No hay usuarios disponibles para invitar.</p>";
+          return;
+        }
+  
+        usuarios.forEach(usuario => {
+          const div = document.createElement("div");
+          div.classList.add("usuario-invitacion");
+          div.innerHTML = `
+            <span>${usuario.nombre} ${usuario.apellido}</span>
+            <button onclick="enviarInvitacion(${grupoId}, ${usuario.id})"><i class="fa-solid fa-check"></i></button>
+          `;
+          lista.appendChild(div);
+        });
+  
+        document.getElementById("modal-invitar").style.display = "block";
+      });
+  }
+  
+  function enviarInvitacion(grupoId, usuarioId) {
+  fetch("invitar_usuario.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `grupo_id=${grupoId}&usuario_id=${usuarioId}`
+  })
+    .then(res => res.json())
+    .then(data => alert(data.message));
 }
+
+  
+function mostrarIntegrantes(grupoId) {
+        fetch("obtener_grupo_completo.php?grupo_id=" + grupoId)
+          .then(res => res.json())
+          .then(data => {
+            const info = data.grupo;
+            const miembros = data.miembros;
+      
+            const contenedor = document.getElementById("info-grupos");
+            contenedor.innerHTML = `
+              <div class="headerGrupo">
+                <img src="${info.imagen}" alt="foto" width="80" height="80">
+                <h2>${info.nombre}</h2>
+                <p><strong>Creador:</strong> ${info.creador_nombre} ${info.creador_apellido}</p>
+                <p><strong>Creado el:</strong> ${info.fecha_creacion ?? "Fecha desconocida"}</p>
+                <button id="btn-salir" onclick="salirGrupo(${grupoId})">Salir del grupo</button>
+                <hr>
+              </div>
+              <div class="infoHeader"">
+              <h4>Integrantes (${miembros.length}):</h4>
+              <button id="btn-invitar" onclick="invitarUsuarios(${grupoId})">Invitar</button>
+              <h4>Archivos</h4>
+              </div>
+              <div class="integrantesGrupo">
+              <div id="lista-miembros"></div>
+              </div>
+            `;
+      
+            const lista = document.getElementById("lista-miembros");
+            miembros.forEach(m => {
+              const div = document.createElement("div");
+              div.classList.add("miembro");
+              div.innerHTML = `
+                <a href="perfilesUsuarios.php?id=${m.id}"><img src="${m.imagen}" width="40" height="40" alt="perfil">
+                <span style="margin-left:4px">${m.nombre} ${m.apellido}</span></a>
+              `;
+              lista.appendChild(div);
+            });
+
+          });
+      }
+      
+  
+
 function salirGrupo(idgrupo){
     if (confirm("¿Estás seguro de que quieres salir del grupo?")) {
         fetch("salir_grupo.php", {
@@ -24,18 +101,7 @@ function InfoGrupo(id){
     const info= document.getElementById("info-grupos");
     chat.style.display = chat.style.display=== 'block' ? 'none' : 'block'; 
     info.style.display = info.style.display=== 'none' ? 'block' : 'none'; 
-
-    const botones = document.getElementById("botonesGrupo");
-        botones.innerHTML = "";
-
-    let div = document.createElement("div");
-    div.classList.add("botonesGrupo");
-        div.innerHTML = `
-        <button id="btn-usuarios" onclick="mostrarUsuarios(${id})">Usuarios</button>
-          <button id="btn-invitar" onclick="invitarUsuarios(${id})">Invitar</button>
-          <button id="btn-salir" onclick="salirGrupo(${id})">Salir</button>
-    `;
-    botones.appendChild(div);
+    mostrarIntegrantes(id);
 }
 
 function eliminarChat(chatId) {

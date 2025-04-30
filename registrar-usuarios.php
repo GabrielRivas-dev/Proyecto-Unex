@@ -13,6 +13,8 @@ if(isset($_POST['Enviar'])){
         $cedula = trim($_POST['cedula']);
         $fecha_nacimiento = $_POST['fecha-nacimiento']; // formato 'YYYY-MM-DD'
         $genero = $_POST['genero'];
+        $tipo = $_POST['tipo'];
+        $carrera = ($tipo === 'estudiante') ? $_POST['carrera'] : null;
         $email = trim($_POST['email']);
         $clave = trim($_POST['clave']); // Cifrar la contraseña
         $hashed_password = password_hash($clave, PASSWORD_BCRYPT);
@@ -20,12 +22,12 @@ if(isset($_POST['Enviar'])){
         // Incluir el archivo de conexión
         include("conexion.php");
 
-        $sql = "INSERT INTO usuarios (Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen) VALUES (?, ?, ?, ?, ?, ?, ? ,?)";
+        $sql = "INSERT INTO usuarios (Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen, tipo, carrera) VALUES (?, ?, ?, ?, ?, ?, ? ,?, ?,?)";
     
         // Preparar la consulta
         if ($stmt = $conex->prepare($sql)) {
             // Enlazar los parámetros
-            $stmt->bind_param("ssssssss", $nombre, $apellido, $cedula, $fecha_nacimiento, $genero, $email, $hashed_password, $imagen);
+            $stmt->bind_param("ssssssssss", $nombre, $apellido, $cedula, $fecha_nacimiento, $genero, $email, $hashed_password, $imagen, $tipo, $carrera);
             
             // Ejecutar la consulta
             if ($stmt->execute()) {

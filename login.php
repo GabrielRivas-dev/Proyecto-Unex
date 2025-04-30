@@ -15,6 +15,7 @@
         </div>
     </header>
     <main class="fondo">
+        <img class="imagenUnex" src="uploads/imagen unex.png" alt="">
         <form method="post" id="Miformulario">
             <div class="contenedor">
                 <h1>Iniciar sesión en Unex</h1>
@@ -22,7 +23,7 @@
                 include("validar.php");
                 ?>
                 <div class="input">
-
+                    
                     <input type="email" id="email" name="email" autocomplete="off" placeholder="" required>
                     <label for="email">Email:</label>
                 </div>

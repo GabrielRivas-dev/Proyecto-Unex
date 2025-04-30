@@ -1,3 +1,46 @@
+function mostrarInvitacionesPendientes() {
+    fetch("obtener_invitaciones_usuario.php")
+      .then(res => res.json())
+      .then(data => {
+        const contenedor = document.getElementById("invitaciones-usuario");
+        contenedor.innerHTML = "";
+  
+        if (data.length === 0) {
+          contenedor.innerHTML = "<p>No tienes invitaciones pendientes.</p>";
+          return;
+        }
+  
+        data.forEach(inv => {
+          const div = document.createElement("div");
+          div.classList.add("invitacion");
+  
+          div.innerHTML = `
+            <p><strong>${inv.invitador_nombre} ${inv.invitador_apellido}</strong> te ha invitado al grupo: <strong>${inv.grupo_nombre}</strong></p>
+            <button onclick="responderInvitacion(${inv.invitacion_id}, 'aceptada')">Aceptar</button>
+            <button onclick="responderInvitacion(${inv.invitacion_id}, 'rechazada')">Rechazar</button>
+          `;
+  
+          contenedor.appendChild(div);
+        });
+      });
+  }
+  document.addEventListener("DOMContentLoaded", mostrarInvitacionesPendientes);
+
+
+  function responderInvitacion(id, respuesta) {
+    fetch("responder_invitacion.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `invitacion_id=${id}&respuesta=${respuesta}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      mostrarInvitacionesPendientes(); // recargar
+    });
+  }
+  
+
 function obtenerMensajesNoleidos() {
     fetch("obtener_mensajes_noleidos.php")
     .then(response => response.json())
@@ -359,52 +402,51 @@ function cargarPublicaciones() {
         .then(response => response.json())
         .then(data => {
             const contenedorPublicaciones = document.getElementById('publicaciones');
-
             data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-            // Limpiar el contenedor
             contenedorPublicaciones.innerHTML = '';
 
-            // Iterar sobre los datos recibidos y crear los elementos
             data.forEach(publicacion => {
                 const nuevaPublicacion = document.createElement('div');
                 nuevaPublicacion.classList.add('post');
                 nuevaPublicacion.id = `post-(${publicacion.publicacion_id})`;
 
                 nuevaPublicacion.innerHTML = `
-                <div class="post-header">
-                    <img src="${publicacion.imagen}" alt="Foto de usuario">
-                    <div class="post-info">
-                        <div class="post-info-name">
-                            <p><strong>${publicacion.nombre} ${publicacion.apellido}</strong></p>
-                            <span>${publicacion.fecha}</span>
-                        </div>
-                        <div class="post-info-menu">
-                            <button onclick="publicacionConfig(event,${publicacion.publicacion_id})" class="config-btn" data-id="${publicacion.id}">
+              <div class="post-header">
+                  <img src="${publicacion.imagen}" alt="Foto de usuario">
+                  <div class="post-info">
+                      <div class="post-info-name">
+                          <p><strong>${publicacion.nombre} ${publicacion.apellido}</strong></p>
+                          <span>${publicacion.fecha}</span>
+                      </div>
+                      <div class="post-info-menu">
+                         <button onclick="publicacionConfig(event,${publicacion.publicacion_id})" class="config-btn" data-id="${publicacion.id}">
                                 <i class="fa-solid fa-bars"></i>
                             </button>
                             <div id="publicacion-config-${publicacion.publicacion_id}" class="config-menu" style="display: none;">
                                 <ul>
                                     <li>
-                                        <form>
+                                       <form>
                                             <button onclick="eliminarPublicacion(${publicacion.publicacion_id})" type="submit">Eliminar publicación</button>
+                                        
                                     </li>
-                                </ul>
-                            </div>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="post-content">
+                 <p>${publicacion.contenido}</p>
+                        ${publicacion.imagensubida ? `
+                        <div class="post-content-img">
+                            <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
                         </div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>${publicacion.contenido}</p>
-                    <div class="post-content-img">
-                        <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
-                    </div>
-                </div>
-                <div class="post-btns">
-                    <ul>
+                        ` : ''}
+              </div>
+              <div class="post-btns">
+                 <ul>
                         <li>
                             <button id="like-btn-${publicacion.publicacion_id}" class="like-btn" onclick="likePost(${publicacion.publicacion_id})">
-                               <i class="fa-solid fa-heart"></i>
+                                <i class="fa-solid fa-heart"></i>
                             </button>
                             <span id="like-count-${publicacion.publicacion_id}">${publicacion.total_likes}</span>
                         </li>
@@ -414,29 +456,24 @@ function cargarPublicaciones() {
                             <span>${publicacion.total_comments}</span>
                         </li>
                         <li>
-                            <button id="share-btn-${publicacion.publicacion_id}" class="share-btn" onclick="divCompartir(${publicacion.publicacion_id})">
+                            <button class="share-btn">
                                 <i class="fa-solid fa-share-from-square"></i>
                             </button>
                             <span>${publicacion.compartidos}</span>
-                           
                         </li>
                     </ul>
                 </div>
-                <div id="comentarios-${publicacion.publicacion_id}" class="comentarios">
-        <div id="comentarios-publicacion-${publicacion.publicacion_id}" class="post-comments">
-        
-        </div>
-        <div  class="mandarcomentario" id="mandarcomentario">
+                 <div id="comentarios-${publicacion.publicacion_id}" class="comentarios">
+                        <div id="comentarios-publicacion-${publicacion.publicacion_id}" class="post-comments"></div>
+                        <div  class="mandarcomentario" id="mandarcomentario">
           <form>
                 <textarea class="comentario" name="comentario" id="comentario-input-${publicacion.publicacion_id}" placeholder="Escribe un comentario..." required></textarea>
                 <button type="button" onclick="agregarComentario(event,${publicacion.publicacion_id})"><i class="fa-solid fa-paper-plane"></i></button>
     </form>
         </div>
-        </div>
+                    </div>
               `;
 
-
-                // Agregar la nueva publicación al contenedor
                 contenedorPublicaciones.appendChild(nuevaPublicacion);
             });
         });

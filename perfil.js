@@ -175,7 +175,7 @@ function agregarComentario(event, publicacionId) {
         return;
     }
 
-    fetch('agregar_comentario .php', {
+    fetch('agregar_comentario.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ publicacion_id: publicacionId, comentario: comentarioTexto })
@@ -398,10 +398,12 @@ function eliminarPublicacion(publicacionId) {
                   </div>
               </div>
               <div class="post-content">
-                  <p>${publicacion.contenido}</p>
-                  <div class="post-content-img">
-                      <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
-                  </div>
+                 <p>${publicacion.contenido}</p>
+                        ${publicacion.imagensubida ? `
+                        <div class="post-content-img">
+                            <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
+                        </div>
+                        ` : ''}
               </div>
               <div class="post-btns">
                  <ul>
@@ -424,17 +426,15 @@ function eliminarPublicacion(publicacionId) {
                         </li>
                     </ul>
                 </div>
-                <div id="comentarios-${publicacion.publicacion_id}" class="comentarios">
-        <div id="comentarios-publicacion-${publicacion.publicacion_id}" class="post-comments">
-        
-        </div>
-        <div  class="mandarcomentario" id="mandarcomentario">
+                 <div id="comentarios-${publicacion.publicacion_id}" class="comentarios">
+                        <div id="comentarios-publicacion-${publicacion.publicacion_id}" class="post-comments"></div>
+                        <div  class="mandarcomentario" id="mandarcomentario">
           <form>
                 <textarea class="comentario" name="comentario" id="comentario-input-${publicacion.publicacion_id}" placeholder="Escribe un comentario..." required></textarea>
                 <button type="button" onclick="agregarComentario(event,${publicacion.publicacion_id})"><i class="fa-solid fa-paper-plane"></i></button>
     </form>
         </div>
-        </div>
+                    </div>
               `;
 
 
@@ -468,20 +468,23 @@ function eliminarPublicacion(publicacionId) {
         data.forEach(publicacion => {
             const nuevaPublicacion = document.createElement('div');
             
-
+            if (publicacion.imagensubida != null) {
+                
+           
             nuevaPublicacion.innerHTML = `
                       <img src="${publicacion.imagensubida}" alt="Imagen de la publicación">
               `;
-
+              contenedorPublicaciones.appendChild(nuevaPublicacion);
+            }
 
             // Agregar la nueva publicación al contenedor
-            contenedorPublicaciones.appendChild(nuevaPublicacion);
+            
         });
     });
 }
-  
-  // Llama a la función para cargar publicaciones al cargar la página
   PublicacionesPerfil();
+  // Llama a la función para cargar publicaciones al cargar la página
+  
 
   function cargarSeguidos() {
     fetch('contenedorSeguidos.php')

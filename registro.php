@@ -21,20 +21,51 @@
                 <?php
                 include("registrar-usuarios.php")
                     ?>
-                <div class="input">
-                    <input type="text" id="nombre" name="nombre" placeholder="" required>
-                    <label for="nombre">Nombre:</label>
+                <div class="nombres">
+                    <div class="input">
+                        <input type="text" id="nombre" name="nombre" placeholder="" maxlength="20" required>
+                        <label for="nombre">Nombre:</label>
+                    </div>
+                    <div class="input">
+                        <input type="text" id="apellido" name="apellido" placeholder="" maxlength="20" required>
+                        <label for="apellido">Apellido:</label>
+                    </div>
                 </div>
-                <div class="input">
-                    <input type="text" id="apellido" name="apellido" placeholder="" required>
-                    <label for="apellido">Apellido:</label>
+                <div class="numeros">
+                    <div class="input">
+                        <input type="number" id="cedula" name="cedula" placeholder=""
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength="8" required>
+                        <label for="cedula">Cedula:</label>
+                    </div>
+                    <div class="input">
+                        <input type="number" id="telefono" name="telefono" placeholder=""
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength="11" required>
+                        <label for="telefono">Telefono:</label>
+                    </div>
                 </div>
-                <div class="input">
-                    <input type="number" id="cedula" name="cedula" placeholder="" required>
-                    <label for="cedula">Cedula:</label>
+                <div class="carrera-fecha">
+                    <div class="carrera">
+                    <label for="tipo">Estudiante o Docente:</label>
+                    <select id="tipo" name="tipo" onchange="mostrarCarrera()">
+                        <option value="estudiante">Estudiante</option>
+                        <option value="profesor">Profesor</option>
+                            </select>
+                    </div>
+                    <div class="carrera" id="carrera">
+                        <label for="carrera">Carrera cursando:</label>
+                        <select name="carrera">
+                            <option value="Ingenieria Informática">Ingenieria Informática</option>
+                            <option value="Arquitectura">Arquitectura</option>
+                            <option value="Medicina veterinaria">Medicina veterinaria</option>
+                            <option value="Enfermeria">Enfermeria</option>
+                            <option value="Derecho">Derecho</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="fecha">
-                    <label for="#">Fecha de nacimiento:</label>
+                    <label for="fecha">Fecha de nacimiento:</label>
                     <input type="date" name="fecha-nacimiento" min="1920-01-01" max="2024-10-20" required>
                 </div>
                 <div class="genero">
@@ -57,7 +88,7 @@
             </div>
 
         </form>
-
+    <script src="login.js"></script>
     </main>
 </body>
 
