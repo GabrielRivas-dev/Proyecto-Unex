@@ -14,6 +14,8 @@ $GeneroUsuario = $_SESSION['Genero'];
 $EmailUsuario = $_SESSION['Email'];
 $ClaveUsuario = $_SESSION['Clave'];
 $imagenUsuario = $_SESSION['imagen'];
+$carrera = $_SESSION['carrera'];
+$tipo = $_SESSION['tipo'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +29,16 @@ $imagenUsuario = $_SESSION['imagen'];
 </head>
 
 <body>
+  <div id="my-popover" popover>
+    <img src="<?php echo $imagenUsuario; ?>" alt="perfil">
+    <div class="file-upload">
+      <form action="imagenupload.php" method="POST" enctype="multipart/form-data">
+        <label for="file-input" class="custom-file-label">Subir foto</label>
+        <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
+        <button type="submit" value="enviar">Cambiar</button>
+      </form>
+    </div>
+  </div>
   <header class="header">
     <div class="logo">
       <a href="PaginaPrincipal.php">Unex</a>
@@ -66,16 +78,6 @@ $imagenUsuario = $_SESSION['imagen'];
     <input type="hidden" id="id-usuario" data-id="<?php echo $idUsuario ?>">
     <div class="left-column">
       <div class="perfil">
-        <div id="my-popover" popover>
-          <img src="<?php echo $imagenUsuario; ?>" alt="perfil">
-          <div class="file-upload">
-            <form action="imagenupload.php" method="POST" enctype="multipart/form-data">
-              <label for="file-input" class="custom-file-label">Subir foto</label>
-              <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
-              <button type="submit" value="enviar">Cambiar</button>
-            </form>
-          </div>
-        </div>
         <button popovertarget="my-popover" class="cambiarfoto"><img src="<?php echo $imagenUsuario; ?>"
             alt="perfil"></button>
         <p><?php echo "$NombreUsuario $ApellidoUsuario"; ?></p>
@@ -96,81 +98,6 @@ $imagenUsuario = $_SESSION['imagen'];
 
       <div class="post">
         <h2 class="titulo">Informacion de <?php echo "$NombreUsuario $ApellidoUsuario"; ?></h2>
-        <!--
-        <div class="info">
-          <button id="datos" onclick="datosPersonales()">
-            <h3>Datos personales</h3>
-          </button>
-          <hr>
-          <div class="divDatosPersonales" id="divDatosPersonales">
-            <div class="informacion">
-              <label for="Nombre"><strong>Nombre del usuario:</strong></label>
-              <p id="nombre-texto"><?php echo "$NombreUsuario"; ?></p>
-              <input class="editarcampo" type="text" id="nombre-input" value="<?php echo "$NombreUsuario"; ?>" style="display: none;">
-              <button  onclick="editarcampo('nombre')"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button id="guardar-nombre" style="display: none;" onclick="guardarCampo('nombre')"><i class="fa-solid fa-hammer"></i></button>
-            </div>
-            <div class="informacion">
-              <label for="Apellido"><strong>Apellido del usuario:</strong></label>
-              <p id="apellido-texto"><?php echo "$ApellidoUsuario"; ?></p>
-              <input class="editarcampo" type="text" id="apellido-input" value="<?php echo "$ApellidoUsuario"; ?>" style="display: none;">
-              <button  onclick="editarcampo('apellido')"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button id="guardar-apellido" style="display: none;" onclick="guardarCampo('apellido')"><i class="fa-solid fa-hammer"></i></button>
-            </div>
-            <div class="informacion">
-              <label for="EstadoActual"><strong>Estado actual:</strong></label>
-              <p id="estado-texto">Soltero</p>
-              <input class="editarcampo" type="text" id="estado-input" value="Soltero" style="display: none;">
-              <button onclick="editarcampo('estado')"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button id="guardar-estado" style="display: none;" onclick="guardarCampo('estado')"><i class="fa-solid fa-hammer"></i></button>
-            </div>
-            <div class="informacion">
-              <label for="Cedula"><strong>Cédula del usuario:</strong></label>
-              <p id="cedula-texto"><?php echo "$CedulaUsuario"; ?></p>
-              <input class="editarcampo" type="text" id="cedula-input" value="<?php echo "$CedulaUsuario"; ?>" style="display: none;">
-              <button onclick="editarcampo('cedula')"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button id="guardar-cedula" style="display: none;" onclick="guardarCampo('cedula')"><i class="fa-solid fa-hammer"></i></button>
-            </div>
-            <div class="informacion">
-              <label for="Fecha-de-nacimiento"><strong>Fecha de nacimiento del usuario:</strong></label>
-              <p id="fecha-texto"><?php echo "$FechaUsuario"; ?></p>
-              <input class="editarcampo" type="date" id="fecha-input" value="<?php echo "$FechaUsuario"; ?>" style="display: none;">
-              <button onclick="editarcampo('fecha')"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button id="guardar-fecha" style="display: none;" onclick="guardarCampo('fecha')"><i class="fa-solid fa-hammer"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="info">
-          <button id="credenciales" onclick="credenciales()">
-            <h3>Credenciales</h3>
-          </button>
-          <hr>
-          <div class="divCredenciales" id="divCredenciales">
-            <div class="informacion">
-              <label for="Correo"><strong>Correo del usuario:</strong></label>
-              <p> <?php echo "$EmailUsuario"; ?></p>
-              <input class="editarcampo" type="email" id="email-input" value="<?php echo "$EmailUsuario"; ?>" style="display: none;">
-              <button onclick="editarcampo('email')"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button id="guardar-email" style="display: none;" onclick="guardarCampo('email')"><i class="fa-solid fa-hammer"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="info">
-          <button id="datosAcademicos" onclick="datosAcademicos()">
-            <h3>Datos academicos</h3>
-          </button>
-          <hr>
-          <div class="divDatosAcademicos" id="divDatosAcademicos">
-            <div class="informacion">
-              <label for="Carrera"><strong>Carrera cursando:</strong></label>
-              <p>Informatica</p>
-              <input class="editarcampo" type="text" id="carrera-input" value="Informatica" style="display: none;">
-              <button onclick="editarcampo('carrera')"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button id="guardar-carrera" style="display: none;" onclick="guardarCampo('carrera')"><i class="fa-solid fa-hammer"></i></button>
-            </div>
-          </div>
-        </div>
--->
         <div class="grid">
           <div class="usuarioInfo">
             <h3>Datos de la cuenta</h3>
@@ -278,53 +205,13 @@ $imagenUsuario = $_SESSION['imagen'];
           </div>
           <div class="usuarioInfo">
             <h3>Datos Academicos</h3>
-
-            <label for="Carrera"><strong>Carrera cursando:</strong></label>
-            <p>Informatica</p>
+            <label for="categoria"><strong>Categoría: <strong> <?php echo "$tipo"; ?></label>
+            <?php if ($tipo=="estudiante") {
+              echo '<br><label for="Carrera"><strong>Carrera cursando:</strong></label>' .$carrera;
+  
+            } ?>
           </div>
         </div>
-        <!-- 
-        <div class="info">
-        <label for="Nombre"><strong>Nombre del usuario:</strong></label>
-        <p> <?php echo "$NombreUsuario"; ?></p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        <div class="info">
-        <label for="Apellido"><strong>Apellido del usuario:</strong></label>
-        <p> <?php echo "$ApellidoUsuario"; ?></p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        <div class="info">
-        <label for="EstadoActual"><strong>Estado actual:</strong></label>
-        <p>Soltero</p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        <div class="info">
-        <label for="Carrera"><strong>Carrera cursando:</strong></label>
-        <p>Informatica</p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        <div class="info">
-        <label for="Cedula"><strong>Cedula del usuario:</strong></label>
-        <p> <?php echo "$CedulaUsuario"; ?></p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        <div class="info">
-        <label for="Correo"><strong>Correo del usuario:</strong></label>
-        <p> <?php echo "$EmailUsuario"; ?></p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        <div class="info">
-        <label for="Genero"><strong>Genero del usuario:</strong></label>
-        <p> <?php echo "$GeneroUsuario"; ?></p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        <div class="info">
-        <label for="Fecha-de-nacimiento"><strong>Fecha de nacimiento del usuario:</strong></label>
-        <p> <?php echo "$FechaUsuario"; ?></p>
-        <button><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
--->
       </div>
 
     </div>

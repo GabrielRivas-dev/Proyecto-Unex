@@ -455,7 +455,7 @@ function eliminarPublicacion(publicacionId) {
 
          //POR SI NO TIENE PUBLICACIONES
          if (!data.length) {
-            contenedorPublicaciones.innerHTML = '<div class="post"><p style="text-align:center;">No tienes publicaciones</p></div>';
+            contenedorPublicaciones.innerHTML = '<div><p style="text-align:center;">No tienes publicaciones</p></div>';
             return;
         }
 

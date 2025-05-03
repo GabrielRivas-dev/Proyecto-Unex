@@ -1,22 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Lobster&family=Oleo+Script:wght@400;700&family=Pacifico&family=Playwrite+AU+SA:wght@100..400&display=swap');
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: "roboto", sans-serif;
-
 }
 
 body {
   min-width: 400px;
-  background-color: #c7dcfc;
-  color: #1c1e21;
+  background-color: #444444;
+  color: #ffff;
 }
 
 /*ENCABEZADO*/
 .header {
-  background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+  background: #121212;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -34,18 +34,21 @@ body {
 }
 
 .header .logo a {
-  text-decoration: none;
-  font-size: 35px;
-  font-weight: bold;
-  background-image: linear-gradient(to right, #da7837, #f8ae3e);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  height: 70px;
-  width: auto;
-}
+    text-decoration: none;
+    font-size: 38px;
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+    background-image: linear-gradient(to right, #da7837, #ee1e6e);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    height: 70px;
+    width: auto;
+  }
+
 
 .header .logo a:hover {
-  background-image: linear-gradient(to right, #f8ae3e, #da7837);
+  background-image: linear-gradient(to right, #ee1e6e, #da7837);
 }
 
 .header .logo:hover {
@@ -59,7 +62,9 @@ body {
 .header .nav-links button {
   all: unset;
   font-size: 25px;
-  color: #fffefe;
+  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
 }
 .header .nav-links li {
@@ -73,7 +78,7 @@ body {
   height: 30px;
   outline: none;
   border-radius: 8px;
-  border: #0062e2 solid 1px;
+  border: #e68224 solid 1px;
   transition: all 0.3s ease 0s;
 }
 .header .search-bar:hover, .header .search-bar:focus, .header .search-bar:not(:placeholder-shown) {
@@ -81,8 +86,9 @@ body {
 }
 
 .header .nav-links li:hover,
-.overlay a:hover, .menu button:hover, .perfil-header:hover {
-  transform: scale(1.1);
+.overlay a:hover, .menu button:hover, .perfil-header:hover  {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
 }
 
 .header .nav-links a {
@@ -91,7 +97,9 @@ body {
   font-style: normal;
   font-size: 25px;
   text-decoration: none;
-  color: #fffefe;
+  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
 }
 
@@ -104,10 +112,6 @@ body {
   margin-right: 10px;
   transition: all 0.3s ease 0s;
   }
-
-.header .nav-links a:hover, .header .nav-links button:hover{
-  color: #fd8f45;
-}
 
 .menu {
   display: none;
@@ -224,8 +228,7 @@ body {
 }
 
 .left-column {
-  background-color: #fff;
-  /* *Fondo blanco para las publicaciones */
+  background-color: #121212;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -246,7 +249,7 @@ body {
   display: inline-flex;
   text-align: center;
   align-items: center;
-  background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 15px
@@ -261,8 +264,7 @@ body {
 }
 
 .right-column {
-  background-color: #fff;
-  /* Fondo blanco para las publicaciones */
+  background-color: #121212;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -272,8 +274,7 @@ body {
 }
 
 .main-content {
-  background-color: #c7dcfc;
-  /* Fondo blanco para las publicaciones */
+  
   padding: 15px;
   margin-top: 60px;
   width: 60%;
@@ -296,7 +297,7 @@ body {
 }
 
 .post {
-  background-color: white;
+  background-color: #000000;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -341,7 +342,7 @@ body {
   width: auto;
   padding: 10px;
   height: auto;
-  background-color: #3498db;
+  background: linear-gradient(to right, #ee1e6e, #da7837);
   border-radius: 16px 0px 16px 16px;
   position: absolute;
   right: 3%;
@@ -399,7 +400,7 @@ body {
 .like-btn, .comment-btn, .share-btn {
   all: unset;
   cursor: pointer;
-  color: #79aefd;
+  color: #797777;
   background-color: none;
 }
 .like-btn.liked{
@@ -430,7 +431,7 @@ body {
 }
 
 #my-popover {
-  background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   width: 50%;
   height: 90vh;
   align-items: center;
@@ -453,7 +454,7 @@ body {
 .custom-file-label {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #3498db;
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -463,12 +464,12 @@ body {
   transition: all 0.3s ease 0s;
 }
 .custom-file-label:hover {
-  background-color: #fd8f45;
+  transform: scale(1.1);
 }
 .file-upload button{
   border: none;
   padding: 10px 20px;
-  background-color: #3498db;
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -478,7 +479,7 @@ body {
   transition: all 0.3s ease 0s;
 }
 .file-upload button:hover {
-  background-color: #fd8f45;
+  transform: scale(1.1);
 }
 .cambiarfoto {
   all:unset;
@@ -489,7 +490,7 @@ body {
 }
 .info-usuario {
   margin-top: 10px;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   padding: 5px 5px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -501,21 +502,22 @@ body {
 .info-usuario h2{
   text-align: center;
   font-size: 20px;
+  color: white;
 }
 .info-usuario label{
   padding-top: 2px;
   font-size: 16px;
+  color: white;
 }
 #resultados {
   display: none;
   border-radius: 10px ;
-  box-shadow:
-  0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #ffff;
+  width: 213px;
+  background-color: #000000;
   padding: 10px;
   margin-top: 10px;
-  max-height: 50rem;
+  max-height: 30rem;
+  overflow-y:scroll;
   overflow-y: auto;
   position: fixed;
   top: 2.1rem;
@@ -525,7 +527,7 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  
   padding-bottom: 10px;
 }
 
@@ -541,7 +543,7 @@ body {
 #resultados .info-perfil a {
   font-size: 14px;
   text-decoration: none;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 .comentarios{
   display: none;
@@ -552,7 +554,7 @@ body {
   display: flex;
   height: auto;
   flex-direction: column;
-  background-color: #c7dcfc;
+  background-color: #444444;
   padding: 5px 12px;
   border-radius: 8px;
   margin-bottom: 5px;
@@ -566,7 +568,7 @@ body {
 }
 .post-comments-head span{
   font-size: 12px;
-  color: #363738;
+  color: #a0a0a0;
   margin-left: 5px;
 }
 .post-comments-head strong{
@@ -594,7 +596,7 @@ body {
 .mandarcomentario form{
 
     height: auto;
-    background-color: #c7dcfc;
+    background-color: #444444;
     padding: 10px;
     border-radius: 0px 0px 8px 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -608,10 +610,11 @@ body {
   font-size: 14px;
   border-radius: 10px;
   padding: 5px 10px;
-  border-color: #0062e2;
+  border-color: #da7837;
   outline: none;
   resize: unset;
   margin-right: 10px;
+  color: #ffff;
 }
 .mandarcomentario button {
   width: 5%;
@@ -622,7 +625,7 @@ body {
 }
 .mandarcomentario i{
   font-size: 20px;
-  color: #0062e2;
+  color:#da7837;
 }
 
 .post-comments-config{
@@ -643,7 +646,7 @@ body {
   width: auto;
   padding: 5px;
   height: auto;
-  background-color: #3498db;
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   border-radius: 16px 50px 50px 16px;
   position: absolute;
   right: 2rem;
@@ -658,7 +661,7 @@ body {
 }
 
 .post-follows{
-  background-color: white;
+  background-color: #000000;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -712,7 +715,7 @@ display: flex;
 .post-follows-btn{
   border: none;
   padding: 5px 20px;
-  background-color: #3498db;
+  background: linear-gradient(to right, #ee1e6e, #da7837);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -725,7 +728,7 @@ display: flex;
 .post-mensaje-btn{
   border: none;
   padding: 5px 20px;
-  background-color: #3498db;
+  background: linear-gradient(to right, #ee1e6e, #da7837);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -735,8 +738,8 @@ display: flex;
   transition: all 0.3s ease 0s;
   margin-left: 5px;
 }
-.post-follows-btn:hover {
-  background-color: #fd8f45;
+.post-follows-btn:hover, .post-mensaje-btn:hover {
+  transform: scale(1.1);
 }
 .post-follows-btns{
   align-items: center;
@@ -784,7 +787,7 @@ all: unset;
   width: 100%;
   height: 3rem;
   text-decoration: none;
-  color: #1c1e21;
+  color: #ffffff;
 }
 .seguido p{
   margin-left: 3px;
@@ -793,10 +796,7 @@ all: unset;
 .configuration{
   display: none;
   border-radius: 10px ;
-  box-shadow:
-  0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #ffff;
+  background-color: #000000;
   padding: 10px;
   margin-top: 10px;
   max-height: 50rem;
@@ -813,7 +813,7 @@ all: unset;
   text-align: center;
 }
 .configuration a{
-  color:#000000;
+  color:#ffffff;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
@@ -831,7 +831,7 @@ all: unset;
   box-shadow:
   0 20px 25px -5px rgba(0, 0, 0, 0.1),
   0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #ffff;
+  background-color: #121212;
   padding: 10px;
   width: 40%;
   min-width: 428px;
@@ -847,12 +847,12 @@ all: unset;
   justify-content: space-around;
   margin-bottom: 30px;
   margin-top: 30px;
+  color: white;
 }
 .compartir-publicacion label button{
   border: none;
-  
   padding: 5px 40px;
-  background-color: #3498db;
+  background:  linear-gradient(to right, #da7837, #ee1e6e);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -861,13 +861,13 @@ all: unset;
   text-align: center;
   transition: all 0.3s ease 0s;
 }
-.compartir-publicacion label button:hover {
-  background-color: #fd8f45;
+.compartir-publicacion  button:hover {
+  transform: scale(1.1);
 }
 
 .compartir-publicacion label a{
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
   font-size: 32px;
   margin-right: 15px;
   cursor: pointer;
@@ -879,7 +879,8 @@ all: unset;
   box-shadow:
   0 20px 25px -5px rgba(0, 0, 0, 0.1),
   0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #ffff;
+  background-color: #000000;
+  color: #ffff;
   padding: 10px;
   margin-top: 10px;
   max-height: 50rem;
@@ -891,7 +892,7 @@ all: unset;
 .informacion{
   display: flex;
   justify-content:space-around;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -908,9 +909,11 @@ all: unset;
 }
 .publicacionesPerfil{
   display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 1px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 1px;
+  max-height: 48vh;
+  overflow-y: hidden; 
 }
 .publicacionesPerfil img{
   width: 100%;
@@ -925,7 +928,7 @@ all: unset;
   display: inline-flex;
   text-align: center;
   align-items: center;
-  background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 8px
@@ -938,7 +941,7 @@ all: unset;
   margin-top: 5px;
   text-align: center;
   align-items: center;
-  background: linear-gradient(90deg, rgba(19, 86, 203, 1) 0%, rgb(20, 165, 194) 100%);
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 8px
@@ -956,7 +959,7 @@ all: unset;
     box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    background-color: #ffff;
+    background-color: #000000;
     padding: 10px;
   width: 40%;
   height: 50vh;
@@ -973,6 +976,7 @@ all: unset;
   font-weight: 400;
   font-style: normal;
   font-size: 28px;
+  color: white;
 }
 
 #formularioPresentacion form{
@@ -983,6 +987,7 @@ all: unset;
   
 }
 #formularioPresentacion form label{
+  color: #ffff;
 font-size: 22px;
 text-align: center;
 margin-bottom: 5px;
@@ -991,7 +996,7 @@ margin-bottom: 5px;
 #formularioPresentacion form button{
   width: 9rem;
   font-size: 18px;
-  background-color:#007bff;
+  background: linear-gradient(to right, #da7837, #ee1e6e);
   color: #fff;
   border: none;
   padding: 7px 10px;
@@ -1010,5 +1015,4 @@ margin-bottom: 5px;
 #formularioPresentacion form button:hover{
   transform: scale(1.1);
   transition: all 0.3s ease 0s;
-  background-color: #da7837;
 }

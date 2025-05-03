@@ -9,13 +9,13 @@
 </head>
 
 <body>
+<img class="imagenUnex" src="uploads/imagen Unex2.png" alt="">
     <header class="header">
         <div class="logo">
             <a href="#">Unex</a>
         </div>
     </header>
     <main class="fondo">
-        <img class="imagenUnex" src="uploads/imagen unex.png" alt="">
         <form method="post" id="Miformulario">
             <div class="contenedor">
                 <h1>Iniciar sesión en Unex</h1>

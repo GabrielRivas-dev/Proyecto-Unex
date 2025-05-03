@@ -121,8 +121,6 @@ function mostrarNotificaciones() {
 }
 
 
-
-
 let publicacionACompartir= null;
 
 function divCompartir(publicacionId){
@@ -172,7 +170,7 @@ function comentariosPost(event, publicacionId) {
     const comentariosDiv = document.getElementById(`comentarios-${publicacionId}`);
     const commentBtnColor = document.getElementById(`comment-btn-${publicacionId}`);
     comentariosDiv.style.display = comentariosDiv.style.display === 'block' ? 'none' : 'block';
-    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? '#79aefd' : 'green';
+    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? '#797777' : 'green';
 
     fetch(`obtener_comentarios.php?publicacion_id=${publicacionId}`)
         .then(response => response.json())
@@ -456,7 +454,7 @@ function cargarPublicaciones() {
                             <span>${publicacion.total_comments}</span>
                         </li>
                         <li>
-                            <button class="share-btn">
+                            <button id="share-btn-${publicacion.publicacion_id}" class="share-btn" onclick="divCompartir(${publicacion.publicacion_id})">
                                 <i class="fa-solid fa-share-from-square"></i>
                             </button>
                             <span>${publicacion.compartidos}</span>

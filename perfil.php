@@ -124,9 +124,11 @@ $carrera = $_SESSION['carrera'];
           </label>
         </div>
         <div class="datos2">
-          <label for="Carrera"><strong>Carrera:</strong>
-            <p> <?php echo "$carrera"; ?></p>
-          </label>
+          <?php if ($tipo=="estudiante") {
+              echo '<label for="Carrera"><strong>Carrera:</strong>' .$carrera.'</label>' ;
+      }else{
+        echo '<label for="Categoria"><strong>Categoria:</strong>' .$carrera.'</label>' ;
+      }  ?>
           <label for="Correo"><strong>Correo:</strong>
             <p> <?php echo "$EmailUsuario"; ?></p>
           </label>
