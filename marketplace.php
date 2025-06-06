@@ -82,44 +82,57 @@ include 'conexion.php';
           evento</button>
         <a href="eventos.php" class="evento-btn"><i style="color:red;" class="fa-solid fa-location-dot"></i>
           Eventos</Em></a>
-        <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i class="fa-solid fa-plus"></i> Crear
+        <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i
+            class="fa-solid fa-plus"></i> Crear
           foro</button>
         <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe" style="color:green"></i>
           Foros</Em></a>
-          <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
+        <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
           UnexShop</Em></a>
-          <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase" style="color:yellow"></i>
-          UnexRepos</Em></a>
-         
       </div>
       <div id="invitaciones-usuario"></div>
 
     </div>
     <!--CONTENIDO DEL MEDIO -->
     <div class="main-content" id="main-content">
-      <!--CREAR PUBLICACION-->
-      <div class="post-create">
-        <form action="publicar.php" method="POST" enctype="multipart/form-data">
-          <div class="input-create-post">
-            <a href="perfil.php"><img src="<?php echo $imagenUsuario; ?>" alt="perfil"></a>
-            <textarea maxlength="250" class="description" name="description"
-              placeholder="¿Que publicaras hoy <?php echo "$NombreUsuario" ?>?"></textarea>
+      <div class="marketplace" id="unexShop">
+        <div class="header-marketplace">
+          <h1><i class="fa-solid fa-store"></i> UnexShop</h1>
+          <span>Tu mercado social en un click, UnexShop</span>
+          <div>
+          <button popovertarget="crear-producto">Agregar</button>
+          <button onclick="abrirVentas()">Tus ventas</button>
           </div>
-          <div class="buttons-create-post">
-            <label for="file-input" class="upload-file-label">Subir foto</label>
-            <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
-            <button class="post-create-btn" type="submit" value="enviar">Publicar</button>
-          </div>
-        </form>
+          <input type="text" id="buscador-productos" placeholder="Buscar...">
+        </div>
+            <div id="modal-producto" class="modal" style="display:none;">
+        <div class="modal-content">
+          <span class="close" onclick="cerrarModalProducto()">&times;</span>
+          <h2 id="modal-titulo"></h2>
+          <img id="modal-imagen" src="" alt="" style="max-width: 100%;">
+          <p id="modal-descripcion"></p>
+          <p id="modal-fecha"></p>
+          <p><strong>Precio:</strong> <span id="modal-precio"></span>$</p>
+          <p><strong>Vendedor:</strong> <span id="modal-vendedor"></span></p>
+          <button id="modal-contactar" onclick="">Contactar</button>
+        </div>
       </div>
-      <div class="publicaciones" id="publicaciones"> </div>
-      <div class="compartir-publicacion" id="compartir-publicacion" popover>
-        <label>
-          <h2>¿Deseas compartir esta publicacion?</h2>
-          <a onclick="divCompartir()">&times</a>
-        </label>
-        <label><button onclick="compartirPublicacion()">Si</button>
-          <button onclick="divCompartir()">No</button></label>
+
+        <div class="publicacionesMarketplace" id="publicacionesMarketplace">
+
+        </div>
+      </div>
+      <div class="marketplace" id="productos-propios" style="display: none;">
+         <div class="header-marketplace">
+          <button class="cerrarVentasPropias" onclick="cerrarVentas()">&times</button>
+          <h1><i class="fa-solid fa-store"></i> Tus ventas</h1>
+          <span>Tu mercado social en un click, UnexShop</span>
+          <div>
+          <button popovertarget="crear-producto">Agregar</button>
+          </div>
+        </div>
+
+        <div class="tusVentas" id="tusVentas"></div>
       </div>
       <div class="crear-evento" id="crear-evento" popover>
         <form id="form-evento" action="guardar_evento.php" method="POST">
@@ -144,6 +157,7 @@ include 'conexion.php';
           <div id="map" style="height: 300px;"></div>
         </div>
       </div>
+
       <div class="crear-foro" id="crear-foro" popover>
         <form action="guardar_foro.php" id="formCrearForo" method="POST" enctype="multipart/form-data">
           <h2>Crear nuevo foro</h2>
@@ -165,17 +179,33 @@ include 'conexion.php';
           <button type="submit">Crear foro</button>
         </form>
       </div>
+
+      <div class="crear-producto" id="crear-producto" popover>
+        <form action="guardar_producto.php" method="POST" enctype="multipart/form-data">
+          <H2>Agregar producto</H2>
+          <label for="titulo">Titulo:</label>
+          <input type="text" name="titulo" placeholder="Título" required>
+          <label for="titulo">Descripcion:</label>
+          <textarea name="descripcion" placeholder="Descripción" required></textarea>
+          <label for="titulo">Precio en dolares:</label>
+          <input type="number" name="precio" placeholder="Precio" required>
+          <label for="titulo">Imagen del producto:</label>
+          <input type="file" name="imagen" accept="image/*">
+          <button type="submit">Publicar producto</button>
+        </form>
+      </div>
+  
     </div>
     <!--CONTENIDO DE LA DERECHA -->
     <div class="right-column">
       Seguidos
       <div class="seguidos" id="seguidos">
       </div>
-      Foros 
+      Foros
       <div class="seguidos-foros" id="seguidos-foros"></div>
     </div>
   </main>
-  <script src="Main.js"> </script>
+  <script src="marketplace.js"> </script>
 </body>
 
 </html>

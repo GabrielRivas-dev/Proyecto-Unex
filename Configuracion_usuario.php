@@ -218,10 +218,9 @@ $tipo = $_SESSION['tipo'];
     </div>
     <div class="right-column">
       Seguidos
-      <div class="seguidos" id="seguidos">
-
-      </div>
-
+      <div class="seguidos" id="seguidos"> </div>
+            Foros 
+      <div class="seguidos-foros" id="seguidos-foros"></div>
     </div>
 
 

@@ -1,3 +1,92 @@
+let mapaIniciado = false;
+let mapa, marcador;
+
+document.getElementById('activar-mapa').addEventListener('change', function () {
+    const contenedor = document.getElementById('contenedor-mapa');
+  
+    if (this.checked) {
+      contenedor.style.display = 'block';
+  
+      // Solo inicializa si aún no existe
+      if (!mapaIniciado) {
+        mapa = L.map('map').setView([10.0, -84.0], 15); // Centro inicial ajustable
+  
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(mapa);
+  
+        mapa.on('click', function (e) {
+          const lat = e.latlng.lat;
+          const lng = e.latlng.lng;
+  
+          // Guardar valores en campos ocultos
+          document.getElementById('latitud').value = lat;
+          document.getElementById('longitud').value = lng;
+  
+          // Añadir marcador o moverlo
+          if (marcador) {
+            marcador.setLatLng([lat, lng]);
+          } else {
+            marcador = L.marker([lat, lng]).addTo(mapa);
+          }
+        });
+  
+        mapaIniciado = true;
+      }
+  
+      // Ajustar tamaño después de mostrar
+      setTimeout(() => {
+        mapa.invalidateSize();
+      }, 300);
+  
+    } else {
+      contenedor.style.display = 'none';
+    }
+  });
+
+function mostrarInvitacionesPendientes() {
+    fetch("obtener_invitaciones_usuario.php")
+      .then(res => res.json())
+      .then(data => {
+        const contenedor = document.getElementById("invitaciones-usuario");
+        contenedor.innerHTML = "";
+  
+        if (data.length === 0) {
+          contenedor.innerHTML = "<p>No tienes invitaciones pendientes.</p>";
+          return;
+        }
+  
+        data.forEach(inv => {
+          const div = document.createElement("div");
+          div.classList.add("invitacion");
+  
+          div.innerHTML = `
+            <p><strong>${inv.invitador_nombre} ${inv.invitador_apellido}</strong> te ha invitado al grupo: <strong>${inv.grupo_nombre}</strong></p>
+            <button onclick="responderInvitacion(${inv.invitacion_id}, 'aceptada')">Aceptar</button>
+            <button onclick="responderInvitacion(${inv.invitacion_id}, 'rechazada')">Rechazar</button>
+          `;
+  
+          contenedor.appendChild(div);
+        });
+      });
+  }
+  document.addEventListener("DOMContentLoaded", mostrarInvitacionesPendientes);
+
+
+  function responderInvitacion(id, respuesta) {
+    fetch("responder_invitacion.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `invitacion_id=${id}&respuesta=${respuesta}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      mostrarInvitacionesPendientes(); // recargar
+    });
+  }
+  
+
 function obtenerMensajesNoleidos() {
     fetch("obtener_mensajes_noleidos.php")
     .then(response => response.json())
@@ -77,128 +166,8 @@ function mostrarNotificaciones() {
     }
 }
 
-function cambiarClave(){
-const div= document.getElementById('cambiar-contraseña');
-div.style.display = div.style.display === 'block' ? 'none' : 'block';
 
-}
-
-document.getElementById('form-cambiar-password').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evitar que la página se recargue
-
-    const passwordActual = document.getElementById('password-actual').value;
-    const passwordNueva = document.getElementById('password-nueva').value;
-    const passwordConfirmar = document.getElementById('password-confirmar').value;
-    const mensaje = document.getElementById('mensaje');
-
-    // Validar que las nuevas contraseñas coincidan
-    if (passwordNueva !== passwordConfirmar) {
-        mensaje.textContent = 'Las contraseñas no coinciden.';
-        mensaje.style.color = 'red';
-        return;
-    }
-
-    // Enviar la solicitud al servidor
-    fetch('cambiar_password.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password_actual: passwordActual, password_nueva: passwordNueva })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            mensaje.textContent = 'Contraseña actualizada correctamente.';
-            mensaje.style.color = 'green';
-            document.getElementById('form-cambiar-password').reset();
-        } else {
-            mensaje.textContent = data.message;
-            mensaje.style.color = 'red';
-        }
-    })
-    .catch(error => {
-        console.error('Error al cambiar la contraseña:', error);
-        mensaje.textContent = 'Hubo un error. Intenta nuevamente.';
-        mensaje.style.color = 'red';
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const elemento = document.getElementById('id-usuario');
-    const usuarioId = elemento.dataset.id;
-    cargarSeguidoresSeguidos(usuarioId)
-});
-
-function datosPersonales(){
-    const div= document.getElementById('divDatosPersonales');
-    div.style.display = div.style.display === 'flex' ? 'none' : 'flex';
-}
-function credenciales(){
-    const div= document.getElementById('divCredenciales');
-    div.style.display = div.style.display === 'flex' ? 'none' : 'flex';
-}
-function datosAcademicos(){
-    const div= document.getElementById('divDatosAcademicos');
-    div.style.display = div.style.display === 'flex' ? 'none' : 'flex';
-}
-
-function editarcampo(campo){
-    // Mostrar el input y el botón de guardar
-    console.log(campo);
-    document.getElementById(`${campo}-input`).style.display === 'inline';
-    document.getElementById(`guardar-${campo}`).style.display === 'inline';
-
-    if (document.getElementById(`${campo}-input`).style.display === 'inline') {
-        document.getElementById(`${campo}-input`).style.display = 'none';
-        document.getElementById(`guardar-${campo}`).style.display = 'none';
-    } else {
-        document.getElementById(`${campo}-input`).style.display = 'inline';
-        document.getElementById(`guardar-${campo}`).style.display = 'inline';
-    }
-}
-
-function guardarCampo(campo) {
-    const nuevoValor = document.getElementById(`${campo}-input`).value;
-
-    // Enviar los datos al servidor
-    fetch('actualizar_usuario.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ campo, valor: nuevoValor })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Actualizar el texto y volver al modo de visualización
-                document.getElementById(`${campo}-texto`).textContent = nuevoValor;
-                document.getElementById(`${campo}-texto`).style.display = 'inline';
-                document.getElementById(`${campo}-input`).style.display = 'none';
-                document.getElementById(`guardar-${campo}`).style.display = 'none';
-                alert("vuelve a iniciar sesion para efectuar los cambios");
-            } else {
-                alert('Error al actualizar el campo');
-            }
-        })
-        .catch(error => {
-            console.error('Error al actualizar la información:', error);
-        });
-}
-
-function cargarSeguidoresSeguidos(usuarioId) {
-    fetch(`obtener_seguidores.php?usuario_id=${usuarioId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Actualizar los contadores en el DOM
-                document.getElementById('seguidores-count').textContent = data.seguidores;
-                document.getElementById('seguidos-count').textContent = data.seguidos;
-            } else {
-                console.error('Error al obtener seguidores:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error al cargar seguidores:', error);
-        });
-}
+//BUSCAR PERFILES
 function buscarPerfiles() {
     const query = document.getElementById('buscador').value.trim();
     const resultados = document.getElementById('resultados');
@@ -287,6 +256,8 @@ function cargarSeguidosForo() {
 // Llamar a la función al cargar la página
 document.addEventListener('DOMContentLoaded', cargarSeguidosForo);
 
+
+
 //FUNCION PARA ABRIR MENU LATERAL
 function openNav() {
     document.getElementById("mobile-menu").style.width = "100%";
@@ -295,9 +266,62 @@ function closeNav() {
     document.getElementById("mobile-menu").style.width = "0%";
 }
 
+function cargarEventos() {
+    fetch('mostrar_eventos.php')
+        .then(response => response.json())
+        .then(data => {
+            const contenedorPublicaciones = document.getElementById('eventos');
+             if (!data.length) {
+            contenedorPublicaciones.innerHTML = '<div class="post"><p style="text-align:center;">No hay eventos</p></div>';
+            return;
+        }
+            data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            contenedorPublicaciones.innerHTML = '';
+
+            data.forEach(eventos => {
+                const nuevaPublicacion = document.createElement('div');
+                nuevaPublicacion.classList.add('post');
+                nuevaPublicacion.id = `post-(${eventos.evento_id})`;
+
+                nuevaPublicacion.innerHTML = `
+              <div class="post-header">
+                  <img src="${eventos.imagen}" alt="Foto de usuario">
+                  <div class="post-info">
+                      <div class="post-info-name">
+                          <p><strong>${eventos.nombre} ${eventos.apellido}</strong></p>
+                          <span>${eventos.creado_en}</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="post-content">
+                 <p>${eventos.descripcion}</p>
+                 <span style="color:grey;">dia del evento ${eventos.fecha} a la hora ${eventos.hora}</span>
+                 ${eventos.latitud && eventos.longitud &&
+                    parseFloat(eventos.latitud) !== 0 &&
+                    parseFloat(eventos.longitud) !== 0
+                    ? `<div id="map-${eventos.evento_id}" class="evento-mapa"></div>` 
+                    : ''}
+                  
+              </div>
+              `;
+
+                contenedorPublicaciones.appendChild(nuevaPublicacion);
+                if (eventos.latitud !=0 && eventos.longitud !=0) {
+                    setTimeout(() => {
+                      const map = L.map(`map-${eventos.evento_id}`).setView([eventos.latitud, eventos.longitud], 15);
+                      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                      L.marker([eventos.latitud, eventos.longitud]).addTo(map);
+                    }, 100);
+                  }
+            });
+        });
+}
 
 
-  function cargarSeguidos() {
+// Llama a la función para cargar publicaciones al cargar la página
+cargarEventos();
+
+function cargarSeguidos() {
     fetch('contenedorSeguidos.php')
         .then(response => {
             if (!response.ok) {
@@ -306,8 +330,6 @@ function closeNav() {
             return response.json();
         })
         .then(data => {
-            console.log("Datos cargados:", data);
-
             const contenedorSeguidos = document.getElementById('seguidos');
             // Limpiar el contenedor
             contenedorSeguidos.innerHTML = '';
@@ -337,7 +359,10 @@ function closeNav() {
 // Llamar a la función al cargar la página
 document.addEventListener('DOMContentLoaded', cargarSeguidos);
 
+// Llama a la función para cargar publicaciones al cargar la página
+
 function openConfiguration(){
     const configurationdiv= document.getElementById("configuration");
-    configurationdiv.style.display = configurationdiv.style.display === 'flex' ? 'none' : 'flex';
+    configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
 }
+

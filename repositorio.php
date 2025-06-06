@@ -82,44 +82,53 @@ include 'conexion.php';
           evento</button>
         <a href="eventos.php" class="evento-btn"><i style="color:red;" class="fa-solid fa-location-dot"></i>
           Eventos</Em></a>
-        <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i class="fa-solid fa-plus"></i> Crear
+        <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i
+            class="fa-solid fa-plus"></i> Crear
           foro</button>
         <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe" style="color:green"></i>
           Foros</Em></a>
-          <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
+        <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
           UnexShop</Em></a>
-          <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase" style="color:yellow"></i>
+        <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase" style="color:yellow"></i>
           UnexRepos</Em></a>
-         
+
       </div>
       <div id="invitaciones-usuario"></div>
 
     </div>
     <!--CONTENIDO DEL MEDIO -->
     <div class="main-content" id="main-content">
-      <!--CREAR PUBLICACION-->
-      <div class="post-create">
-        <form action="publicar.php" method="POST" enctype="multipart/form-data">
-          <div class="input-create-post">
-            <a href="perfil.php"><img src="<?php echo $imagenUsuario; ?>" alt="perfil"></a>
-            <textarea maxlength="250" class="description" name="description"
-              placeholder="¿Que publicaras hoy <?php echo "$NombreUsuario" ?>?"></textarea>
+      <div class="repositorio" id="unexRepo">
+        <div class="header-repositorio">
+          <h1><i class="fa-solid fa-store"></i> UnexRepos</h1>
+          <span>Guarda tus fotos, documentos y proyectos en UnexRepos y compártelos con quien quieras</span>
+          <div>
           </div>
-          <div class="buttons-create-post">
-            <label for="file-input" class="upload-file-label">Subir foto</label>
-            <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
-            <button class="post-create-btn" type="submit" value="enviar">Publicar</button>
-          </div>
+        </div>
+        <button popovertarget="crear-repositorio" class="button-crear-repositorio">Crear un repositorio</button>
+        <div class="crear-repositorio" id="crear-repositorio" popover>
+        <form id="formSubirRepositorio" action="guardar_repositorio.php" method="POST" enctype="multipart/form-data">
+          <h2>Subir Repositorio</h2>
+
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" name="titulo" required>
+
+          <label for="descripcion">Descripción:</label>
+          <textarea id="descripcion" name="descripcion" required></textarea>
+
+          <label for="archivos">Seleccionar archivos:</label>
+          <input type="file" id="archivos" name="archivos[]" multiple required>
+
+          <label for="visibilidad">Visibilidad:
+          <select id="visibilidad" name="visibilidad">
+            <option value="publico">Público</option>
+            <option value="privado">Privado</option>
+          </select></label>
+
+          <button type="submit">Subir</button>
         </form>
-      </div>
-      <div class="publicaciones" id="publicaciones"> </div>
-      <div class="compartir-publicacion" id="compartir-publicacion" popover>
-        <label>
-          <h2>¿Deseas compartir esta publicacion?</h2>
-          <a onclick="divCompartir()">&times</a>
-        </label>
-        <label><button onclick="compartirPublicacion()">Si</button>
-          <button onclick="divCompartir()">No</button></label>
+        </div>
+        <div id="repositorios"></div>
       </div>
       <div class="crear-evento" id="crear-evento" popover>
         <form id="form-evento" action="guardar_evento.php" method="POST">
@@ -171,11 +180,11 @@ include 'conexion.php';
       Seguidos
       <div class="seguidos" id="seguidos">
       </div>
-      Foros 
+      Foros
       <div class="seguidos-foros" id="seguidos-foros"></div>
     </div>
   </main>
-  <script src="Main.js"> </script>
+  <script src="repositorio.js"> </script>
 </body>
 
 </html>

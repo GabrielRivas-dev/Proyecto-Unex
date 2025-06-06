@@ -228,9 +228,10 @@ function eliminarComentario(comentarioId) {
 //BUSCAR PERFILES
 function buscarPerfiles() {
     const query = document.getElementById('buscador').value.trim();
+    const resultados = document.getElementById('resultados');
 
     if (query.length === 0) {
-        document.getElementById('resultados').innerHTML = ''; // Limpiar resultados si no hay texto
+        resultados.innerHTML = '';
         resultados.style.display = 'none';
         return;
     }
@@ -238,21 +239,37 @@ function buscarPerfiles() {
     fetch(`buscar_perfiles.php?query=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => {
-            const resultados = document.getElementById('resultados');
-            resultados.innerHTML = ''; // Limpiar resultados anteriores
+            resultados.innerHTML = '';
 
             if (data.length > 0) {
                 resultados.style.display = 'block';
-                data.forEach(usuarios => {
-                    const perfil = document.createElement('div');
-                    perfil.classList.add('perfilresultados');
-                    perfil.innerHTML = `
-                        <img src="${usuarios.imagen}" alt="${usuarios.Nombre}" class="foto-perfil" />
-                        <div class="info-perfil">
-                            <a href="perfilesUsuarios.php?id=${usuarios.id}"><p><strong>${usuarios.Nombre} ${usuarios.Apellido}</strong></p></a> 
-                        </div>
-                    `;
-                    resultados.appendChild(perfil);
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.classList.add('perfilresultados');
+
+                    if (item.tipo === 'usuario') {
+                        div.innerHTML = `
+                            <img src="${item.imagen}" alt="${item.Nombre}" class="foto-perfil" />
+                            <div class="info-perfil">
+                                <a href="perfilesUsuarios.php?id=${item.id}">
+                                    <p><strong>${item.Nombre} ${item.Apellido}</strong></p>
+                                </a> 
+                            </div>
+                        `;
+                    } else if (item.tipo === 'foro') {
+                        div.innerHTML = `
+                                
+                                    <img src="${item.imagen}" alt="${item.titulo}" class="foto-perfil" />
+                            <div class="info-perfil">
+                            <a href="foro.php?id=${item.id}">
+                                    <p><strong>${item.titulo}</strong></p>
+                                    </a>
+                            </div>
+                                
+                        `;
+                    }
+
+                    resultados.appendChild(div);
                 });
             } else {
                 resultados.innerHTML = '<p>No se encontraron resultados.</p>';
@@ -260,6 +277,42 @@ function buscarPerfiles() {
         })
         .catch(error => console.error('Error al buscar perfiles:', error));
 }
+function cargarSeguidosForo() {
+    fetch('contenedorSeguidosForo.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al cargar los seguidos');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const contenedorSeguidos = document.getElementById('seguidos-foros');
+            // Limpiar el contenedor
+            contenedorSeguidos.innerHTML = '';
+
+            // Iterar sobre los datos recibidos y crear los elementos
+            data.forEach(foroSeguidos => {
+                const listaSeguidores = document.createElement('div');
+                listaSeguidores.classList.add('seguido');
+
+                listaSeguidores.innerHTML = `
+                    <a href="foro.php?id=${foroSeguidos.foro_id}">
+                    <img src="${foroSeguidos.imagen}" alt="Imagen del seguido">
+                    <p>${foroSeguidos.titulo}</p>
+                    </a>
+                `;
+
+                // Agregar el elemento al contenedor
+                contenedorSeguidos.appendChild(listaSeguidores);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar los seguidos:', error);
+        });
+}
+
+// Llamar a la función al cargar la página
+document.addEventListener('DOMContentLoaded', cargarSeguidosForo);
 
 
 //FUNCION PARA LOS LIKES

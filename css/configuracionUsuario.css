@@ -681,7 +681,9 @@ all: unset;
   font-size: 14px;
   margin-left: 2px;
 }
-
+.seguido{
+  transition: all 0.3s ease;
+}
 .seguido a {
   display: inline-flex;
   align-items: center;
@@ -689,6 +691,9 @@ all: unset;
   height: 3rem;
   text-decoration: none;
   color: #ffffff;
+}
+.seguido:hover{
+  transform: scale(1.1);
 }
 .seguido p{
   margin-left: 3px;

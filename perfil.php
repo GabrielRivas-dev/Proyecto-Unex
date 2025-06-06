@@ -40,15 +40,16 @@ $carrera = $_SESSION['carrera'];
       </form>
     </div>
   </div>
-  
+
   <div id="formularioPresentacion" popover>
-    <button popovertarget="formularioPresentacion">&times</button>  
-      <form id="formPresentacion">
-        <label for="presentacion">Presentación personal:</label>
-        <input type="text" id="presentacion" name="presentacion" rows="4" placeholder="Cuéntanos algo sobre ti..."></input>
-        <button type="submit">Guardar</button>
-      </form>
-      </div>
+    <button popovertarget="formularioPresentacion">&times</button>
+    <form id="formPresentacion">
+      <label for="presentacion">Presentación personal:</label>
+      <input type="text" id="presentacion" name="presentacion" rows="4"
+        placeholder="Cuéntanos algo sobre ti..."></input>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
   <header class="header">
     <div class="logo">
       <a href="PaginaPrincipal.php">Unex</a>
@@ -92,12 +93,12 @@ $carrera = $_SESSION['carrera'];
             alt="perfil"></button>
         <p><?php echo "$NombreUsuario $ApellidoUsuario"; ?></p>
       </div>
-      
+
       <div class="mensajePresentacion">
         <p id="mensajePresentacion"><?php echo $presentacionUsuario; ?></p>
         <button popovertarget="formularioPresentacion"><i class="fa-solid fa-pen-to-square"></i></button>
-    </div>
-    
+      </div>
+
       <div class="info-usuario">
         <div class="info-followers-perfil">
           <button onclick="mostrarSeguidores()"><label for="followers">
@@ -124,11 +125,11 @@ $carrera = $_SESSION['carrera'];
           </label>
         </div>
         <div class="datos2">
-          <?php if ($tipo=="estudiante") {
-              echo '<label for="Carrera"><strong>Carrera:</strong>' .$carrera.'</label>' ;
-      }else{
-        echo '<label for="Categoria"><strong>Categoria:</strong>' .$carrera.'</label>' ;
-      }  ?>
+          <?php if ($tipo == "estudiante") {
+            echo '<label for="Carrera"><strong>Carrera:</strong>' . $carrera . '</label>';
+          } else {
+            echo '<label for="Categoria"><strong>Categoria:</strong>' . $carrera . '</label>';
+          } ?>
           <label for="Correo"><strong>Correo:</strong>
             <p> <?php echo "$EmailUsuario"; ?></p>
           </label>
@@ -144,9 +145,9 @@ $carrera = $_SESSION['carrera'];
     <div class="right-column">
       Seguidos
       <div class="seguidos" id="seguidos">
-
       </div>
-
+      Foros
+      <div class="seguidos-foros" id="seguidos-foros"></div>
     </div>
 
 

@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-<header class="header">
+  <header class="header">
     <div class="logo">
       <a href="PaginaPrincipal.php">Unex</a>
     </div>
@@ -45,7 +45,8 @@ if (isset($_GET['id'])) {
       <ul class="nav-links">
         <li><a href="PaginaPrincipal.php"><i class="fa-solid fa-house"></i></a></li>
         <li><a href="mensajeria.php"><i class="fa-solid fa-message"></i><span id="contador-mensajes"></span></a></li>
-        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span id="contador-notificaciones"></span></button></li>
+        <li><button onclick="mostrarNotificaciones()"><i class="fa-solid fa-bell"></i> <span
+              id="contador-notificaciones"></span></button></li>
         <li><button onclick="openConfiguration()"><i class="fa-solid fa-gear"></i></button></li>
       </ul>
     </nav>
@@ -78,7 +79,7 @@ if (isset($_GET['id'])) {
       </div>
       <div class="mensajePresentacionUsuario">
         <p id="mensajePresentacion"><?php echo $perfil['presentacion']; ?></p>
-    </div>
+      </div>
     </div>
     <div class="main-content" id="main-content">
       <div class="post-follows">
@@ -110,10 +111,9 @@ if (isset($_GET['id'])) {
     </div>
     <div class="right-column">
       Seguidos
-      <div class="seguidos" id="seguidos">
-
-      </div>
-
+      <div class="seguidos" id="seguidos"></div>
+      Foros
+      <div class="seguidos-foros" id="seguidos-foros"></div>
     </div>
 
   </main>

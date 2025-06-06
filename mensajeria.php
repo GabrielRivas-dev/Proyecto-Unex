@@ -17,13 +17,16 @@ $imagenUsuario = $_SESSION['imagen'];
 
 include 'conexion.php';
 
-$sql = "SELECT p.titulo, p.contenido, p.fecha, p.imagensubida, u.nombre, u.apellido, u.imagen
-        FROM publicaciones p 
-        JOIN usuarios u ON p.usuario_id = u.id 
-        ORDER BY p.fecha ASC ";
-$resultado = $conex->query($sql);
+$mensaje_prefill = "";
+if (isset($_GET['producto_id']) && isset($_GET['titulo'])) {
+  $_SESSION['producto_referencia'] = "Hola, estoy interesado en: \"" . htmlspecialchars($_GET['titulo']) . "\"";
+}
 
-$publicacion = $resultado->fetch_assoc();
+if (isset($_SESSION['producto_referencia'])) {
+  $mensaje_prefill = $_SESSION['producto_referencia'];
+  unset($_SESSION['producto_referencia']); // Limpiar después de mostrar
+}
+
 ?>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -110,7 +113,7 @@ $publicacion = $resultado->fetch_assoc();
                 accept="image/*, apllication/docx, application/pdf, application/msword, application/vnd.ms-excel">
             </div>
             <input class="input-mensaje" type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje..."
-              autocomplete="off">
+              autocomplete="off" value="<?= htmlspecialchars($mensaje_prefill) ?>">
             <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
           </form>
         </div>

@@ -548,13 +548,17 @@ body {
 .comentarios{
   display: none;
 }
-
+.comentario{
+  border: 0.5px solid #1c1e21;
+border-radius: 15px;
+padding: 10px;
+margin-top: 5px;
+}
 /* COMENTARIOS*/
 .post-comments{
   display: flex;
   height: auto;
   flex-direction: column;
-  background-color: #444444;
   padding: 5px 12px;
   border-radius: 8px;
   margin-bottom: 5px;
@@ -780,7 +784,9 @@ all: unset;
   font-size: 14px;
   margin-left: 2px;
 }
-
+.seguido{
+  transition: all 0.3s ease;
+}
 .seguido a {
   display: inline-flex;
   align-items: center;
@@ -788,6 +794,9 @@ all: unset;
   height: 3rem;
   text-decoration: none;
   color: #ffffff;
+}
+.seguido:hover{
+  transform: scale(1.1);
 }
 .seguido p{
   margin-left: 3px;

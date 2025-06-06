@@ -16,6 +16,14 @@ $ClaveUsuario = $_SESSION['Clave'];
 $imagenUsuario = $_SESSION['imagen'];
 $presentacionUsuario = $_SESSION['presentacion'];
 include 'conexion.php';
+
+$sql = "SELECT p.titulo, p.contenido, p.fecha, p.imagensubida, u.nombre, u.apellido, u.imagen
+        FROM publicaciones p 
+        JOIN usuarios u ON p.usuario_id = u.id 
+        ORDER BY p.fecha ASC ";
+$resultado = $conex->query($sql);
+
+$publicacion = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,43 +92,17 @@ include 'conexion.php';
           Eventos</Em></a>
         <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i class="fa-solid fa-plus"></i> Crear
           foro</button>
-        <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe" style="color:green"></i>
+        <a href="foros.php" class="evento-btn"><i class="fa-solid fa-globe" style="color:green"></i>
           Foros</Em></a>
           <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
           UnexShop</Em></a>
-          <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase" style="color:yellow"></i>
-          UnexRepos</Em></a>
-         
       </div>
       <div id="invitaciones-usuario"></div>
 
     </div>
     <!--CONTENIDO DEL MEDIO -->
     <div class="main-content" id="main-content">
-      <!--CREAR PUBLICACION-->
-      <div class="post-create">
-        <form action="publicar.php" method="POST" enctype="multipart/form-data">
-          <div class="input-create-post">
-            <a href="perfil.php"><img src="<?php echo $imagenUsuario; ?>" alt="perfil"></a>
-            <textarea maxlength="250" class="description" name="description"
-              placeholder="¿Que publicaras hoy <?php echo "$NombreUsuario" ?>?"></textarea>
-          </div>
-          <div class="buttons-create-post">
-            <label for="file-input" class="upload-file-label">Subir foto</label>
-            <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
-            <button class="post-create-btn" type="submit" value="enviar">Publicar</button>
-          </div>
-        </form>
-      </div>
-      <div class="publicaciones" id="publicaciones"> </div>
-      <div class="compartir-publicacion" id="compartir-publicacion" popover>
-        <label>
-          <h2>¿Deseas compartir esta publicacion?</h2>
-          <a onclick="divCompartir()">&times</a>
-        </label>
-        <label><button onclick="compartirPublicacion()">Si</button>
-          <button onclick="divCompartir()">No</button></label>
-      </div>
+      <div class="foros" id="foros"> </div>
       <div class="crear-evento" id="crear-evento" popover>
         <form id="form-evento" action="guardar_evento.php" method="POST">
           <h2>Crear Evento</h2>
@@ -129,31 +111,27 @@ include 'conexion.php';
           <label>Descripción:</label>
           <textarea name="descripcion" required></textarea>
           <label>Fecha y hora:</label>
-          <input type="date" name="fecha" min="2010-01-01" required>
+          <input type="date" name="fecha" min="2010-01-01"  required>
           <input type="time" name="hora" id="hora" required>
           <input type="checkbox" id="activar-mapa"> Agregar ubicación
 
           <!-- Contenedor para el mapa -->
-
-          <input type="hidden" id="latitud" name="latitud">
-          <input type="hidden" id="longitud" name="longitud">
-
+         
+            <input type="hidden" id="latitud" name="latitud">
+            <input type="hidden" id="longitud" name="longitud">
+         
           <button type="submit">Guardar evento</button>
         </form>
         <div id="contenedor-mapa" style="display: none; margin-top: 10px;">
-          <div id="map" style="height: 300px;"></div>
-        </div>
+        <div id="map" style="height: 280px;"></div> </div>
       </div>
       <div class="crear-foro" id="crear-foro" popover>
         <form action="guardar_foro.php" id="formCrearForo" method="POST" enctype="multipart/form-data">
           <h2>Crear nuevo foro</h2>
-
           <label for="titulo">Título del foro:</label>
           <input type="text" id="titulo" name="titulo" required>
-
           <label for="descripcion">Descripción:</label>
           <textarea id="descripcion" name="descripcion" required></textarea>
-
           <label for="tipo">Tipo de foro:</label>
           <select id="tipo" name="tipo">
             <option value="general">General</option>
@@ -175,7 +153,7 @@ include 'conexion.php';
       <div class="seguidos-foros" id="seguidos-foros"></div>
     </div>
   </main>
-  <script src="Main.js"> </script>
+  <script src="verForos.js"> </script>
 </body>
 
 </html>

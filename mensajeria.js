@@ -813,9 +813,10 @@ if (lista.style.display === "block") {
 
 function buscarPerfiles() {
     const query = document.getElementById('buscador').value.trim();
+    const resultados = document.getElementById('resultados');
 
     if (query.length === 0) {
-        document.getElementById('resultados').innerHTML = ''; // Limpiar resultados si no hay texto
+        resultados.innerHTML = '';
         resultados.style.display = 'none';
         return;
     }
@@ -823,21 +824,37 @@ function buscarPerfiles() {
     fetch(`buscar_perfiles.php?query=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => {
-            const resultados = document.getElementById('resultados');
-            resultados.innerHTML = ''; // Limpiar resultados anteriores
+            resultados.innerHTML = '';
 
             if (data.length > 0) {
                 resultados.style.display = 'block';
-                data.forEach(usuarios => {
-                    const perfil = document.createElement('div');
-                    perfil.classList.add('perfilresultados');
-                    perfil.innerHTML = `
-                        <img src="${usuarios.imagen}" alt="${usuarios.Nombre}" class="foto-perfil" />
-                        <div class="info-perfil">
-                            <a href="perfilesUsuarios.php?id=${usuarios.id}"><p><strong>${usuarios.Nombre} ${usuarios.Apellido}</strong></p></a> 
-                        </div>
-                    `;
-                    resultados.appendChild(perfil);
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.classList.add('perfilresultados');
+
+                    if (item.tipo === 'usuario') {
+                        div.innerHTML = `
+                            <img src="${item.imagen}" alt="${item.Nombre}" class="foto-perfil" />
+                            <div class="info-perfil">
+                                <a href="perfilesUsuarios.php?id=${item.id}">
+                                    <p><strong>${item.Nombre} ${item.Apellido}</strong></p>
+                                </a> 
+                            </div>
+                        `;
+                    } else if (item.tipo === 'foro') {
+                        div.innerHTML = `
+                                
+                                    <img src="${item.imagen}" alt="${item.titulo}" class="foto-perfil" />
+                            <div class="info-perfil">
+                            <a href="foro.php?id=${item.id}">
+                                    <p><strong>${item.titulo}</strong></p>
+                                    </a>
+                            </div>
+                                
+                        `;
+                    }
+
+                    resultados.appendChild(div);
                 });
             } else {
                 resultados.innerHTML = '<p>No se encontraron resultados.</p>';
@@ -845,6 +862,7 @@ function buscarPerfiles() {
         })
         .catch(error => console.error('Error al buscar perfiles:', error));
 }
+
 
 function openNav() {
     document.getElementById("mobile-menu").style.width = "100%";
