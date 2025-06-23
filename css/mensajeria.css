@@ -1,22 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Lobster&family=Oleo+Script:wght@400;700&family=Pacifico&family=Playwrite+AU+SA:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "roboto", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --color-header: #ffffff;
+  --color-primary: #f3b08e; 
+  --color-secundary:#ffffff;
+  --color-third: #da6415;
+  --color-texto: #1b1a1a;
+
 }
 
 body {
-    min-width: 400px;
-    background-color: #444444;
-  color: #ffff;
+  min-width: 400px;
+  background-color: var(--color-primary);
+  color: var(--color-texto);
 }
 
 /*ENCABEZADO*/
 .header {
-  background: #121212;
+  background: var(--color-header);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -25,6 +35,7 @@ body {
   z-index: 100;
   width: 100%;
   position: fixed;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.07);
 }
 
 .header .logo {
@@ -39,15 +50,11 @@ body {
   font-family: "Pacifico", cursive;
   font-weight: 400;
   font-style: normal;
-  background-image: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   height: 70px;
   width: auto;
-}
-
-.header .logo a:hover {
-  background-image: linear-gradient(to right, #ee1e6e, #da7837);
 }
 
 .header .logo:hover {
@@ -61,7 +68,7 @@ body {
 .header .nav-links button {
   all: unset;
   font-size: 25px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
@@ -96,7 +103,7 @@ body {
   font-style: normal;
   font-size: 25px;
   text-decoration: none;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
@@ -258,11 +265,11 @@ body {
 
 .left-column {
 
-    background-color: #121212;
+    background-color: var(--color-secundary);
     /* *Fondo blanco para las publicaciones */
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
     margin-top: 75px;
     height: 85vh;
     left: 1%;
@@ -274,11 +281,11 @@ body {
 
 .right-column {
 
-    background-color: #121212;
+    background-color: var(--color-secundary);
     /* Fondo blanco para las publicaciones */
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
     margin-top: 75px;
     height: 85vh;
     right: 1%;
@@ -300,11 +307,11 @@ body {
     height: 63vh;
     background-color: rgb(224, 237, 255);
     padding: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
 }
 
 .chat-header {
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background-color: var(--color-third);
     padding: 4px;
     border-radius: 8px 8px 0px 0px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -326,7 +333,7 @@ color: white;
 }
 #mensajes{
   height: 65vh;
-  background-color: #121212; 
+  background-color: var(--color-secundary); 
   padding: 5px 10px;
   overflow-y:scroll;
   display: flex;
@@ -351,26 +358,26 @@ color: white;
 
 /* Mensajes enviados por el usuario actual */
 .mensaje-propio {
-  background-color:#ee1e6e; /* Verde claro */
+  background-color:#da7837; /* Verde claro */
   align-self: flex-end;
   text-align: right;
-  border: 1px solid #8f1644;
+  border: 1px solid #75411e;
   font-size: 16px;
 }
 
 
 /* Mensajes recibidos */
 .mensaje-ajeno {
-  background-color: #da7837; /* Rojo claro */
+  background-color: #ccc8c6; /* Rojo claro */
   align-self: flex-start;
   text-align: left;
-  border: 1px solid #75411e;
+  border: 1px solid #5a5957;
   font-size: 16px;
 }
 .enviarMensaje {
     width: 100%;
     height: auto;
-    background: linear-gradient(to right, #da7837, #ee1e6e);
+    background: var(--color-third);
     padding: 10px;
     border-radius: 0px 0px 8px 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -386,7 +393,7 @@ color: white;
   background-color: #fff;
   font-size: 18px;
   border-radius: 10px;
-  border-color: #e2207b;
+ 
   padding: 10px;
   outline: none;
   resize: unset;
@@ -445,10 +452,8 @@ color: white;
 .configuration{
   display: none;
   border-radius: 10px ;
-  box-shadow:
-  0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #000000;
+  background-color: var(--color-secundary);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   padding: 10px;
   margin-top: 10px;
   max-height: 50rem;
@@ -457,44 +462,39 @@ color: white;
   top: 2.3rem;
   right: 18%;
 }
-  .configuration li{
-    list-style: none;
-    text-decoration: none;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-align: center;
-  }
-  .configuration a{
-    color:#ffffff;
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-style: normal;
-   
-  }
+.configuration li{
+  list-style: none;
+  text-decoration: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.configuration a{
+  color:var(--color-texto);
+  font-size: 18px;
+ 
+}
   .configuration a:hover {
     color: #fd8f45;
     transition: all 0.3s ease 0s;
   }
   .lista-notificaciones{
-    display: none;
-    border-radius: 10px ;
-    box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    background-color: #000000;
-    color: #ffff;
-    padding: 10px;
-    margin-top: 10px;
-    max-height: 50rem;
-    overflow-y: auto;
-    position: fixed;
-    top: 2.3rem;
-    right: 25%;
+     display: none;
+  border-radius: 10px ;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
+  background-color: var(--color-secundary);
+  color: var(--color-texto);
+  padding: 10px;
+  margin-top: 10px;
+  max-height: 50rem;
+  overflow-y: auto;
+  position: fixed;
+  top: 2.3rem;
+  right: 25%;
   }
   .chat-item{
     margin-top: 10px;
-    background: #da7837;
+    background: var(--color-third);
     border-radius: 10px;
     padding: 10px;
     transition: all 0.3s;
@@ -507,7 +507,7 @@ color: white;
   .grupo-item{
     position: relative;
     margin-top: 10px;
-    background-color: #ee1e6e;
+    background-color: var(--color-third);
     border-radius: 10px;
     padding: 10px;
     transition: all 0.3s;
@@ -517,7 +517,7 @@ color: white;
     transform: scale(1.01); 
   }
   .grupo-item p, .grupo-item span {
-    color: #ffff;
+    color: white;
   }
   .ultimo-mensaje-novisto {
     display: block; /* o inline-block */
@@ -526,8 +526,7 @@ color: white;
     text-overflow: ellipsis;
     max-width: 90%;
     font-size: 16px;
-    color: rgb(247, 247, 247);
-    color: rgb(89, 211, 109);
+    color: rgb(22, 107, 11);
   font-weight: 600;
 }
 .ultimo-mensaje-visto {
@@ -620,7 +619,7 @@ color: white;
 }
 
 .boton-descargar {
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-texto);
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -639,12 +638,13 @@ color: white;
     max-width: 340px;
     overflow-y: auto;
     padding: 10px;
-    background-color: #000000;
+    background-color: var(--color-secundary);
     position: fixed;
     top: 78%;
     right: 65%;
     text-align: center;
-    color: white;
+    color: var(--color-texto);
+    box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
 }
 
 .cerrarArchivo{
@@ -658,10 +658,9 @@ color: white;
   right: 35%;
   left: 35%;
   border-radius: 10px ;
-  box-shadow:
-  0 0px 25px 10px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #000000;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
+   border: #000000 solid 2px;
+  background-color: var(--color-secundary);
   padding: 10px;
     height: auto;
 }
@@ -671,11 +670,14 @@ color: white;
   align-items: center;
 }
 .agregarGrupo form label{
-  font-size: 22px;
+  font-size: 18px;
   text-align: center;
   margin-bottom: 5px;
 }
-
+.agregarGrupo form input{
+  border-radius: 10px;
+  border: var(--color-third) solid 2px;
+}
 #nombregrupo{
   height:1.5rem ;
   padding: 2px 5px;
@@ -691,7 +693,7 @@ color: white;
 .agregarGrupo form button{
   width: 9rem;
   font-size: 18px;
-  background-image: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   font-family: "Bebas Neue", sans-serif;
   color: #fff;
   border: none;
@@ -722,7 +724,7 @@ color: white;
   display: none;
   height: 85vh;
   padding: 10px;
-  background-color:black;
+  background-color: var(--color-secundary);
   border-radius: 8px;
 }
 #chat-box{
@@ -752,7 +754,7 @@ color: white;
   all: unset;
   color: white;
   font-family: "Bebas Neue", sans-serif;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   border-radius: 5px;
   padding: 5px 15px;
   cursor: pointer;
@@ -768,7 +770,7 @@ color: white;
 }
 #btn-invitar{
   padding: 5px 15px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -788,19 +790,15 @@ color: white;
   width: 100%;
 }
 #lista-miembros{
-  background-color: #121212;
+  background-color: var(--color-secundary);
   width: 50%;
-  height: 48.5vh;
+  height: 45vh;
   padding: 10px;
   overflow-y:scroll;
   border-radius: 10px;
+  border: 1px solid var(--color-third);
 }
-#lista-miembros::-webkit-scrollbar{
-background-color: #000000
-}
-#lista-miembros::-webkit-scrollbar-thumb{
-  background-color: #4d4b4b
-  }
+
 .miembro{
   display: flex;
  justify-content: flex-start;
@@ -813,7 +811,7 @@ background-color: #000000
 }
 .miembro a{
   text-decoration: none;
-  color: #ffffff;
+  color: var(--color-texto);
   display: flex;
   align-items: center;
 }
@@ -841,16 +839,17 @@ background-color: #000000
   right: 35%;
   left: 35%;
   border-radius: 10px ;
+   border: #000000 solid 2px;
   box-shadow:
   0 0px 25px 10px rgba(0, 0, 0, 0.1),
   0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: black;
+  background-color: var(--color-secundary);
   padding: 10px;
     height: auto;
 }
 #modal-invitar button{
   padding: 5px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;

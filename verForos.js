@@ -52,7 +52,7 @@ function mostrarInvitacionesPendientes() {
         contenedor.innerHTML = "";
   
         if (data.length === 0) {
-          contenedor.innerHTML = "<p>No tienes invitaciones pendientes.</p>";
+          contenedor.innerHTML = "";
           return;
         }
   

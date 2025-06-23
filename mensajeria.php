@@ -132,12 +132,12 @@ if (isset($_SESSION['producto_referencia'])) {
       <div class="agregarGrupo" id="grupoFormulario">
         <input type="hidden" id="idCreador" value="<?php echo $idUsuario; ?>">
         <form id="formCrearGrupo">
-          <label for="nombreGrupo">Nombre del grupo</label>
+          <label for="nombreGrupo"><strong>Nombre del grupo</strong></label>
           <input type="text" id="nombreGrupo" name="nombre_grupo" required maxlength="30" requerid autocomplete="off">
-          <label>Seleccionar miembros</label>
+          <label></strong>Seleccionar miembros</strong></label>
           <div id="listaUsuarios">
           </div>
-          <label>Seleccionar imagen del grupo</label>
+          <label><strong>Seleccionar imagen del grupo</strong></label>
           <input type="file" accept="image/*" id="grupo-imagen" name="grupo-imagen" requerid>
           <button type="submit">Crear Grupo</button>
         </form>

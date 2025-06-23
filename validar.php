@@ -10,7 +10,7 @@ if(isset($_POST['Enviar'])){
         include("conexion.php");
 
         // Consulta a la base de datos
-        $sql = "SELECT Clave, Nombre, id FROM usuarios WHERE email = ?";
+        $sql = "SELECT Clave, Nombre, estado, id FROM usuarios WHERE email = ?";
         $stmt = $conex->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -20,12 +20,13 @@ if(isset($_POST['Enviar'])){
             $hashed_password = $row['Clave'];
             $NombreUsuario = $row['Nombre'];
             $idUsuario= $row['id'];
-          
+            if ($row['estado'] != 'suspendido') {
+         
             // Verificar contraseña (asegúrate de que el algoritmo de hashing sea el correcto)
             if (password_verify($clave, $hashed_password)) {
 
 
-                $sql = "SELECT Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen, presentacion, tipo, carrera FROM usuarios WHERE id=?";
+                $sql = "SELECT Nombre, Apellido, Cedula, Fecha, Genero, Email, Clave, imagen, presentacion, tipo, carrera, rol FROM usuarios WHERE id=?";
                 $stmt = $conex->prepare($sql);
                 $stmt->bind_param("s", $idUsuario);
                 $stmt->execute();
@@ -43,6 +44,7 @@ if(isset($_POST['Enviar'])){
                     $presentacionUsuario =$row['presentacion'];
                     $tipo =$row['tipo'];
                     $carrera =$row['carrera'];
+                    $rol =$row['rol'];
                 
                     echo "<p class='exitoso'>Bienvenido $NombreUsuario</p>";
                     session_start();
@@ -59,16 +61,20 @@ if(isset($_POST['Enviar'])){
                     $_SESSION['presentacion'] = $presentacionUsuario;
                     $_SESSION['tipo'] = $tipo;
                     $_SESSION['carrera'] = $carrera;
+                    $_SESSION['rol'] = $rol;
                     header('Location: PaginaPrincipal.php');
                 exit();
                 }
                 
             } else {
                 $_SESSION['logueado']=false;
-                echo "<p class='rechazado'>Contraseña incorrecta</p>";
+                 echo "<script>alert('Contraseña incorrecta.');</script>";
             }
+           } else {
+             echo "<script>alert('Tu cuenta ha sido suspendida por el administrador.');</script>";
+        }
         } else {
-            echo "<p class='rechazado'>Usuario no encontrado</p>";
+             echo "<script>alert('Usuario no encontrado.');</script>";
         }
 
         $stmt->close();

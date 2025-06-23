@@ -225,7 +225,7 @@ function comentariosPost(event, publicacionId) {
     const comentariosDiv = document.getElementById(`comentarios-${publicacionId}`);
     const commentBtnColor = document.getElementById(`comment-btn-${publicacionId}`);
     comentariosDiv.style.display = comentariosDiv.style.display === 'block' ? 'none' : 'block';
-    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? '#79aefd' : 'green';
+    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? 'var(--color-third)' : 'green';
 
     fetch(`obtener_comentarios.php?publicacion_id=${publicacionId}`)
         .then(response => response.json())
@@ -600,4 +600,44 @@ document.addEventListener('DOMContentLoaded', cargarSeguidos);
 function openConfiguration(){
     const configurationdiv= document.getElementById("configuration");
     configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
+}
+
+function mostrarFormularioReporte(tipo, id) {
+  const motivo = prompt("¿Por qué estás reportando esto?");
+  if (!motivo) return;
+
+  fetch("reportar.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tipo, reportado_id: id, motivo })
+  }).then(res => res.json())
+    .then(data => alert(data.success ? "Reporte enviado" : "Error al reportar"));
+}
+
+function bloquearUsuario(id) {
+  if (confirm("¿Deseas suspender este usuario?")) {
+    fetch('cambiar_estado_usuario.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usuario_id: id, estado: 'suspendido' })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      location.reload();
+    });
+  }
+}
+
+function desbloquearUsuario(id) {
+  fetch('cambiar_estado_usuario.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ usuario_id: id, estado: 'activo' })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message);
+    location.reload();
+  });
 }

@@ -68,7 +68,7 @@ function obtenerNotificaciones() {
 
             // Si la notificación no está leída, poner un fondo amarillo
             if (notif.leida == 0) {
-                div.style.backgroundColor = "#b8dbff"; // Color amarillo claro
+                div.style.backgroundColor = "#f6e8df"; // Color amarillo claro
                 div.style.fontWeight = "bold"; // Resaltar texto
             }
 
@@ -126,7 +126,7 @@ function comentariosPost(event, publicacionId) {
     const comentariosDiv = document.getElementById(`comentarios-${publicacionId}`);
     const commentBtnColor = document.getElementById(`comment-btn-${publicacionId}`);
     comentariosDiv.style.display = comentariosDiv.style.display === 'block' ? 'none' : 'block';
-    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? '#79aefd' : 'green';
+    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? 'var(--color-third)' : 'green';
 
     fetch(`obtener_comentarios.php?publicacion_id=${publicacionId}`)
         .then(response => response.json())

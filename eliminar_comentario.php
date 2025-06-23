@@ -2,6 +2,7 @@
 session_start();
 include("conexion.php");
 
+
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['id'])) {
     echo json_encode(['success' => false, 'message' => 'Usuario no autenticado']);
@@ -18,6 +19,17 @@ if (!isset($data['comentario_id'])) {
 
 $usuario_id = $_SESSION['id'];
 $comentario_id = (int)$data['comentario_id'];
+$esAdmin = $_SESSION['rol'] === 'admin';
+
+if ($esAdmin) {
+    // El administrador puede eliminar cualquier publicación
+    $stmt = $conex->prepare("DELETE FROM comentarios WHERE id = ?");
+    $stmt->bind_param("i", $comentario_id);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'comentario eliminado por el administrador']);
+    exit();
+}
 
 // Verificar si el comentario pertenece al usuario autenticado
 $sql = "SELECT id FROM comentarios WHERE id = ? AND usuario_id = ?";

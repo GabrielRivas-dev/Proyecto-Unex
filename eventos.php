@@ -17,13 +17,7 @@ $imagenUsuario = $_SESSION['imagen'];
 $presentacionUsuario = $_SESSION['presentacion'];
 include 'conexion.php';
 
-$sql = "SELECT p.titulo, p.contenido, p.fecha, p.imagensubida, u.nombre, u.apellido, u.imagen
-        FROM publicaciones p 
-        JOIN usuarios u ON p.usuario_id = u.id 
-        ORDER BY p.fecha ASC ";
-$resultado = $conex->query($sql);
 
-$publicacion = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,16 +78,18 @@ $publicacion = $resultado->fetch_assoc();
         <p id="mensajePresentacion"><?php echo $presentacionUsuario; ?></p>
       </div>
      <div class="links">
-        <button popovertarget="crear-evento" class="evento-create-btn"><i class="fa-solid fa-calendar-plus"></i> Crear
+         <button popovertarget="crear-evento" class="evento-create-btn"><i class="fa-solid fa-calendar-plus"></i> Crear
           evento</button>
-        <a href="eventos.php" class="evento-btn"><i style="color:red;" class="fa-solid fa-location-dot"></i>
+        <a href="eventos.php" class="evento-btn"><i class="fa-solid fa-location-dot"></i>
           Eventos</Em></a>
         <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i class="fa-solid fa-plus"></i> Crear
           foro</button>
-        <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe" style="color:green"></i>
+        <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe"></i>
           Foros</Em></a>
           <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
           UnexShop</Em></a>
+          <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase"></i>
+          UnexRepos</Em></a>
       </div>
       <div id="invitaciones-usuario"></div>
 

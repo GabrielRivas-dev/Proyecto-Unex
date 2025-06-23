@@ -80,6 +80,12 @@ if (isset($_GET['id'])) {
       <div class="mensajePresentacionUsuario">
         <p id="mensajePresentacion"><?php echo $perfil['presentacion']; ?></p>
       </div>
+      <div class="bloqueo-botones">
+      <?php if ($_SESSION['rol'] === 'admin') {
+    echo "<button onclick='bloquearUsuario($usuarioId)'>Bloquear</button>
+<button onclick='desbloquearUsuario($usuarioId)'>Desbloquear</button>" ;
+}?>
+</div>
     </div>
     <div class="main-content" id="main-content">
       <div class="post-follows">
@@ -97,6 +103,7 @@ if (isset($_GET['id'])) {
           <a href="mensajeria.php?receptor_id=<?php echo $usuarioId; ?>">
             <button class="post-mensaje-btn">Mensaje</button>
           </a>
+          <button class="post-mensaje-btn" onclick="mostrarFormularioReporte('usuario', <?php echo $usuarioId ?>)">Reportar</button>
         </div>
       </div>
       <div class="publicaciones" id="publicaciones"></div>

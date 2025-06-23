@@ -133,6 +133,7 @@ document.getElementById("modal-fecha").textContent =producto.fecha;
   document.getElementById("modal-vendedor").textContent = `${producto.nombre} ${producto.apellido}`;
   document.getElementById("modal-contactar").onclick = () => 
   contactarVendedor(producto.usuario_id, producto.id, producto.titulo);
+  document.getElementById("modal-reportar").onclick = () => mostrarFormularioReporte('venta', producto.id);
   document.getElementById("modal-producto").style.display = "block";
   
 }
@@ -203,7 +204,7 @@ function mostrarInvitacionesPendientes() {
         contenedor.innerHTML = "";
   
         if (data.length === 0) {
-          contenedor.innerHTML = "<p>No tienes invitaciones pendientes.</p>";
+          contenedor.innerHTML = "";
           return;
         }
   
@@ -486,5 +487,17 @@ document.addEventListener('DOMContentLoaded', cargarSeguidos);
 function openConfiguration(){
     const configurationdiv= document.getElementById("configuration");
     configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
+}
+
+function mostrarFormularioReporte(tipo, id) {
+  const motivo = prompt("¿Por qué estás reportando esto?");
+  if (!motivo) return;
+
+  fetch("reportar.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tipo, reportado_id: id, motivo })
+  }).then(res => res.json())
+    .then(data => alert(data.success ? "Reporte enviado" : "Error al reportar"));
 }
 

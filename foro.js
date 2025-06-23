@@ -476,3 +476,28 @@ document.addEventListener("DOMContentLoaded", obtenerMensajesNoleidos);
 document.getElementById("formCrearForo").addEventListener("submit", function (e) {
   e.target.querySelector("button[type='submit']").disabled = true;
 });
+
+function mostrarFormularioReporte(tipo, id) {
+  const motivo = prompt("¿Por qué estás reportando este foro?");
+  if (!motivo || motivo.trim() === "") {
+    alert("Debes escribir un motivo para el reporte.");
+    return;
+  }
+
+  fetch("reportar.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tipo: tipo, reportado_id: id, motivo: motivo })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("Reporte enviado correctamente.");
+    } else {
+      alert("Error al enviar el reporte: " + data.message);
+    }
+  })
+  .catch(error => {
+    console.error("Error en reporte:", error);
+  });
+}

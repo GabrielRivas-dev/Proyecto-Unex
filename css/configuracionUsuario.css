@@ -1,23 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Lobster&family=Oleo+Script:wght@400;700&family=Pacifico&family=Playwrite+AU+SA:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "roboto", sans-serif;
+ font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --color-header: #ffffff;
+  --color-primary: #f3b08e; 
+  --color-secundary:#ffffff;
+  --color-third: #da6415;
+  --color-texto: #1b1a1a;
 
 }
 
 body {
   min-width: 400px;
-  background-color: #444444;
-  color: #ffff;
+  background-color: var(--color-primary);
+  color: var(--color-texto);
 }
 
 /*ENCABEZADO*/
 .header {
-  background: #121212;
+  background: var(--color-header);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -26,6 +35,7 @@ body {
   z-index: 100;
   width: 100%;
   position: fixed;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
 }
 
 .header .logo {
@@ -40,15 +50,11 @@ body {
   font-family: "Pacifico", cursive;
   font-weight: 400;
   font-style: normal;
-  background-image: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   height: 70px;
   width: auto;
-}
-
-.header .logo a:hover {
-  background-image: linear-gradient(to right, #ee1e6e, #da7837);
 }
 
 .header .logo:hover {
@@ -62,7 +68,7 @@ body {
 .header .nav-links button {
   all: unset;
   font-size: 25px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
@@ -97,7 +103,7 @@ body {
   font-style: normal;
   font-size: 25px;
   text-decoration: none;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
@@ -228,11 +234,11 @@ body {
 }
 
 .left-column {
-  background-color: #121212;
+  background-color: var(--color-secundary);
   /* *Fondo blanco para las publicaciones */
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   margin-top: 75px;
   height: 85vh;
   left: 1%;
@@ -250,7 +256,7 @@ body {
   display: inline-flex;
   text-align: center;
   align-items: center;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 15px
@@ -271,11 +277,11 @@ body {
 }
 
 .right-column {
-  background-color: #121212;
+  background-color: var(--color-secundary);
   /* Fondo blanco para las publicaciones */
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+ box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   margin-top: 75px;
   height: 85vh;
   right: 1%;
@@ -306,12 +312,12 @@ body {
 }
 
 .post {
-  background-color: black;
+  background-color: var(--color-secundary);
   padding: 10px;
   height: 85vh;
   margin-bottom: 10px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
 }
 
 .post-header {
@@ -428,7 +434,7 @@ body {
   background-color: #0056b3;
 }
 #my-popover {
-  background-color: #fff;
+  background-color: var(--color-primary);
   width: 40%;
   height: 50vh;
   align-items: center;
@@ -437,7 +443,7 @@ body {
 }
 
 #my-popover {
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-primary);
   width: 50%;
   height: 90vh;
   align-items: center;
@@ -445,6 +451,8 @@ body {
   margin: auto;
   box-shadow: 0px 0px 20px 20px rgba(11, 10, 10, 0.5);
   text-align: center;
+  border: none;
+  border-radius: 10px;
   position: relative;
   padding-top: 1rem;
 }
@@ -460,7 +468,7 @@ body {
 .custom-file-label {
   display: inline-block;
   padding: 10px 20px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -475,7 +483,7 @@ body {
 .file-upload button{
   border: none;
   padding: 10px 20px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -496,7 +504,7 @@ body {
 }
 .info-usuario {
   margin-top: 10px;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--color-third);
   padding: 5px 5px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -690,7 +698,7 @@ all: unset;
   width: 100%;
   height: 3rem;
   text-decoration: none;
-  color: #ffffff;
+  color: var(--color-texto);
 }
 .seguido:hover{
   transform: scale(1.1);
@@ -702,7 +710,8 @@ all: unset;
 .configuration{
   display: none;
   border-radius: 10px ;
-  background-color: #000000;
+  background-color: var(--color-secundary);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   padding: 10px;
   margin-top: 10px;
   max-height: 50rem;
@@ -719,11 +728,8 @@ all: unset;
   text-align: center;
 }
 .configuration a{
-  color:#ffffff;
+  color:var(--color-texto);
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  font-style: normal;
  
 }
 .configuration a:hover {
@@ -784,10 +790,10 @@ all: unset;
 .titulo{
   text-align: center;
   width: 100%;
-  background-image: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
         background-clip: text;
         -webkit-text-fill-color: transparent;
-  color: #ffff;
+
   border-radius: 10px;
   height: auto;
   margin-top: 10px;
@@ -805,17 +811,16 @@ all: unset;
 }
 .grid .usuarioInfo{
   width: 100%;
-  border: 3px solid #121212 ;
+  border: 2px solid var(--color-third) ;
   background:transparent;
   border-radius: 10px;
   padding: 10px;
-  color: #ffffff;
+  color: var(--color-texto);
 }
 .usuarioInfo h3{
-  color: #ffff;
   text-align: center;
   margin-bottom: 10px;
-  background-image: linear-gradient(to right, #da7837, #ee1e6e);
+  background:var(--color-third);
         background-clip: text;
         -webkit-text-fill-color: transparent;
   border-radius: 10px;
@@ -828,12 +833,12 @@ all: unset;
  max-height: 2em;
  padding: 4px;
  border-radius: 10px;
- border: #007bff solid 2px;
+ border: var(--color-third) solid 2px;
  margin-bottom: 10px;
 }
 
 #CambiarContraseñaButton{
-  background:  linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   padding: 5px;
   border-radius: 10px;
   border: #000000;
@@ -841,14 +846,14 @@ all: unset;
   cursor: pointer;
 }
 .cambiar-contraseña{
-  background: #121212;
-  color: white;
+  background: var(--color-secundary);
+  color: var(--color-texto);
   border-radius: 10px;
   border: #000000 solid 2px;
   padding: 10px;
   width: 40%;
   min-width: 428px;
-  height: 50vh;
+  height: 51vh;
   align-items: center;
   justify-content: center;
   margin: auto;
@@ -874,12 +879,12 @@ all: unset;
   max-height: 2em;
   padding: 4px;
   border-radius: 10px;
-  border: #000000 solid 2px;
+  border: var(--color-third) solid 2px;
   width: 60%;
   margin-bottom: 10px;
 }
 .cambiar-contraseña button{
-  background:  linear-gradient(to right, #da7837, #ee1e6e);;
+  background: var(--color-third);
   padding: 7px;
   border-radius: 10px;
   border: #000000;
@@ -889,13 +894,11 @@ all: unset;
   font-size: 16px;
 }
 .lista-notificaciones{
-  display: none;
+ display: none;
   border-radius: 10px ;
-  box-shadow:
-  0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #000000;
-  color: #ffff;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
+  background-color: var(--color-secundary);
+  color: var(--color-texto);
   padding: 10px;
   margin-top: 10px;
   max-height: 50rem;

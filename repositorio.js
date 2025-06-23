@@ -23,7 +23,7 @@ function cargarRepositoriosPublicos() {
           } else if (ext === "pdf") {
             return `<embed src="${archivo.ruta}" type="application/pdf" width="100%" height="200px">`;
           } else {
-            return `<p>📄 <a href="${archivo.ruta}" style="color:white;" download="${archivo.nombre_original}">${archivo.nombre_original}</a></p>`;
+            return `<p>📄 <a href="${archivo.ruta}" style="color:var(--color-texto);" download="${archivo.nombre_original}">${archivo.nombre_original}</a></p>`;
           }
           
 
@@ -88,7 +88,7 @@ function cargarMisRepositorios() {
           } else if (ext === "pdf") {
             return `<embed src="${archivo.ruta}" type="application/pdf" width="100%" height="200px">`;
           } else {
-            return `<p>📄 <a href="${archivo.ruta}" style="color:white;" download="${archivo.nombre_original}">${archivo.nombre_original}</a></p>`;
+            return `<p>📄 <a href="${archivo.ruta}" style="color:var(--color-texto);" download="${archivo.nombre_original}">${archivo.nombre_original}</a></p>`;
           }
           
 
@@ -203,7 +203,7 @@ function mostrarInvitacionesPendientes() {
         contenedor.innerHTML = "";
   
         if (data.length === 0) {
-          contenedor.innerHTML = "<p>No tienes invitaciones pendientes.</p>";
+          contenedor.innerHTML = "";
           return;
         }
   

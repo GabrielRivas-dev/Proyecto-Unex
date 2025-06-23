@@ -1,22 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Lobster&family=Oleo+Script:wght@400;700&family=Pacifico&family=Playwrite+AU+SA:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "roboto", sans-serif;
+ font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --color-header: #ffffff;
+  --color-primary: #f3b08e; 
+  --color-secundary:#ffffff;
+  --color-third: #da6415;
+  --color-texto: #1b1a1a;
+
 }
 
 body {
   min-width: 400px;
-  background-color: #444444;
-  color: #ffff;
+  background-color: var(--color-primary);
+  color: var(--color-texto);
 }
 
 /*ENCABEZADO*/
 .header {
-  background: #121212;
+  background: var(--color-header);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -25,6 +35,7 @@ body {
   z-index: 100;
   width: 100%;
   position: fixed;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
 }
 
 .header .logo {
@@ -39,17 +50,12 @@ body {
     font-family: "Pacifico", cursive;
     font-weight: 400;
     font-style: normal;
-    background-image: linear-gradient(to right, #da7837, #ee1e6e);
+    background: var(--color-third);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     height: 70px;
     width: auto;
   }
-
-
-.header .logo a:hover {
-  background-image: linear-gradient(to right, #ee1e6e, #da7837);
-}
 
 .header .logo:hover {
   transform: scale(1.2);
@@ -62,7 +68,7 @@ body {
 .header .nav-links button {
   all: unset;
   font-size: 25px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
@@ -97,7 +103,7 @@ body {
   font-style: normal;
   font-size: 25px;
   text-decoration: none;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease 0s;
@@ -228,10 +234,10 @@ body {
 }
 
 .left-column {
-  background-color: #121212;
+  background-color: var(--color-secundary);
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+   box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   margin-top: 75px;
   height: 85vh;
   left: 1%;
@@ -249,7 +255,7 @@ body {
   display: inline-flex;
   text-align: center;
   align-items: center;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 15px
@@ -264,10 +270,10 @@ body {
 }
 
 .right-column {
-  background-color: #121212;
+  background-color: var(--color-secundary);
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+   box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   margin-top: 75px;
   height: 85vh;
   right: 1%;
@@ -297,11 +303,11 @@ body {
 }
 
 .post {
-  background-color: #000000;
+  background-color: var(--color-secundary);
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
 }
 
 .post-header {
@@ -342,7 +348,7 @@ body {
   width: auto;
   padding: 10px;
   height: auto;
-  background: linear-gradient(to right, #ee1e6e, #da7837);
+  background-color: var(--color-third);
   border-radius: 16px 0px 16px 16px;
   position: absolute;
   right: 3%;
@@ -381,6 +387,8 @@ body {
 .post-content img{
   max-width: 80%;
   min-width: 50%;
+    object-position: center;
+  object-fit: cover;
   border-radius: 5px;
   box-shadow: 0 0.5px 1.5px #1c1e21;
   height: auto;
@@ -400,7 +408,7 @@ body {
 .like-btn, .comment-btn, .share-btn {
   all: unset;
   cursor: pointer;
-  color: #797777;
+  color: var(--color-third);
   background-color: none;
 }
 .like-btn.liked{
@@ -431,16 +439,18 @@ body {
 }
 
 #my-popover {
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-primary);
   width: 50%;
   height: 90vh;
   align-items: center;
   justify-content: center;
   margin: auto;
-  box-shadow: 0px 0px 20px 20px rgba(11, 10, 10, 0.5);
+  box-shadow: 0px 0px 5px 5px rgba(11, 10, 10, 0.5);
   text-align: center;
   position: relative;
   padding-top: 1rem;
+  border: none;
+  border-radius: 10px;
 }
 #my-popover img {
   object-fit:contain;
@@ -454,7 +464,7 @@ body {
 .custom-file-label {
   display: inline-block;
   padding: 10px 20px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -469,7 +479,7 @@ body {
 .file-upload button{
   border: none;
   padding: 10px 20px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -490,11 +500,11 @@ body {
 }
 .info-usuario {
   margin-top: 10px;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--color-secundary);
   padding: 5px 5px;
   margin-bottom: 10px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -502,18 +512,19 @@ body {
 .info-usuario h2{
   text-align: center;
   font-size: 20px;
-  color: white;
+  color: var(--color-texto);
 }
 .info-usuario label{
   padding-top: 2px;
   font-size: 16px;
-  color: white;
+  color: var(--color-texto);
 }
 #resultados {
   display: none;
   border-radius: 10px ;
   width: 213px;
-  background-color: #000000;
+  background-color: var(--color-secundary);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   padding: 10px;
   margin-top: 10px;
   max-height: 30rem;
@@ -539,12 +550,15 @@ body {
   object-fit: cover;
   object-position: center;
 }
-
 #resultados .info-perfil a {
   font-size: 14px;
   text-decoration: none;
-  color: rgb(255, 255, 255);
+  color:var(--color-texto);
 }
+#resultados::-webkit-scrollbar{
+  background-color: var(--color-secundary);
+}
+
 .comentarios{
   display: none;
 }
@@ -650,7 +664,7 @@ margin-top: 5px;
   width: auto;
   padding: 5px;
   height: auto;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   border-radius: 16px 50px 50px 16px;
   position: absolute;
   right: 2rem;
@@ -665,7 +679,7 @@ margin-top: 5px;
 }
 
 .post-follows{
-  background-color: #000000;
+  background-color: var(--color-secundary);
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -719,7 +733,7 @@ display: flex;
 .post-follows-btn{
   border: none;
   padding: 5px 20px;
-  background: linear-gradient(to right, #ee1e6e, #da7837);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -732,7 +746,7 @@ display: flex;
 .post-mensaje-btn{
   border: none;
   padding: 5px 20px;
-  background: linear-gradient(to right, #ee1e6e, #da7837);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -793,7 +807,7 @@ all: unset;
   width: 100%;
   height: 3rem;
   text-decoration: none;
-  color: #ffffff;
+  color: var(--color-texto);
 }
 .seguido:hover{
   transform: scale(1.1);
@@ -805,7 +819,8 @@ all: unset;
 .configuration{
   display: none;
   border-radius: 10px ;
-  background-color: #000000;
+  background-color: var(--color-secundary);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   padding: 10px;
   margin-top: 10px;
   max-height: 50rem;
@@ -822,12 +837,10 @@ all: unset;
   text-align: center;
 }
 .configuration a{
-  color:#ffffff;
+  color:var(--color-texto);
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  font-style: normal;
  
+
 }
 .configuration a:hover {
   color: #fd8f45;
@@ -837,10 +850,8 @@ all: unset;
   display: none;
   border-radius: 10px ;
   border: none;
-  box-shadow:
-  0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #121212;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
+  background-color: var(--color-secundary);
   padding: 10px;
   width: 40%;
   min-width: 428px;
@@ -856,12 +867,12 @@ all: unset;
   justify-content: space-around;
   margin-bottom: 30px;
   margin-top: 30px;
-  color: white;
+  color: var(--color-texto);
 }
 .compartir-publicacion label button{
   border: none;
   padding: 5px 40px;
-  background:  linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: white;
   font-family: "Bebas Neue", sans-serif;
   border-radius: 5px;
@@ -876,7 +887,7 @@ all: unset;
 
 .compartir-publicacion label a{
   text-decoration: none;
-  color: #ffffff;
+  color: var(--color-texto);
   font-size: 32px;
   margin-right: 15px;
   cursor: pointer;
@@ -885,11 +896,9 @@ all: unset;
 .lista-notificaciones{
   display: none;
   border-radius: 10px ;
-  box-shadow:
-  0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  background-color: #000000;
-  color: #ffff;
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
+  background-color: var(--color-secundary);
+  color: var(--color-texto);
   padding: 10px;
   margin-top: 10px;
   max-height: 50rem;
@@ -901,11 +910,11 @@ all: unset;
 .informacion{
   display: flex;
   justify-content:space-around;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--color-secundary);
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   font-size: 18px;
 }
 .datos1, .datos2{
@@ -921,8 +930,8 @@ all: unset;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(5, 1fr);
   gap: 1px;
-  max-height: 48vh;
-  overflow-y: hidden; 
+  max-height: 40vh;
+  overflow-y: auto; 
 }
 .publicacionesPerfil img{
   width: 100%;
@@ -937,7 +946,7 @@ all: unset;
   display: inline-flex;
   text-align: center;
   align-items: center;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 8px
@@ -950,7 +959,7 @@ all: unset;
   margin-top: 5px;
   text-align: center;
   align-items: center;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 8px
@@ -965,10 +974,8 @@ all: unset;
 #formularioPresentacion{
     border: none;
     border-radius: 10px ;
-    box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    background-color: #000000;
+   box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
+    background-color: var(--color-secundary);
     padding: 10px;
   width: 40%;
   height: 50vh;
@@ -985,7 +992,7 @@ all: unset;
   font-weight: 400;
   font-style: normal;
   font-size: 28px;
-  color: white;
+  color: var(--color-texto);
 }
 
 #formularioPresentacion form{
@@ -996,7 +1003,7 @@ all: unset;
   
 }
 #formularioPresentacion form label{
-  color: #ffff;
+  color: var(--color-texto);
 font-size: 22px;
 text-align: center;
 margin-bottom: 5px;
@@ -1005,7 +1012,7 @@ margin-bottom: 5px;
 #formularioPresentacion form button{
   width: 9rem;
   font-size: 18px;
-  background: linear-gradient(to right, #da7837, #ee1e6e);
+  background: var(--color-third);
   color: #fff;
   border: none;
   padding: 7px 10px;
@@ -1024,4 +1031,24 @@ margin-bottom: 5px;
 #formularioPresentacion form button:hover{
   transform: scale(1.1);
   transition: all 0.3s ease 0s;
+}
+.bloqueo-botones{
+  padding: 10px;
+  justify-content: center;
+  display: flex;
+}
+.bloqueo-botones button{
+ border: none;
+ padding: 10px;
+  background: var(--color-third);
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+}
+.bloqueo-botones button:hover {
+  transform: scale(1.1);
 }

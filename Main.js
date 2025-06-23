@@ -89,7 +89,7 @@ function mostrarInvitacionesPendientes() {
         contenedor.innerHTML = "";
   
         if (data.length === 0) {
-          contenedor.innerHTML = "<p>No tienes invitaciones pendientes.</p>";
+          contenedor.innerHTML = "";
           return;
         }
   
@@ -171,7 +171,7 @@ function obtenerNotificaciones() {
 
             // Si la notificación no está leída, poner un fondo amarillo
             if (notif.leida == 0) {
-                div.style.backgroundColor = "#b8dbff"; // Color amarillo claro
+                div.style.backgroundColor = "#f6e8df"; // Color amarillo claro
                 div.style.fontWeight = "bold"; // Resaltar texto
             }
 
@@ -182,7 +182,7 @@ function obtenerNotificaciones() {
 }
 
 // Cargar notificaciones cada 10 segundos (para actualizar en tiempo real)
-setInterval(obtenerNotificaciones, 10000);
+setInterval(obtenerNotificaciones, 10);
 
 // Llamar a la función cuando cargue la página
 document.addEventListener("DOMContentLoaded", obtenerNotificaciones);
@@ -253,7 +253,7 @@ function comentariosPost(event, publicacionId) {
     const comentariosDiv = document.getElementById(`comentarios-${publicacionId}`);
     const commentBtnColor = document.getElementById(`comment-btn-${publicacionId}`);
     comentariosDiv.style.display = comentariosDiv.style.display === 'block' ? 'none' : 'block';
-    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? '#797777' : 'green';
+    commentBtnColor.style.color = commentBtnColor.style.color === 'green' ? 'var(--color-third)' : 'green';
 
     fetch(`obtener_comentarios.php?publicacion_id=${publicacionId}`)
         .then(response => response.json())
@@ -513,7 +513,7 @@ function cargarPublicaciones() {
                   <img src="${publicacion.imagen}" alt="Foto de usuario">
                   <div class="post-info">
                       <div class="post-info-name">
-                          <p><strong>${publicacion.nombre} ${publicacion.apellido}</strong></p>
+                          <a href="perfilesUsuarios.php?id=${publicacion.usuario_id}"><p><strong>${publicacion.nombre} ${publicacion.apellido}</strong></p></a>
                           <span>${publicacion.fecha}</span>
                       </div>
                       <div class="post-info-menu">
@@ -525,6 +525,8 @@ function cargarPublicaciones() {
                                     <li>
                                        <form>
                                             <button onclick="eliminarPublicacion(${publicacion.publicacion_id})" type="submit">Eliminar publicación</button>
+                                            <button onclick="mostrarFormularioReporte('publicacion',${publicacion.publicacion_id})">🚩 Reportar</button>
+
                                         
                                     </li>
                               </ul>
@@ -625,4 +627,16 @@ function openConfiguration(){
     const configurationdiv= document.getElementById("configuration");
     configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
 }
+function mostrarFormularioReporte(tipo, id) {
+  const motivo = prompt("¿Por qué estás reportando esto?");
+  if (!motivo) return;
+
+  fetch("reportar.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tipo, reportado_id: id, motivo })
+  }).then(res => res.json())
+    .then(data => alert(data.success ? "Reporte enviado" : "Error al reportar"));
+}
+
 

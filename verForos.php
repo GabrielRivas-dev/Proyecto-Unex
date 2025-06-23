@@ -16,14 +16,6 @@ $ClaveUsuario = $_SESSION['Clave'];
 $imagenUsuario = $_SESSION['imagen'];
 $presentacionUsuario = $_SESSION['presentacion'];
 include 'conexion.php';
-
-$sql = "SELECT p.titulo, p.contenido, p.fecha, p.imagensubida, u.nombre, u.apellido, u.imagen
-        FROM publicaciones p 
-        JOIN usuarios u ON p.usuario_id = u.id 
-        ORDER BY p.fecha ASC ";
-$resultado = $conex->query($sql);
-
-$publicacion = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,16 +78,18 @@ $publicacion = $resultado->fetch_assoc();
         <p id="mensajePresentacion"><?php echo $presentacionUsuario; ?></p>
       </div>
       <div class="links">
-        <button popovertarget="crear-evento" class="evento-create-btn"><i class="fa-solid fa-calendar-plus"></i> Crear
+       <button popovertarget="crear-evento" class="evento-create-btn"><i class="fa-solid fa-calendar-plus"></i> Crear
           evento</button>
-        <a href="eventos.php" class="evento-btn"><i style="color:red;" class="fa-solid fa-location-dot"></i>
+        <a href="eventos.php" class="evento-btn"><i class="fa-solid fa-location-dot"></i>
           Eventos</Em></a>
         <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i class="fa-solid fa-plus"></i> Crear
           foro</button>
-        <a href="foros.php" class="evento-btn"><i class="fa-solid fa-globe" style="color:green"></i>
+        <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe"></i>
           Foros</Em></a>
           <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
           UnexShop</Em></a>
+          <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase"></i>
+          UnexRepos</Em></a>
       </div>
       <div id="invitaciones-usuario"></div>
 
@@ -106,39 +100,44 @@ $publicacion = $resultado->fetch_assoc();
       <div class="crear-evento" id="crear-evento" popover>
         <form id="form-evento" action="guardar_evento.php" method="POST">
           <h2>Crear Evento</h2>
-          <label>Título del evento:</label>
+          <label><strong>Título del evento:</strong></label>
           <input type="text" name="titulo" required>
-          <label>Descripción:</label>
+          <label><strong>Descripción:</strong></label>
           <textarea name="descripcion" required></textarea>
-          <label>Fecha y hora:</label>
-          <input type="date" name="fecha" min="2010-01-01"  required>
+          <label><strong>Fecha y hora:</strong></label>
+          <input type="date" name="fecha" min="2010-01-01" required>
           <input type="time" name="hora" id="hora" required>
-          <input type="checkbox" id="activar-mapa"> Agregar ubicación
+          <strong>Agregar ubicación</strong>
+          <input type="checkbox" id="activar-mapa">
 
           <!-- Contenedor para el mapa -->
-         
-            <input type="hidden" id="latitud" name="latitud">
-            <input type="hidden" id="longitud" name="longitud">
-         
+
+          <input type="hidden" id="latitud" name="latitud">
+          <input type="hidden" id="longitud" name="longitud">
+
           <button type="submit">Guardar evento</button>
         </form>
         <div id="contenedor-mapa" style="display: none; margin-top: 10px;">
-        <div id="map" style="height: 280px;"></div> </div>
+          <div id="map" style="height: 300px;"></div>
+        </div>
       </div>
       <div class="crear-foro" id="crear-foro" popover>
         <form action="guardar_foro.php" id="formCrearForo" method="POST" enctype="multipart/form-data">
           <h2>Crear nuevo foro</h2>
-          <label for="titulo">Título del foro:</label>
+
+          <label for="titulo"><strong>Título del foro:</strong></label>
           <input type="text" id="titulo" name="titulo" required>
-          <label for="descripcion">Descripción:</label>
+
+          <label for="descripcion"><strong>Descripción:</strong></label>
           <textarea id="descripcion" name="descripcion" required></textarea>
-          <label for="tipo">Tipo de foro:</label>
+
+          <label for="tipo"><strong>Tipo de foro:</strong></label>
           <select id="tipo" name="tipo">
             <option value="general">General</option>
             <option value="tema">Tema</option>
             <option value="estudio">Estudio</option>
           </select>
-          <label>Seleccionar imagen del foro</label>
+          <label><strong>Seleccionar imagen del foro</strong></label>
           <input type="file" accept="image/*" id="foro-imagen" name="foro-imagen" required>
           <button type="submit">Crear foro</button>
         </form>

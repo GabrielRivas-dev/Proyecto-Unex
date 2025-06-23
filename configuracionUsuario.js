@@ -45,7 +45,7 @@ function obtenerNotificaciones() {
 
             // Si la notificación no está leída, poner un fondo amarillo
             if (notif.leida == 0) {
-                div.style.backgroundColor = "#b8dbff"; // Color amarillo claro
+                div.style.backgroundColor = "#f6e8df"; // Color amarillo claro
                 div.style.fontWeight = "bold"; // Resaltar texto
             }
 

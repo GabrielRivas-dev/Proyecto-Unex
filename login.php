@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<img class="imagenUnex" src="uploads/imagen Unex2.png" alt="">
+<img class="imagenUnex" src="uploads/imagen Unex3.png" alt="">
     <header class="header">
         <div class="logo">
             <a href="#">Unex</a>

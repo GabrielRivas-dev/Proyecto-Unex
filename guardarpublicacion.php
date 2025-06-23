@@ -2,7 +2,7 @@
 include 'conexion.php';
 
 $sql = "SELECT 
-        p.id AS publicacion_id, p.titulo, p.contenido, p.fecha, p.imagensubida, p.compartidos, 
+        p.id AS publicacion_id, p.contenido, p.fecha, p.imagensubida, p.compartidos, p.usuario_id,
         u.nombre, u.apellido, u.imagen, NULL AS compartido_por,
         (SELECT COUNT(*) FROM likes WHERE publicacion_id = p.id) AS total_likes,
         (SELECT COUNT(*) FROM comentarios WHERE publicacion_id = p.id) AS total_comments

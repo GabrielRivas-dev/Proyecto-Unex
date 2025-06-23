@@ -1,26 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Lobster&family=Oleo+Script:wght@400;700&family=Pacifico&family=Playwrite+AU+SA:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "roboto", sans-serif;
-    }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
 
-    body {
-        min-width: 400px;
-        background-color: #444444;
-        color: #ffff;
-    }
+:root {
+  --color-header: #ffffff;
+  --color-primary: #f3b08e; 
+  --color-secundary:#ffffff;
+  --color-third: #da6415;
+  --color-texto: #1b1a1a;
 
-    header {
-        background: #121212;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 60px;
-        padding: 5px 10%;
-    }
+}
+
+body {
+  min-width: 400px;
+  background-color: var(--color-primary);
+  color: var(--color-texto);
+}
+   header {
+    background: var(--color-header);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding: 5px 10%;
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+    box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
+}
+
 
     .header .logo {
         cursor: pointer;
@@ -34,7 +49,7 @@
         font-family: "Pacifico", cursive;
         font-weight: 400;
         font-style: normal;
-        background-image: linear-gradient(to right, #da7837, #ee1e6e);
+        background-color: #da6415;
         background-clip: text;
         -webkit-text-fill-color: transparent;
         height: 70px;
@@ -42,7 +57,7 @@
       }
       
       .header .logo a:hover {
-        background-image: linear-gradient(to right, #ee1e6e, #da7837);
+       background-color: #da6415;
       }
       
       .header .logo:hover {
@@ -51,9 +66,9 @@
     
 
     .fondo {
-        background-color: #444444;
+        background-color: var(--color-primary);
         /* Color de fondo similar al de Facebook */
-        color: #ffffff;
+        color: var(--color-texto);
         /* Color del texto */
         display: flex;
         justify-content: center;
@@ -63,18 +78,18 @@
 
     .contenedor {
         border-radius: 8px;
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+         box-shadow: 0px 4px 5px 5px rgba(0, 0, 0, 0.16);
         width: 438px;
         display: flex;
         flex-direction: column;
         padding: 20px 20px;
-        background-color: #121212;
+        background-color: var(--color-secundary);
     }
 
     .contenedor h1 {
         text-align: center;
         margin-bottom: 20px;
-        background-image: linear-gradient(to right, #da7837, #ee1e6e);
+        background-color: var(--color-third);
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -94,7 +109,6 @@
         top: 50%;
         left: 10%;
         transform: translateY(-50%);
-        color: #ffffff;
         font-size: 16px;
         pointer-events: none;
         transition: 0.2s ease;
@@ -108,16 +122,15 @@
         padding: 4px 10px;
         font-size: 15px;
         margin-top: 5px;
-        border-bottom: 2px solid rgb(255, 255, 255);
+        border-bottom: 2px solid var(--color-third);
         outline: none;
-        color: #ffff;
     }
 
     .input input:focus+label,
     .input input:not(:placeholder-shown)+label {
         top: -10px;
         font-size: 15px;
-        color: #ffffff;
+        color: var(--color-texto);
     }
 
     .recordatorio-register {
@@ -131,7 +144,7 @@
         height: 2.5rem;
         margin: 1rem auto 0 auto;
         border: none;
-        background-image: linear-gradient(to right, #da7837, #ee1e6e);
+        background-color: var(--color-third);
         color: #fff;
         font-weight: bold;
         border-radius: 15px;
@@ -139,12 +152,10 @@
     }
 
     .button:hover {
-        background-image: linear-gradient(to right, #ee1e6e, #da7837);
         transform: scale(1.1);
     }
 
     .button:active {
-        background-image: linear-gradient(to right, #da7837, #ee1e6e);
         box-shadow: none;
         transform: translateY(5px);
     }
