@@ -17,7 +17,7 @@ $stmt->bind_param("ssssddi", $titulo, $descripcion, $fecha, $hora, $latitud, $lo
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true, "message" => "Evento guardado"]);
-    header('Location: PaginaPrincipal.php');
+    header('Location: eventos.php');
     exit();
 } else {
     echo json_encode(["success" => false, "message" => "Error al guardar"]);

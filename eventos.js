@@ -1,3 +1,4 @@
+
 let mapaIniciado = false;
 let mapa, marcador;
 
@@ -9,7 +10,7 @@ document.getElementById('activar-mapa').addEventListener('change', function () {
   
       // Solo inicializa si aún no existe
       if (!mapaIniciado) {
-        mapa = L.map('map').setView([10.0, -84.0], 15); // Centro inicial ajustable
+        mapa = L.map('map').setView([8.621241, -70.244275], 16); // Centro inicial ajustable
   
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
@@ -291,6 +292,21 @@ function cargarEventos() {
                           <p><strong>${eventos.nombre} ${eventos.apellido}</strong></p>
                           <span>${eventos.creado_en}</span>
                       </div>
+                          <div class="post-info-menu">
+                         <button onclick="publicacionConfig(event,${eventos.evento_id})" class="config-btn" data-id="${eventos.evento_id}">
+                                <i class="fa-solid fa-bars"></i>
+                            </button>
+                            <div id="publicacion-config-${eventos.evento_id}" class="config-menu" style="display: none;">
+                                <ul>
+                                    <li>
+                                       <form>
+                                            <button onclick="eliminarEvento(${eventos.evento_id})" type="submit">Eliminar Evento</button>
+                                            <button onclick="mostrarFormularioReporte('Evento',${eventos.evento_id})">🚩 Reportar</button>
+                                        
+                                    </li>
+                              </ul>
+                          </div>
+                      </div>
                   </div>
               </div>
               <div class="post-content">
@@ -366,3 +382,52 @@ function openConfiguration(){
     configurationdiv.style.display = configurationdiv.style.display === 'block' ? 'none' : 'block';
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const fechaInput = document.querySelector('input[name="fecha"]');
+  const hoy = new Date();
+  const yyyy = hoy.getFullYear();
+  const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+  const dd = String(hoy.getDate()).padStart(2, '0');
+  const fechaHoy = `${yyyy}-${mm}-${dd}`;
+  fechaInput.min = fechaHoy;
+});
+function publicacionConfig(event, publicacionId) {
+    event.stopPropagation(); // Evitar burbujeo del evento
+    const configMenu = document.getElementById(`publicacion-config-${publicacionId}`);
+    configMenu.style.display = configMenu.style.display === 'block' ? 'none' : 'block';
+}
+function mostrarFormularioReporte(tipo, id) {
+  const motivo = prompt("¿Por qué estás reportando esto?");
+  if (!motivo) return;
+
+  fetch("reportar.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tipo, reportado_id: id, motivo })
+  }).then(res => res.json())
+    .then(data => alert(data.success ? "Reporte enviado" : "Error al reportar"));
+}
+
+function eliminarEvento(evento_id) {
+    if (!confirm('¿Estás seguro de que deseas eliminar este evento?')) return;
+
+    fetch('eliminar_evento.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({evento_id: evento_id })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Eliminar el comentario del DOM
+                const publicacionElement = document.getElementById(`post-(${evento_id})`);
+                if (publicacionElement) publicacionElement.remove();
+                alert(data.message);
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error al eliminar el evento:', error);
+        });
+}

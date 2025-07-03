@@ -6,6 +6,7 @@ if(isset($_POST['Enviar'])){
     ) {
         $email = trim($_POST['email']);
         $clave = $_POST['clave'];
+        $mantener_sesion = isset($_POST['mantener_sesion']);
 
         include("conexion.php");
 
@@ -62,6 +63,15 @@ if(isset($_POST['Enviar'])){
                     $_SESSION['tipo'] = $tipo;
                     $_SESSION['carrera'] = $carrera;
                     $_SESSION['rol'] = $rol;
+
+                    if ($mantener_sesion) {
+        $token = bin2hex(random_bytes(16));
+        setcookie("session_token", $token, time() + (86400 * 30), "/");
+
+        $stmt = $conex->prepare("UPDATE usuarios SET session_token = ? WHERE id = ?");
+        $stmt->bind_param("si", $token, $idUsuario);
+        $stmt->execute();
+    }
                     header('Location: PaginaPrincipal.php');
                 exit();
                 }

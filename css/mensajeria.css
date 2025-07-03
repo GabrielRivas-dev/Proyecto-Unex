@@ -513,7 +513,7 @@ color: white;
     transition: all 0.3s;
   }
   .grupo-item:hover{
-    background-color: #921445;
+    background-color: #8f5026;
     transform: scale(1.01); 
   }
   .grupo-item p, .grupo-item span {
@@ -797,6 +797,19 @@ color: white;
   overflow-y:scroll;
   border-radius: 10px;
   border: 1px solid var(--color-third);
+}
+#lista-archivos{
+   background-color: var(--color-secundary);
+  width: 50%;
+  height: 45vh;
+  padding: 10px;
+  overflow-y:scroll;
+  border-radius: 10px;
+  border: 1px solid var(--color-third);
+}
+#lista-archivos a:hover{
+  color: var(--color-third);
+  transform: scale(0.9);
 }
 
 .miembro{

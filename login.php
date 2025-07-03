@@ -33,10 +33,11 @@
                     <label for="password">Contraseña:</label>
                 </div>
                 <div class="recordatorio-register">
-                    <label for="#"><input type="checkbox">Recordar inicio</label>
+                    <label for="#"><input type="checkbox" name="mantener_sesion"> Recordar inicio</label>
                     <label for="#">No tienes cuenta? <a href="registro.php">Registrar</a></label>
                 </div>
                 <button class="button" type="submit" name="Enviar" value="Enviar">Iniciar</button>
+                <div class="recuperar"><p><a href="recuperar_codigo.php">¿Olvidaste tu contraseña?</a></p></div>
             </div>
         </form>
     </main>

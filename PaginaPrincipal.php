@@ -113,6 +113,10 @@ include 'conexion.php';
             <label for="file-input" class="upload-file-label">Subir foto</label>
             <input type="file" class="file-input" id="file-input" name="imagen" accept="image/*">
             <button class="post-create-btn" type="submit" value="enviar">Publicar</button>
+              <div class="contenidoArchivo" id="contenidoArchivo">
+          <span id="file-name">Seleccionar archivo</span>
+          <a onclick="quitarArchivo()" class="cerrarArchivo">&times</a>
+        </div>
           </div>
         </form>
       </div>

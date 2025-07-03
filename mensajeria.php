@@ -113,13 +113,12 @@ if (isset($_SESSION['producto_referencia'])) {
                 accept="image/*, apllication/docx, application/pdf, application/msword, application/vnd.ms-excel">
             </div>
             <input class="input-mensaje" type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje..."
-              autocomplete="off" value="<?= htmlspecialchars($mensaje_prefill) ?>">
+              autocomplete="off" >
             <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
           </form>
         </div>
       </div>
       <div class="info-grupos" id="info-grupos">
-
       </div>
       <div id="modal-invitar">
         <h3>Invitar usuarios</h3>

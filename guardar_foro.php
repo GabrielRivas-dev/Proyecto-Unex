@@ -28,6 +28,6 @@ $stmt->bind_param("ssssis", $titulo, $descripcion, $tipo, $visibilidad, $creado_
 $stmt->execute();
 $foro_id = $stmt->insert_id;
 
-header('Location: PaginaPrincipal.php');
+header('Location: verForos.php');
 exit();
 ?>

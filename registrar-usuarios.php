@@ -31,7 +31,10 @@ if(isset($_POST['Enviar'])){
             
             // Ejecutar la consulta
             if ($stmt->execute()) {
-                echo "<h3 class='exitoso'>Registro exitoso</h3>";
+                echo "<script>alert('Registro exitoso');</script>";
+                echo "<h3 class='exitoso'></h3>";
+                header('Location: login.php');
+                exit();
             } else {
                 echo "<h3 class='rechazado'>Error al registrar: " . $stmt->error . "</h3>";
             }

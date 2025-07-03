@@ -23,11 +23,11 @@
                     ?>
                 <div class="nombres">
                     <div class="input">
-                        <input type="text" id="nombre" name="nombre" placeholder="" maxlength="20" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="" maxlength="10" required>
                         <label for="nombre">Nombre:</label>
                     </div>
                     <div class="input">
-                        <input type="text" id="apellido" name="apellido" placeholder="" maxlength="20" required>
+                        <input type="text" id="apellido" name="apellido" placeholder="" maxlength="10" required>
                         <label for="apellido">Apellido:</label>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="fecha">
                     <label for="fecha">Fecha de nacimiento:</label>
-                    <input type="date" name="fecha-nacimiento" min="1920-01-01" max="2024-10-20" required>
+                    <input type="date" name="fecha-nacimiento" min="1920-01-01" max="2008-01-01" required>
                 </div>
                 <div class="genero">
                     <label for="MoF">Genero:</label>

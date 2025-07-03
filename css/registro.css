@@ -23,7 +23,7 @@ body {
   background-color: var(--color-primary);
   color: var(--color-texto);
 }
-header {
+ header {
     background: var(--color-header);
     display: flex;
     justify-content: center;
@@ -36,28 +36,35 @@ header {
     box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
 }
 
-.header .logo {
-    cursor: pointer;
-    margin-right: auto;
-    transition: all 0.3s;
-}
 
-.header .logo a {
-    text-decoration: none;
-    font-size: 38px;
-    font-family: "Pacifico", cursive;
-    font-weight: 400;
-    font-style: normal;
-    background-image: var(--color-third);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    height: 70px;
-    width: auto;
-  }
+    .header .logo {
+        cursor: pointer;
+        margin-right: auto;
+        transition: all 0.3s;
+    }
 
-  .header .logo:hover {
-    transform: scale(1.2);
-  }
+    .header .logo a {
+       
+        text-decoration: none;
+        font-size: 38px;
+        font-family: "Pacifico", cursive;
+        font-weight: 400;
+        font-style: normal;
+        background-color: #da6415;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        height: 70px;
+        width: auto;
+      }
+      
+      .header .logo a:hover {
+       background-color: #da6415;
+      }
+      
+      .header .logo:hover {
+        transform: scale(1.2);
+      }
+    
 
 .fondo {
     background-color: var(--color-primary);

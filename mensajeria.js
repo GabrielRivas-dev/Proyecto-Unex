@@ -41,6 +41,7 @@ function mostrarIntegrantes(grupoId) {
           .then(data => {
             const info = data.grupo;
             const miembros = data.miembros;
+            const archivo = data.archivos;
       
             const contenedor = document.getElementById("info-grupos");
             contenedor.innerHTML = `
@@ -59,6 +60,7 @@ function mostrarIntegrantes(grupoId) {
               </div>
               <div class="integrantesGrupo">
               <div id="lista-miembros"></div>
+              <div id="lista-archivos"></div>
               </div>
             `;
       
@@ -72,6 +74,17 @@ function mostrarIntegrantes(grupoId) {
               `;
               lista.appendChild(div);
             });
+
+            const listaArchivos = document.getElementById("lista-archivos");
+            archivo.forEach(a => {
+              const div = document.createElement("div");
+              div.classList.add("miembro");
+              div.innerHTML = `
+                <a href="${a.archivo}"> ${a.archivo}</a>
+              `;
+              listaArchivos.appendChild(div);
+            });
+
 
           });
       }

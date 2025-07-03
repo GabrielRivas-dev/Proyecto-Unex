@@ -23,9 +23,18 @@ $stmt->bind_param("i", $grupoId);
 $stmt->execute();
 $miembros = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
+// Obtener archivos enviados en el grupo
+$stmt = $conex->prepare("SELECT archivo, mensaje, fecha, emisor_id 
+                         FROM mensajes_grupo 
+                         WHERE grupo_id = ? AND archivo IS NOT NULL AND archivo != ''");
+$stmt->bind_param("i", $grupoId);
+$stmt->execute();
+$archivos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
 // Respuesta completa
 echo json_encode([
   "grupo" => $grupo,
-  "miembros" => $miembros
+  "miembros" => $miembros,
+  "archivos" => $archivos
 ]);
 ?>

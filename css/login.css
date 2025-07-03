@@ -82,7 +82,7 @@ body {
         width: 438px;
         display: flex;
         flex-direction: column;
-        padding: 20px 20px;
+        padding: 20px 15px;
         background-color: var(--color-secundary);
     }
 
@@ -137,6 +137,10 @@ body {
         display: inline-flex;
         justify-content: space-between;
         margin: 0 20px;
+    }
+    .recordatorio-register a{
+        text-decoration: none;
+        color: var(--color-third);
     }
 
     .button {
@@ -211,4 +215,11 @@ body {
       
       [transition-style="out:wipe:down"] {
         animation: 2.5s cubic-bezier(.25, 1, .30, 1) wipe-out-down both;
+      }
+      .recuperar {
+        text-align: center;
+      }
+      .recuperar a{
+           text-decoration: none;
+        color: var(--color-third);
       }

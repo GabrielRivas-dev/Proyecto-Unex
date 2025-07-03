@@ -9,7 +9,7 @@ document.getElementById('activar-mapa').addEventListener('change', function () {
   
       // Solo inicializa si aún no existe
       if (!mapaIniciado) {
-        mapa = L.map('map').setView([10.0, -84.0], 15); // Centro inicial ajustable
+        mapa = L.map('map').setView([8.621241, -70.244275], 16); // Centro inicial ajustable
   
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'

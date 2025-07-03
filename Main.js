@@ -46,7 +46,7 @@ document.getElementById('activar-mapa').addEventListener('change', function () {
   
       // Solo inicializa si aún no existe
       if (!mapaIniciado) {
-        mapa = L.map('map').setView([10.0, -84.0], 15); // Centro inicial ajustable
+        mapa = L.map('map').setView([8.621241, -70.244275], 16);  // Centro inicial ajustable
   
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
@@ -526,7 +526,6 @@ function cargarPublicaciones() {
                                        <form>
                                             <button onclick="eliminarPublicacion(${publicacion.publicacion_id})" type="submit">Eliminar publicación</button>
                                             <button onclick="mostrarFormularioReporte('publicacion',${publicacion.publicacion_id})">🚩 Reportar</button>
-
                                         
                                     </li>
                               </ul>
@@ -638,5 +637,20 @@ function mostrarFormularioReporte(tipo, id) {
   }).then(res => res.json())
     .then(data => alert(data.success ? "Reporte enviado" : "Error al reportar"));
 }
-
+document.getElementById("file-input").addEventListener("change", function() {
+    let archivo = this.files[0]; // Obtener el archivo seleccionado
+    const fileDiv= document.getElementById("contenidoArchivo");
+    if (archivo) {
+        document.getElementById("file-name").textContent = archivo.name; // Mostrar nombre
+        fileDiv.style.display= 'block';
+    } else {
+        document.getElementById("file-name").textContent = "Seleccionar archivo"; // Resetear
+        fileDiv.style.display= 'none';
+    }
+});
+function quitarArchivo(){
+    document.getElementById("file-input").value = "";
+    document.getElementById("file-name").textContent = "";
+    document.getElementById("contenidoArchivo").style.display= 'none';
+}
 
