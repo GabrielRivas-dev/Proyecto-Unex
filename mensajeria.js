@@ -770,7 +770,7 @@ function obtenerNotificaciones() {
 
         // Actualizar el contador de notificaciones no leídas
         const contador = document.getElementById("contador-notificaciones");
-        if (data.total_no_leidos > 0) {
+        if (data.no_leidas > 0) {
             contador.textContent = data.no_leidas;
         } else {
             contador.style.display = "none"; // Ocultar si no hay mensajes no leídos
