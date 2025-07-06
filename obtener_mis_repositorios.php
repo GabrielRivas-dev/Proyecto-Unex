@@ -18,7 +18,7 @@ while ($row = $result->fetch_assoc()) {
     $repo_id = $row['id'];
 
     // Obtener archivos relacionados a este repositorio
-    $archivos_stmt = $conex->prepare("SELECT ruta, nombre_original, tipo FROM archivos_repositorio WHERE repositorio_id = ?");
+    $archivos_stmt = $conex->prepare("SELECT id, ruta, nombre_original, tipo FROM archivos_repositorio WHERE repositorio_id = ?");
     $archivos_stmt->bind_param("i", $repo_id);
     $archivos_stmt->execute();
     $archivos_result = $archivos_stmt->get_result();

@@ -37,9 +37,9 @@
                     <label for="#">No tienes cuenta? <a href="registro.php">Registrar</a></label>
                 </div>
                 <button class="button" type="submit" name="Enviar" value="Enviar">Iniciar</button>
-                <div class="recuperar"><p><a href="recuperar_codigo.php">¿Olvidaste tu contraseña?</a></p></div>
             </div>
         </form>
+        
     </main>
     <script src=""></script>
 </body>

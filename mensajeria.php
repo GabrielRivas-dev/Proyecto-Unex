@@ -113,7 +113,7 @@ if (isset($_SESSION['producto_referencia'])) {
                 accept="image/*, apllication/docx, application/pdf, application/msword, application/vnd.ms-excel">
             </div>
             <input class="input-mensaje" type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje..."
-              autocomplete="off" >
+              autocomplete="off" value="<?php echo htmlspecialchars($mensaje_prefill); ?>" required>
             <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
           </form>
         </div>
@@ -125,9 +125,6 @@ if (isset($_SESSION['producto_referencia'])) {
         <div id="invitacion-lista"></div>
         <button onclick="document.getElementById('modal-invitar').style.display='none'">Cerrar</button>
       </div>
-    </div>
-    <!--CONTENIDO DE LA DERECHA -->
-    <div class="right-column">Grupos <a onclick="AgregarGrupo()"><i class="fa-solid fa-plus"></i></a>
       <div class="agregarGrupo" id="grupoFormulario">
         <input type="hidden" id="idCreador" value="<?php echo $idUsuario; ?>">
         <form id="formCrearGrupo">
@@ -142,6 +139,9 @@ if (isset($_SESSION['producto_referencia'])) {
         </form>
         <div id="mensaje"></div>
       </div>
+    </div>
+    <!--CONTENIDO DE LA DERECHA -->
+    <div class="right-column">Grupos <a onclick="AgregarGrupo()"><i class="fa-solid fa-plus"></i></a>
 
       <div class="grupos" id="grupos"></div>
     </div>

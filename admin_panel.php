@@ -82,22 +82,21 @@ if ($_SESSION['rol'] !== 'admin') {
         <p id="mensajePresentacion"><?php echo $presentacionUsuario; ?></p>
       </div>
       <div class="links">
-        <a href='admin_panel.php' class='evento-btn'><i style='color:pink;' class='fa-solid fa-user-tie'></i> Admin</a>
-        <button popovertarget="crear-evento" class="evento-create-btn"><i class="fa-solid fa-calendar-plus"></i> Crear
+        <a href='admin_panel.php' class='evento-btn'><i class='fa-solid fa-user-tie'></i> Admin</a>
+       <button popovertarget="crear-evento" class="evento-create-btn"><i class="fa-solid fa-calendar-plus"></i> Crear
           evento</button>
-        <a href="eventos.php" class="evento-btn"><i style="color:red;" class="fa-solid fa-location-dot"></i>
+        <a href="eventos.php" class="evento-btn"><i class="fa-solid fa-location-dot"></i>
           Eventos</Em></a>
-        <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i
-            class="fa-solid fa-plus"></i> Crear
+        <button popovertarget="crear-foro" class="foro-create-btn"><i class="fa-solid fa-globe"></i><i class="fa-solid fa-plus"></i> Crear
           foro</button>
-        <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe" style="color:green"></i>
+        <a href="verForos.php" class="evento-btn"><i class="fa-solid fa-globe"></i>
           Foros</Em></a>
-        <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
+          <a href="marketplace.php" class="evento-btn"><i class="fa-solid fa-store"></i>
           UnexShop</Em></a>
-           <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase" style="color:yellow"></i>
+          <a href="repositorio.php" class="evento-btn"><i class="fa-solid fa-briefcase"></i>
           UnexRepos</Em></a>
+         
       </div>
-      <div id="invitaciones-usuario"></div>
 
     </div>
     <!--CONTENIDO DEL MEDIO -->

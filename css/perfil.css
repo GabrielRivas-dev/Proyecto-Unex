@@ -1053,3 +1053,73 @@ margin-bottom: 5px;
 .bloqueo-botones button:hover {
   transform: scale(1.1);
 }
+
+.left-column{
+  animation: slideInLeft 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+
+.informacion, .post-follows {
+    animation: fadeInDown 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+.post, .post-comments, #formularioPresentacion, .compartir-publicacion, #my-popover {
+    animation: fadeInUp 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+
+.right-column {
+    animation: slideInRight 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+.agregarGrupo {
+    animation: fadeInUp 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+@keyframes slideInLeft {
+    from {
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }

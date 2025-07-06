@@ -205,7 +205,7 @@ $tipo = $_SESSION['tipo'];
           </div>
           <div class="usuarioInfo">
             <h3>Datos Academicos</h3>
-            <label for="categoria"><strong>Categoría: <strong> <?php echo "$tipo"; ?></label>
+            <label for="categoria"><strong>Categoría: </strong> <?php echo "$tipo"; ?></label>
             <?php if ($tipo=="estudiante") {
               echo '<br><label for="Carrera"><strong>Carrera cursando:</strong></label>' .$carrera;
   

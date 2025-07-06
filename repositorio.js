@@ -84,11 +84,12 @@ function cargarMisRepositorios() {
         const archivosHTML = repo.archivos.map(archivo => {
           const ext = archivo.tipo.toLowerCase();
           if (["jpg", "jpeg", "png", "gif"].includes(ext)) {
-            return `<a href="${archivo.ruta}" download="${archivo.nombre_original}"><img src="${archivo.ruta}" alt="imagen" style="max-width:200px; max-height:200px"></a>`;
+            return `<a href="${archivo.ruta}" download="${archivo.nombre_original}"><img src="${archivo.ruta}" alt="imagen" style="width:200px; height:200px; margin-right: 10px; object-position: center;
+  object-fit: cover;"></a> <input type="checkbox" class="chk-archivo" value="${archivo.id}"style="margin-right: 5px;">`;
           } else if (ext === "pdf") {
-            return `<embed src="${archivo.ruta}" type="application/pdf" width="100%" height="200px">`;
+            return `<embed src="${archivo.ruta}" type="application/pdf" width="100%" height="200px"> <input type="checkbox" class="chk-archivo" value="${archivo.id}"style="margin-right: 5px;">`;
           } else {
-            return `<p>📄 <a href="${archivo.ruta}" style="color:var(--color-texto);" download="${archivo.nombre_original}">${archivo.nombre_original}</a></p>`;
+            return `<p>📄 <a href="${archivo.ruta}" style="color:var(--color-texto);" download="${archivo.nombre_original}">${archivo.nombre_original}</a> <input type="checkbox" class="chk-archivo" value="${archivo.id}"style="margin-right: 5px;"></p> `;
           }
           
 
@@ -98,13 +99,14 @@ function cargarMisRepositorios() {
           <h3>${repo.titulo}</h3>
           <p>${repo.descripcion}</p>
           <button onclick="mostrarArchivos(${repo.id}, this)">Ver archivos</button>
-           <button onclick="confirmarEliminacion(${repo.id})">🗑 Eliminar</button>
+           <button onclick="confirmarEliminacion(${repo.id})">Eliminar repositorio</button>
+             <button onclick="eliminarArchivosSeleccionados()">Eliminar seleccionados</button>
           <div class="archivos" id="archivos-${repo.id}" style="display:none;">
           <form onsubmit="agregarArchivosRepositorio(event, ${repo.id})" enctype="multipart/form-data">
               <input type="file" name="nuevo_archivo[]" multiple required>
               <button type="submit">Agregar archivo(s)</button>
             </form>
-          ${archivosHTML}
+            ${archivosHTML}
            
           </div>
         `;
@@ -113,6 +115,31 @@ function cargarMisRepositorios() {
       });
     });
 }
+function eliminarArchivosSeleccionados() {
+  const seleccionados = Array.from(document.querySelectorAll(".chk-archivo:checked"))
+    .map(input => input.value);
+
+  if (seleccionados.length === 0) {
+    alert("Selecciona al menos un archivo");
+    return;
+  }
+
+  fetch("eliminar_archivos.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids: seleccionados })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+        alert("Archivo(s) eliminados(s) correctamente");
+        cargarMisRepositorios();
+    } else {
+      alert("Error al eliminar archivos");
+    }
+  });
+}
+
 
 function mostrarArchivos(repoId, boton) {
   const archivosDiv = document.getElementById(`archivos-${repoId}`);

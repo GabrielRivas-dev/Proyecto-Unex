@@ -527,7 +527,8 @@ body {
   display: none;
   border-radius: 10px ;
   width: 213px;
-  background-color: #000000;
+  background-color: var(--color-secundary);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.16);
   padding: 10px;
   margin-top: 10px;
   max-height: 30rem;
@@ -557,10 +558,10 @@ body {
 #resultados .info-perfil a {
   font-size: 14px;
   text-decoration: none;
-  color: rgb(255, 255, 255);
+  color:var(--color-texto);
 }
 #resultados::-webkit-scrollbar{
-  background-color: #000000;
+  background-color: var(--color-secundary);
 }
 .comentarios{
   display: none;
@@ -778,7 +779,7 @@ all: unset;
     all: unset;
 }
  button i{
-    margin-left: 1rem;
+   
     margin-bottom: 10px;
 }
 .informacion input{
@@ -907,3 +908,72 @@ all: unset;
   top: 2.3rem;
   right: 25%;
 }
+.left-column{
+  animation: slideInLeft 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+
+.informacion, .post-follows {
+    animation: fadeInDown 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+.post, .post-comments, #formularioPresentacion, .compartir-publicacion, #my-popover {
+    animation: fadeInUp 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+
+.right-column {
+    animation: slideInRight 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+.agregarGrupo {
+    animation: fadeInUp 0.3s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+@keyframes slideInLeft {
+    from {
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }

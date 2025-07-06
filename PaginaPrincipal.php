@@ -57,13 +57,18 @@ include 'conexion.php';
     </div>
     <div id="resultados"></div>
     <input type="search" class="search-bar" id="buscador" oninput="buscarPerfiles()" placeholder="Buscar....">
-    <a onclick="openNav()" class="menu"><button>Menu</button></a>
+    <a onclick="openNav()" class="menu"><button><i class="fa-solid fa-bars"></i></button></a>
     <div class="overlay" id="mobile-menu">
       <a href="#" onclick="closeNav()" class="close">&times</a>
       <div class="overlay-content">
         <a href="PaginaPrincipal.php">Inicio</a>
         <a href="perfil.php">Perfil</a>
-        <a href="#">Mensajes</a>
+        <a href="mensajeria.php">Mensajes</a>
+        <a href="mensajeria.php">Configuracion</a>
+        <a href="mensajeria.php">Eventos</a>
+        <a href="mensajeria.php">Foros</a>
+        <a href="mensajeria.php">UnexShop</a>
+        <a href="mensajeria.php">UnexRepos</a>
         <a href="cerrar_sesion.php">Cerrar sesion</a>
       </div>
     </div>
