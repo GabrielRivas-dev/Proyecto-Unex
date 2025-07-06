@@ -310,6 +310,7 @@ function cargarEventos() {
                   </div>
               </div>
               <div class="post-content">
+                    <h2>${eventos.titulo}</h2>
                  <p>${eventos.descripcion}</p>
                  <span style="color:grey;">dia del evento ${eventos.fecha} a la hora ${eventos.hora}</span>
                  ${eventos.latitud && eventos.longitud &&
